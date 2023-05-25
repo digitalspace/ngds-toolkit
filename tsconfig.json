@@ -11,7 +11,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": false,
+    "paths": {
+      "ngds-toolkit": [
+        "dist/ngds-toolkit"
+      ]
+    },
+    "declaration": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -19,6 +24,11 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
     "lib": [
       "ES2022",
       "dom"
