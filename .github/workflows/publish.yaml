@@ -41,15 +41,6 @@ jobs:
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn build
 
-      # build cache
-      - name: Build cache
-        id: cache-build
-        uses: actions/cache@v3
-        with: 
-          path: |
-            **/dist
-          key: ${{ github-sha }}-dist
-
       - run: git config --global user.email ${{ secrets.EMAIL }}
       - run: git config --global user.name ${{ secrets.USERNAME }}
       - run: npm version --newversion --allow-same-version ${{ steps.release.outputs.version }} --tag ${{ steps.release.outputs.tag }}
