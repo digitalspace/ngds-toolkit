@@ -21,20 +21,44 @@ jobs:
         id: release
         uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
 
-      - uses: actions/setup-node@v2
+      ### Install if no cache exists ###
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
-          cache: 'npm'
-      - run: npm ci --ignore-scripts
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - run: yarn install --silent --frozen-lockfile
+
+      ### Build if no cache exists ###
+      - name: Cache Build
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/dist
+          key: ${{ github.sha }}-dist
+      - name: Run Build
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: yarn build
+
+      # build cache
+      - name: Build cache
+        id: cache-build
+        uses: actions/cache@v3
+        with: 
+          path: |
+            **/dist
+          key: ${{ github-sha }}-dist
+
       - run: git config --global user.email ${{ secrets.EMAIL }}
       - run: git config --global user.name ${{ secrets.USERNAME }}
       - run: npm version --newversion --allow-same-version ${{ steps.release.outputs.version }} --tag ${{ steps.release.outputs.tag }}
-      - run: npm pack
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-            name: package
-            path: "*.tgz"
+      # - run: npm pack
+      # - name: Upload
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #       name: package
+      #       path: "*.tgz"
 
   publish:
     name: "Publish to GitHub Packages and NPM"
@@ -54,7 +78,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: package
-    - run: npm publish --access public $(ls *.tgz)
+    - run: npm publish --access public dist/ngds-toolkit
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     # - uses: actions/setup-node@v2
