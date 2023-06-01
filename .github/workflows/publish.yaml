@@ -71,9 +71,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: package
-    - run: git config --global user.email ${{ secrets.EMAIL }}
-    - run: git config --global user.name ${{ secrets.USERNAME }}
-    - run: npm publish --access public dist/ngds-toolkit
+    - run: npm publish --access public $(ls *.tgz)
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     # - uses: actions/setup-node@v2
