@@ -40,7 +40,7 @@ jobs:
 
       - run: git config --global user.email ${{ secrets.EMAIL }}
       - run: git config --global user.name ${{ secrets.USERNAME }}
-      - run: npm version from-git
+      - run: npm version ${{ github.ref_name }}
 
       - name: Validate and extract release information
         id: release
