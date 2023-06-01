@@ -40,13 +40,13 @@ jobs:
 
       - run: git config --global user.email ${{ secrets.EMAIL }}
       - run: git config --global user.name ${{ secrets.USERNAME }}
-      - run: npm version ${{ github.ref_name }}
+      # - run: npm version ${{ github.ref_name }}
 
       - name: Validate and extract release information
         id: release
         uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
       - run: npm version --newversion --allow-same-version ${{ steps.release.outputs.version }} --tag ${{ steps.release.outputs.tag }}
-      - run: npm pack
+      - run: npm pack --workspace dist/ngds-toolkit
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
