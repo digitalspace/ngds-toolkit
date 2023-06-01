@@ -46,7 +46,7 @@ jobs:
         id: release
         uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
       - run: npm version --newversion --allow-same-version ${{ steps.release.outputs.version }} --tag ${{ steps.release.outputs.tag }}
-      - run: npm pack --workspace dist/ngds-toolkit
+      - run: npm pack /dist/ngds-toolkit
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
