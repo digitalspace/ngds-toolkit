@@ -45,7 +45,7 @@ jobs:
       #   id: release
       #   uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
       # - run: npm version --newversion --allow-same-version ${{ steps.release.outputs.version }} --tag ${{ steps.release.outputs.tag }}
-      - run: cd dist
+      - run: cd dist/ngds-toolkit
       - run: npm pack
       - name: Upload
         uses: actions/upload-artifact@v2
@@ -71,6 +71,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: package
+    - run: cd dist/ngds-toolkit
     - run: npm publish --access public $(ls *.tgz)
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
