@@ -71,7 +71,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: package
-    - run: cd /dist/ngds-toolkit
+    - run: echo $(ls)
     - run: npm publish --access public $(ls *.tgz)
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
