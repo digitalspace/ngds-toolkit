@@ -45,7 +45,10 @@ jobs:
       - run: echo $(ls)
       - run: cd dist/ngds-toolkit
       - run: echo $(ls)
+      # - run: npm login --scope=@digitalspace --registry=https://registry.npmjs.org/@digitalspace
       - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # - name: Validate and extract release information
       #   id: release
