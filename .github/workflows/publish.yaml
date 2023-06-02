@@ -55,7 +55,7 @@ jobs:
 
   publish:
     name: "Publish to GitHub Packages and NPM"
-    # needs: [package]
+    needs: [package]
     runs-on: ubuntu-20.04
     permissions: 
       contents: read
@@ -67,10 +67,10 @@ jobs:
         node-version: '14.x'
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
-    - name: Get package
-      uses: actions/download-artifact@v2
-      with:
-        name: package
+    - name: NPM Publish
+      # uses: actions/download-artifact@v2
+      # with:
+      #   name: package
     - run: echo $(ls)
     - run: cd dist/ngds-toolkit
     - run: echo $(ls)
