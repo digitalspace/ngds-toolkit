@@ -4,48 +4,50 @@ publish-npm:
       release:
         types: [created]
 
-    name: "Publish to NPM"
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
-          scope: "@digitalspace"
-      - uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    jobs:
+      package: 
+        name: "Publish to NPM"
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            node-version: [18]
+        steps:
+          - uses: actions/checkout@v3
+          - uses: actions/setup-node@v3
+            with:
+              node-version: ${{ matrix.node-version }}
+              registry-url: 'https://registry.npmjs.org'
+              scope: "@digitalspace"
+          - uses: actions/cache@v3
+            with:
+              path: "**/node_modules"
+              key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      ### Install if no cache exists ###
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "yarn"
-      - run: yarn install --silent --frozen-lockfile
+          ### Install if no cache exists ###
+          - name: Setup node
+            uses: actions/setup-node@v3
+            with:
+              node-version: ${{ matrix.node-version }}
+              cache: "yarn"
+          - run: yarn install --silent --frozen-lockfile
 
-      ### Build if no cache exists ###
-      - name: Cache Build
-        id: cache-build
-        uses: actions/cache@v3
-        with:
-          path: |
-            **/dist
-          key: ${{ github.sha }}-dist
-      - name: Run Build
-        if: steps.cache-build.outputs.cache-hit != 'true'
-        run: yarn build --prod
+          ### Build if no cache exists ###
+          - name: Cache Build
+            id: cache-build
+            uses: actions/cache@v3
+            with:
+              path: |
+                **/dist
+              key: ${{ github.sha }}-dist
+          - name: Run Build
+            if: steps.cache-build.outputs.cache-hit != 'true'
+            run: yarn build --prod
 
-      - run: npm version ${{ github.ref_name }}
-      - run: cd **/dist/ngds-toolkit  
-      - run: yarn publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          - run: npm version ${{ github.ref_name }}
+          - run: cd **/dist/ngds-toolkit  
+          - run: yarn publish --access public
+            env:
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 
 # name: Publish NPM
