@@ -1,4 +1,9 @@
 publish-npm:
+
+    on:
+      release:
+        types: [created]
+
     name: "Publish to NPM"
     runs-on: ubuntu-latest
     strategy:
@@ -36,6 +41,7 @@ publish-npm:
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn build --prod
 
+      - run: npm version ${{ github.ref_name }}
       - run: cd **/dist/ngds-toolkit  
       - run: yarn publish --access public
         env:
