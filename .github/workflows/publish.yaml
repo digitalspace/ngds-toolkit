@@ -42,6 +42,11 @@ jobs:
       - run: git config --global user.name ${{ secrets.USERNAME }}
       - run: npm version ${{ github.ref_name }}
 
+      - run: echo $(ls)
+      - run: cd dist/ngds-toolkit
+      - run: echo $(ls)
+      - run: npm publish --access public
+
       # - name: Validate and extract release information
       #   id: release
       #   uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
@@ -54,36 +59,36 @@ jobs:
       #       name: package
       #       path: "*.tgz"
 
-  publish:
-    name: "Publish to GitHub Packages and NPM"
-    needs: [package]
-    runs-on: ubuntu-20.04
-    permissions: 
-      contents: read
-      packages: write 
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14.x'
-        cache: 'npm'
-        registry-url: 'https://registry.npmjs.org'
-    - name: NPM Publish
-      uses: actions/download-artifact@v2
-      with:
-        name: package
-    - run: echo $(ls)
-    - run: cd dist/ngds-toolkit
-    - run: echo $(ls)
-    - run: npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    # - uses: actions/setup-node@v2
-    #   with:
-    #     node-version: 14.x
-    #     registry-url: https://npm.pkg.github.com/
-    #     scope: "@digitalspace"
-    # - run: echo "registry=https://npm.pkg.github.com/@digitalspace" >> .npmrc
-    # - run: npm publish $(ls *.tgz)
-    #   env:
-    #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  # publish:
+  #   name: "Publish to GitHub Packages and NPM"
+  #   needs: [package]
+  #   runs-on: ubuntu-20.04
+  #   permissions: 
+  #     contents: read
+  #     packages: write 
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v2
+  #     with:
+  #       node-version: '14.x'
+  #       cache: 'npm'
+  #       registry-url: 'https://registry.npmjs.org'
+  #   - name: NPM Publish
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: package
+  #   - run: echo $(ls)
+  #   - run: cd dist/ngds-toolkit
+  #   - run: echo $(ls)
+  #   - run: npm publish --access public
+  #     env:
+  #       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #   # - uses: actions/setup-node@v2
+  #   #   with:
+  #   #     node-version: 14.x
+  #   #     registry-url: https://npm.pkg.github.com/
+  #   #     scope: "@digitalspace"
+  #   # - run: echo "registry=https://npm.pkg.github.com/@digitalspace" >> .npmrc
+  #   # - run: npm publish $(ls *.tgz)
+  #   #   env:
+  #   #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
