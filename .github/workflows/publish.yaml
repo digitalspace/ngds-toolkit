@@ -41,7 +41,7 @@ jobs:
           key: ${{ github.sha }}-dist
       - name: Run Build
         if: steps.cache-build.outputs.cache-hit != 'true'
-        run: yarn build --prod
+        run: yarn build
 
       - run: npm version ${{ github.ref_name }}
       - run: cd **/dist/ngds-toolkit  
