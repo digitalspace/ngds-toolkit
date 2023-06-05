@@ -5,8 +5,7 @@ on:
     types: [created]
 
 env:
-  PACKAGE_NAME: ngds-toolkit
-  DIST_PATH: dist/$PACKAGE_NAME
+  DIST_PATH: dist/ngds-toolkit
 
 jobs:
   package: 
@@ -46,14 +45,13 @@ jobs:
       - name: Run Build
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn build
-
-      ### Publish to NPM ###
+    
       - name: Publish to NPM
-        - run: git config --global user.email ${{ secrets.EMAIL }}
-        - run: git config --global user.name ${{ secrets.USERNAME }}
-        - run: cd $DIST_PATH
-        - run: npm version {{ github.ref_name }}
-        - run: echo $(ls)
-        - run: npm publish --access public
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: git config --global user.email ${{ secrets.EMAIL }}
+      - run: git config --global user.name ${{ secrets.USERNAME }}
+      - run: cd $DIST_PATH
+      - run: npm version {{ github.ref_name }}
+      - run: echo $(ls)
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
