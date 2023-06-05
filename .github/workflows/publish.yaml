@@ -47,16 +47,13 @@ jobs:
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn build
 
+      ### Publish to NPM ###
       - name: Publish to NPM
-        # Set up credentials
         - run: git config --global user.email ${{ secrets.EMAIL }}
         - run: git config --global user.name ${{ secrets.USERNAME }}
-        # Navigate to dist folder
         - run: cd $DIST_PATH
-        # Set version to GH Release Version
         - run: npm version {{ github.ref_name }}
         - run: echo $(ls)
-        # Publish
         - run: npm publish --access public
           env:
             NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
