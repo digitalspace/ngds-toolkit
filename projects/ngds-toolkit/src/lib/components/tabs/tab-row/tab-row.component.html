@@ -1,4 +1,4 @@
-<div class="border-bottom border-2 border-light mb-2">
+<div class="border-bottom border-2 border-light" [ngClass]="tabRowClass">
   <div class="mx-2 btn-group row" role="group" *ngIf="tabs?.length > 0">
     <div *ngFor="let tab of tabs" class="mx-1 col-auto">
       <button *ngIf="tab?.active" type="button" [attr.id]="'tab-'+ tab?.id" class="btn text-primary fw-bold tab-active">{{tab?.title}}</button>
