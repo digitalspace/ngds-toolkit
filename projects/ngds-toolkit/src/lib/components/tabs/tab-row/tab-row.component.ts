@@ -8,7 +8,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tab-row.component.scss']
 })
 export class NgdsTabRow implements AfterViewInit, OnDestroy {
+  // set if you want a tab to be activated by default
   @Input() defaultActiveTabId: string = '';
+  // classes applied to the tab row wrapper
+  @Input() tabRowClass: string = '';
   public subscriptions = new Subscription();
   public tabs: NgdsTab[] = [];
 
