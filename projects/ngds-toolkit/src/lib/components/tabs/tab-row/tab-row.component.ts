@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ContentChildren, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ContentChildren, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NgdsTab } from '../tab/tab.component';
 import { Subscription } from 'rxjs';
 
@@ -14,6 +14,9 @@ export class NgdsTabRow implements AfterViewInit, OnDestroy {
   @Input() tabRowClass: string = '';
   public subscriptions = new Subscription();
   public tabs: NgdsTab[] = [];
+
+  // emit changes when tab changed
+  @Output() tabChange = new EventEmitter();
 
   @ContentChildren(NgdsTab) tabsElements: NgdsTab;
 
@@ -53,6 +56,7 @@ export class NgdsTabRow implements AfterViewInit, OnDestroy {
         tab.active = false;
       }
     }
+    this.tabChange.emit(tabId);
     this.cd.detectChanges();
   }
 
