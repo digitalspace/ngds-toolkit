@@ -1,0 +1,29 @@
+<!-- Header -->
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+
+<!-- Text input -->
+<div class="d-flex position-relative">
+  <!-- Input wrapper -->
+  <div class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+
+    <!-- Prepended content -->
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+
+    <!-- Input -->
+    <input class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid}"
+      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+
+    <!-- Reset control button -->
+    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
+      [disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
+
+    <!-- Appended content -->
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+  </div>
+
+  <!-- Overlay content -->
+  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+</div>
+
+<!-- Footer -->
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>

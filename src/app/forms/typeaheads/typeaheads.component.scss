@@ -1,0 +1,32 @@
+.custom-list-group {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding-left: 0;
+  max-height: 200px;
+  margin: 0;
+  list-style: none;
+  overflow-y: scroll;
+  background-color: aquamarine;
+}
+
+.custom-list-group-item {
+  padding: 0.5rem;
+  background-color: purple;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  margin: 0.5rem;
+
+  &:hover {
+    background-color: rgb(2, 83, 56);
+  }
+}
+
+.custom-highlight {
+  font-weight: bold;
+  color: goldenrod;
+}
+
+.custom-no-highlight {
+  color: skyblue;
+}

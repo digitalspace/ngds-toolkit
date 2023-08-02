@@ -1,0 +1,14 @@
+<section class="mt-4 row">
+  <div class="col">
+    <div>
+      <pre class="mb-0"><strong>Value: </strong><span [ngClass]="getValueClass()">{{getValue()}}</span></pre>
+    </div>
+    <div>
+      <pre class="mb-0"><strong>State: </strong><span [ngClass]="getStatusClass()">{{control?.status || null}}</span></pre>
+    </div>
+  </div>
+  <div class="col-auto d-flex justify-content-end btn-group">
+    <button class="btn btn-outline-secondary" title="log raw control to console" (click)="logToConsole()"><i class="bi bi-box-arrow-in-right"></i></button>
+    <button class="btn btn-secondary" title="reset control" (click)="resetInput()"><i class="bi bi-arrow-clockwise"></i></button>
+  </div>
+</section>

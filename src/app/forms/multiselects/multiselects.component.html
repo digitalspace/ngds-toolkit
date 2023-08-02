@@ -1,0 +1,118 @@
+<div class="mb-5 mt-3">
+  <h3>Basic picklist multiselect</h3>
+  <demonstrator #basicPicklistMulti
+    [control]="form?.controls?.['basicPicklistMulti']">
+    <ngds-picklist-input [control]="form?.controls?.['basicPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Select multiple'">
+    </ngds-picklist-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Programmatically set typeahead multiselect</h3>
+  <demonstrator #programmaticTypeaheadMulti
+    [control]="form?.controls?.['programmaticTypeaheadMulti']">
+    <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
+    <ngds-picklist-input [control]="form?.controls?.['programmaticTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-picklist-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Disabled typeahead multiselect</h3>
+  <demonstrator #disabledTypeaheadMulti
+    [control]="form?.controls?.['disabledTypeaheadMulti']">
+    <ngds-picklist-input [control]="form?.controls?.['disabledTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true" [disabled]="isDisabled" [loadWhile]="isLoading"
+    [placeholder]="'Start typing...'">
+    </ngds-picklist-input>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Invalid typeahead multiselect</h3>
+  <demonstrator #invalidTypeaheadMulti
+    [control]="form?.controls?.['invalidTypeaheadMulti']">
+    <ngds-picklist-input [control]="form?.controls?.['invalidTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-picklist-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Invalid typeahead multiselect</h3>
+  <demonstrator #invalidTypeaheadMulti
+    [control]="form?.controls?.['invalidTypeaheadMulti']">
+    <ngds-typeahead-input [control]="form?.controls?.['invalidTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Basic typeahead multiselect</h3>
+  <demonstrator #basicTypeaheadMulti
+    [control]="form?.controls?.['basicTypeaheadMulti']">
+    <ngds-typeahead-input [control]="form?.controls?.['basicTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Programmatically set typeahead multiselect</h3>
+  <demonstrator #programmaticTypeaheadMulti
+    [control]="form?.controls?.['programmaticTypeaheadMulti']">
+    <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
+    <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Disabled typeahead multiselect</h3>
+  <demonstrator #disabledTypeaheadMulti
+    [control]="form?.controls?.['disabledTypeaheadMulti']">
+    <ngds-typeahead-input [control]="form?.controls?.['disabledTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true" [disabled]="isDisabled" [loadWhile]="isLoading"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Invalid typeahead multiselect</h3>
+  <demonstrator #invalidTypeaheadMulti
+    [control]="form?.controls?.['invalidTypeaheadMulti']">
+    <ngds-typeahead-input [control]="form?.controls?.['invalidTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Invalid typeahead multiselect</h3>
+  <demonstrator #invalidTypeaheadMulti
+    [control]="form?.controls?.['invalidTypeaheadMulti']">
+    <ngds-typeahead-input [control]="form?.controls?.['invalidTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Start typing...'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+

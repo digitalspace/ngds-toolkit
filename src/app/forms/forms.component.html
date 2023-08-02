@@ -1,0 +1,13 @@
+<div class="navbar bg-light p-3">
+  <h2 (click)="navTo('forms')">NGDS Forms</h2>
+  <ul>
+      <button class="btn btn-dark me-2" (click)="navTo('forms/text')">Text</button>
+      <button class="btn btn-dark me-2" (click)="navTo('forms/picklist')">Picklists</button>
+      <button class="btn btn-dark me-2" (click)="navTo('forms/typeahead')">Typeahead</button>
+      <button class="btn btn-dark me-2" (click)="navTo('forms/multiselect')">Multiselect</button>
+  </ul>
+</div>
+<hr>
+<section>
+<router-outlet></router-outlet>
+</section>

@@ -1,0 +1,11 @@
+<!-- Label -->
+<div *ngIf="label" class="m-1 d-flex">
+  <label [attr.for]="control?.id"><strong>{{label}}</strong>
+    <!-- Show required asterisk -->
+    <span *ngIf="isRequired()" class="text-danger ms-1">*</span>
+    <!-- Show sub label -->
+    <div class="fw-light text-muted">
+      {{subLabel}}
+    </div>
+  </label>
+</div>

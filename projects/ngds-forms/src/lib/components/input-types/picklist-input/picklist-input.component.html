@@ -1,0 +1,60 @@
+<!-- Header -->
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+
+<!-- Picklist Input -->
+<div class="d-flex position-relative">
+  <!-- Input wrapper -->
+  <div #inputGroup class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()" dropdown
+    (isOpenChange)="onOpenChange($event)" [isDisabled]="isDisabled">
+
+    <!-- Prepended content -->
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+
+    <!-- Input -->
+    <button dropdownToggle type="button" style="min-height: 2.25rem;" class="form-select border-0 text-start" [ngClass]="{'is-invalid': isInvalid}"
+      [value]="control?.value">
+      <!-- Input display current value -->
+      <!-- Multiselect display items -->
+      <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
+        <ngds-multiselect-item class="col-auto p-0 m-1" *ngFor="let item of control?.value"
+          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled">
+        </ngds-multiselect-item>
+      </div>
+      <!-- Display current value as string -->
+      <div *ngIf="!showSelectedTemplate()">{{ getActiveDisplay() }}</div>
+      <!-- Display current value as template -->
+      <div *ngIf="showSelectedTemplate()">
+        <ng-container *ngTemplateOutlet="selectionListTemplate"></ng-container>
+      </div>
+      <!-- Dropdown menu -->
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li *ngFor="let option of selectionListItems" (click)="updateValue(option?.value || option)" role="menuitem" class="option-item">
+          <!-- Display current menu item as template -->
+          <ng-container *ngIf="showTemplate()" [ngTemplateOutlet]="selectionListTemplate"
+            [ngTemplateOutletContext]="{data: option}"></ng-container>
+          <!-- Display current menu item as string -->
+          <div *ngIf="!showTemplate()" class="dropdown-item">
+            {{ getDisplayByValue( option?.value || option) }}
+          </div>
+      </ul>
+    </button>
+
+    <!-- Select all button -->
+    <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0"
+    [disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
+
+    <!-- Clear control button -->
+    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
+      [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
+
+      <!-- Appended content -->
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+
+  </div>
+
+  <!-- Overlay content -->
+  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+</div>
+
+<!-- Footer -->
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>

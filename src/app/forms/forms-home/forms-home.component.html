@@ -1,0 +1,37 @@
+<p>NGDS Forms are a collection of UI input components that enhance the existing Angular Forms functionality. At a
+  minimum, you must provide every NGDS input with an Angular <code>AbstractControl</code> or derivative. All other
+  attributes are optional. You can manage the value, state, and other form logic from the <code>AbstractControl</code>
+  in TypeScript realm, and the NGDS Forms will adapt in HTML.</p>
+<p>Note: All of these examples assume you have the NGDS Forms module imported into your component's respective
+  <code>module.ts</code> file:</p>
+<div class="border rounded">
+  <pre><code class="p-0" [highlight]="moduleCode"></code></pre>
+</div>
+<section>
+  <div class="row my-3">
+    <div class="col">
+      <ngds-nav-card #text [headerText]="'Text Input'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Basic textual inputs.'" [navigation]="'forms/text'">
+      </ngds-nav-card>
+    </div>
+    <div class="col">
+      <ngds-nav-card #picklist [headerText]="'Picklists'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Select from a list of pre-defined options.'"
+        [navigation]="'forms/picklist'">
+      </ngds-nav-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngds-nav-card #typeahead [headerText]="'Typeaheads'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'"
+        [bodyText]="'Use typeahead to search and select from a list of pre-defined options.'"
+        [navigation]="'forms/typeahead'">
+      </ngds-nav-card>
+    </div>
+    <div class="col">
+      <ngds-nav-card #multiselect [headerText]="'Multiselects'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Picklist & typeahead multiselect inputs.'"
+        [navigation]="'forms/multiselect'">
+      </ngds-nav-card>
+    </div>

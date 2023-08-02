@@ -1,0 +1,14 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "/node_modules/bootstrap/scss/functions";
+@import "/node_modules/bootstrap/scss/mixins";
+@import "/node_modules/bootstrap/scss/variables";
+
+.input-group-after {
+  background-color: white;
+  border: none;
+  &:hover {
+    background-color: $input-disabled-bg;
+    color: black;
+    transition: 0.2s linear;
+  }
+}
