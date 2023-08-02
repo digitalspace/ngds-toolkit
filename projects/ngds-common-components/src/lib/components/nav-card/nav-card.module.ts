@@ -13,4 +13,4 @@ export { NgdsNavCard } from './nav-card.component';
     NgdsNavCard
   ]
 })
-export class NavCardModule { }
+export class NgdsNavCardModule { }

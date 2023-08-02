@@ -12,8 +12,11 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngds-toolkit": [
-        "dist/ngds-toolkit"
+      "ngds-common-components": [
+        "dist/ngds-common-components"
+      ],
+      "ngds-public-header": [
+        "dist/ngds-public-header"
       ]
     },
     "declaration": true,
@@ -29,10 +32,7 @@
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

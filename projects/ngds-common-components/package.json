@@ -1,9 +1,9 @@
 {
-  "name": "@digitalspace/ngds-toolkit",
+  "name": "@digitalspace/ngds-common-components",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^15.0.4",
-    "@angular/core": "^15.0.4"
+    "@angular/common": "^16.0.0",
+    "@angular/core": "^16.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

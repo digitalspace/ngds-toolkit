@@ -4,27 +4,104 @@
   "newProjectRoot": "projects",
   "projects": {
     "ngds-toolkit": {
-      "projectType": "library",
-      "root": "projects/ngds-toolkit",
-      "sourceRoot": "projects/ngds-toolkit/src",
-      "prefix": "lib",
+      "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngds-toolkit",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "src/styles.scss"],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngds-toolkit:build:production"
+            },
+            "development": {
+              "browserTarget": "ngds-toolkit:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngds-toolkit:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "ngds-angular-components": {
+      "projectType": "library",
+      "root": "projects/ngds-angular-components",
+      "sourceRoot": "projects/ngds-angular-components/src",
+      "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngds-toolkit/ng-package.json"
+            "project": "projects/ngds-angular-components/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngds-toolkit/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngds-angular-components/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngds-toolkit/tsconfig.lib.json"
+              "tsConfig": "projects/ngds-angular-components/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -32,7 +109,97 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngds-toolkit/tsconfig.spec.json",
+            "tsConfig": "projects/ngds-angular-components/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "ngds-common-components": {
+      "projectType": "library",
+      "root": "projects/ngds-common-components",
+      "sourceRoot": "projects/ngds-common-components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngds-common-components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngds-common-components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngds-common-components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngds-common-components/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "ngds-bcgov-header": {
+      "projectType": "library",
+      "root": "projects/ngds-bcgov-header",
+      "sourceRoot": "projects/ngds-bcgov-header/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngds-bcgov-header/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngds-bcgov-header/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngds-bcgov-header/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngds-bcgov-header/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "ngds-public-header": {
+      "projectType": "library",
+      "root": "projects/ngds-public-header",
+      "sourceRoot": "projects/ngds-public-header/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngds-public-header/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngds-public-header/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngds-public-header/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngds-public-header/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -41,8 +208,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }
