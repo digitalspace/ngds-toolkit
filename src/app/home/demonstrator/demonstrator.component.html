@@ -1,0 +1,24 @@
+<section class="p-3 bg-light border rounded-3">
+  <div class="border rounded-3 bg-white p-3">
+    <ng-content></ng-content>
+    <monitor [control]="control"></monitor>
+  </div>
+  <hr>
+  <ngds-tab-row>
+    <ngds-tab [active]="true" *ngIf="htmlFile" [title]="'HTML'" [id]="'HTML'">
+      <div class="border rounded bg-white">
+        <pre><code class="p-0" [highlight]="htmlFile" [languages]="['html']"></code></pre>
+      </div>
+    </ngds-tab>
+    <ngds-tab *ngIf="tsFile" [title]="'TypeScript'" [id]="'TypeScript'">
+      <div class="border rounded bg-white">
+        <pre><code class="p-0" [highlight]="tsFile" [languages]="['typescript']"></code></pre>
+      </div>
+    </ngds-tab>
+    <ngds-tab *ngIf="cssFile" [title]="'CSS'" [id]="'CSS'">
+      <div class="border rounded bg-white">
+        <pre><code class="p-0" [highlight]="cssFile" [languages]="['css']"></code></pre>
+      </div>
+    </ngds-tab>
+  </ngds-tab-row>
+</section>

@@ -1,0 +1,19 @@
+<section id="common-components">
+  <h1>Common Components</h1>
+  <div class="mb-3">
+    <h2>Nav Card</h2>
+      <ngds-nav-card #test
+      [headerText]="'Header Text'"
+      [titleText]="'Title Text'"
+      [bodyText]="'Body Text'"
+      [navigation]="'test'"
+      ></ngds-nav-card>
+  </div>
+  <div class="mb-3">
+    <h2>Tabs</h2>
+    <ngds-tab-row [defaultActiveTabId]="'1'">
+      <ngds-tab [id]="'1'" [title]="'Tab 1'"> Content of tab 1 </ngds-tab>
+      <ngds-tab [id]="'2'" [title]="'Tab 2'">Content of tab 2</ngds-tab>
+    </ngds-tab-row>
+  </div>
+</section>

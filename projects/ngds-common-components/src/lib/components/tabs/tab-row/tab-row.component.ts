@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ContentChildren, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, ContentChildren, Input, ChangeDetectorRef, Output, EventEmitter, AfterContentInit } from '@angular/core';
 import { NgdsTab } from '../tab/tab.component';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './tab-row.component.html',
   styleUrls: ['./tab-row.component.scss']
 })
-export class NgdsTabRow implements AfterViewInit, OnDestroy {
+export class NgdsTabRow implements AfterContentInit, OnDestroy {
   // set if you want a tab to be activated by default
   @Input() defaultActiveTabId: string = '';
   // classes applied to the tab row wrapper
@@ -24,7 +24,7 @@ export class NgdsTabRow implements AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef
   ) { }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     // create list of included tabs
     this.tabs = this.tabsElements?.['_results'];
     this.defaultTabList();

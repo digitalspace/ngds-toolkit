@@ -1,0 +1,96 @@
+<div class="mb-5 mt-3">
+  <h3>Basic Typeahead</h3>
+  <p>
+    Provide the list of selection options as an array in <code>[selectionListItems]</code>.
+  </p>
+  <demonstrator #basicTypeahead [headerText]="'Basic typeahead'"
+    [description]="'Provide the list of selection options as an array in [selectionListItems].'"
+    [htmlFile]="snippets?.basicTypeahead?.html" [tsFile]="snippets?.basicTypeahead?.ts"
+    [control]="form?.controls?.['basicTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['basicTypeahead']" [selectionListItems]="simpleProvinceList"
+      [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Typeahead with custom option text</h3>
+  <p>
+    If you want your options to have displays that differ from their values, provide your
+    <code>[selectionListItems]</code> array as an array of the following type:
+  </p>
+  <pre><code [highlight]="'items: [{value: any, display: string}]'" [languages]="['typescript']"></code></pre>
+  <demonstrator #displayTypeahead [headerText]="'Basic typeahead'"
+    [description]="'Provide the list of selection options as an array in [selectionListItems].'"
+    [htmlFile]="snippets?.displayTypeahead?.html" [tsFile]="snippets?.displayTypeahead?.ts"
+    [control]="form?.controls?.['displayTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['displayTypeahead']" [selectionListItems]="displayProvinceList"
+      [placeholder]="'Start typing...'" [resetButton]="true">
+    </ngds-typeahead-input>
+    <button (click)="setDisplayValue('0005')">set value of control</button>
+  </demonstrator>
+</div>
+
+<div class="mb-5 mt-3">
+  <h3>Typeahead with custom option template</h3>
+  <p>
+    You can customize the markup of your options by providing an Angular <code>TemplateRef</code> with any item in
+    <code>[selectionListItems]</code>. You can access the properties of the option in your template using the
+    <code>data</code> accessor. If you also provide a value for <code>display</code>, then the input will
+    show the <code>display</code> when the option is selected, otherwise the <code>template</code> will be
+    shown. Provide your <code>[selectionListItems]</code> array as an array of either the following
+    types:
+  </p>
+  <pre>
+    <code [highlight]="'items: [{value: any, template: TemplateRef}]'" [languages]="['typescript']"></code>
+    <code [highlight]="'items: [{value: any, template: TemplateRef, display: string}]'" [languages]="['typescript']"></code>
+  </pre>
+  <demonstrator #customTemplateTypeahead [headerText]="'Basic typeahead'"
+    [description]="'Provide the list of selection options as an array in [selectionListItems].'"
+    [htmlFile]="snippets?.customTemplateTypeahead?.html" [tsFile]="snippets?.customTemplateTypeahead?.ts"
+    [cssFile]="snippets?.customTemplateTypeahead?.css"
+    [control]="form?.controls?.['customTemplateTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['customTemplateTypeahead']" [selectionListItems]="displayProvinceList"
+      [placeholder]="'Start typing...'" [resetButton]="true" [selectionListTemplate]="customTemplate">
+    </ngds-typeahead-input>
+  </demonstrator>
+</div>
+
+<ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+  <ul class="custom-list-group">
+    <li class="custom-list-group-item" *ngFor="let match of matches"
+      [class.active]="typeaheadTemplateMethods.isActive(match)"
+      (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+      (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
+      <!-- Before highlight -->
+      <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[0]"></span>
+      <!-- Highlight -->
+      <span class="custom-highlight" [innerHtml]="getHighlightedMatch(match, query)[1]"></span>
+      <!-- After highlight -->
+      <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[2]"></span>
+    </li>
+  </ul>
+</ng-template>
+
+<div class="mb-5 mt-3">
+  <h3>Multiselect Typeahead</h3>
+  <p>
+    Provide the list of selection options as an array in <code>[selectionListItems]</code>.
+  </p>
+  <demonstrator #multiselectTypeahead [headerText]="'Basic typeahead'"
+    [description]="'Provide the list of selection options as an array in [selectionListItems].'"
+    [htmlFile]="snippets?.multiselectTypeahead?.html" [tsFile]="snippets?.multiselectTypeahead?.ts"
+    [control]="form?.controls?.['multiselectTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['multiselectTypeahead']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true"
+      [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'">
+    </ngds-typeahead-input>
+    <button (click)="setMultiValue(['0005'])">set value of control</button>
+  </demonstrator>
+</div>
+
+<!-- <ngds-typeahead-input [label]="'Basic Typeahead'" [selectionListItems]="basicList1" [control]="fields.basicTypeahead" [subLabel]="'Search for a province or territory'">
+</ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Min Length Typeahead'" [selectionListItems]="basicList1" [control]="fields.minLength" [typeaheadMinLength]="3" [subLabel]="'Typeahead opens after a minimum character length reached'"></ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Invalid Typeahead'" [selectionListItems]="basicList1" [control]="fields.invalidTypeahead" [subLabel]="'Only provinces are valid.'"></ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Multiselect Typeahead'" [selectionListItems]="basicList1" [control]="fields.multiselectTypeahead" [multiselect]="true" [subLabel]="'Use &quot;;&quot; as the delimiter.'"></ngds-typeahead-input>
+<button class="mt-4" (click)="printForm()">print form</button> -->

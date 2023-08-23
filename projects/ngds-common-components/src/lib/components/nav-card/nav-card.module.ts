@@ -7,6 +7,8 @@ export { NgdsNavCard } from './nav-card.component';
 @NgModule({
   imports: [
     CommonModule,
+  ],
+  declarations:[
     NgdsNavCard
   ],
   exports:[

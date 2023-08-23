@@ -1,21 +1,7 @@
-<div class="container">
-  <section id="common-components">
-    <h1>Common Components</h1>
-    <div class="mb-3">
-      <h2>Nav Card</h2>
-      <ngds-nav-card
-        [headerText]="'Header Text'"
-        [titleText]="'Title Text'"
-        [bodyText]="'Body Text'"
-        [navigation]="'test'"
-      ></ngds-nav-card>
-    </div>
-    <div class="mb-3">
-      <h2>Tabs</h2>
-      <ngds-tab-row [defaultActiveTabId]="'1'">
-        <ngds-tab [id]="'1'" [title]="'Tab 1'"> Content of tab 1 </ngds-tab>
-        <ngds-tab [id]="'2'" [title]="'Tab 2'">Content of tab 2</ngds-tab>
-      </ngds-tab-row>
-    </div>
-  </section>
+<div class="navbar navbar-light bg-dark text-light px-5">
+  <h1 (click)="navHome()">NGDS-Toolkit</h1>
+  <button class="btn btn-success my-3" (click)="navHome()">Home</button>
+</div>
+<div class="container p-3">
+  <router-outlet></router-outlet>
 </div>

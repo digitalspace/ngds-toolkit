@@ -1,0 +1,18 @@
+.template-example {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  &:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+  }
+}
+
+.custom-prepend {
+  background-color: aquamarine;
+  color: purple;
+}
+
+.custom-append {
+  background-color: purple;
+  color: aquamarine;
+}
