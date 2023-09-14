@@ -6,7 +6,7 @@ import { Validators } from '@angular/forms';
   templateUrl: './ngds-input-header.component.html',
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
-export class NgdsInputHeaderComponent {
+export class NgdsInputHeader {
   @Input() control: any; // Angular control - if required asterisk is wanted
   @Input() label: string;
   @Input() subLabel: string;

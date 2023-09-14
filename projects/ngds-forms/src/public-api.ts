@@ -7,10 +7,10 @@ import { NgdsForms } from './lib/forms.module';
 
 export * from './lib/forms.module';
 
-const NGDS_COMMON_COMPONENTS_MODULES = [ NgdsForms ];
+const NGDS_FORMS_MODULE = [ NgdsForms ];
 
 @NgModule({
-  imports: NGDS_COMMON_COMPONENTS_MODULES,
-  exports: NGDS_COMMON_COMPONENTS_MODULES,
+  imports: NGDS_FORMS_MODULE,
+  exports: NGDS_FORMS_MODULE,
 })
 export class NgdsFormsModule { }

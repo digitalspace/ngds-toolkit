@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './ngds-input-footer.component.html',
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
-export class NgdsInputFooterComponent {
+export class NgdsInputFooter {
   @Input() control: any;
   @Input() invalid: boolean = false;
   @Input() invalidFieldMsgDefault: string = 'This field requires attention.';

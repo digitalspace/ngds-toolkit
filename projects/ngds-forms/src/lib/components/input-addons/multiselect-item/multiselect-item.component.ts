@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
 export class NgdsMultiselectItem {
-  @Input() option; // Passed in option of type any | selectionItemSchema.
-  @Input() disabled; // Passed in disabled state.
+  @Input() option: any; // Passed in option of type any | selectionItemSchema.
+  @Input() disabled: boolean; // Passed in disabled state.
 
   @Output() remove = new EventEmitter<any>(); // Emit when remove button pressed.
 
