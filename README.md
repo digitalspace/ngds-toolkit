@@ -1,3 +1,5 @@
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=digitalspace_ngds-toolkit&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=digitalspace_ngds-toolkit)
+
 # NgdsToolkit
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2. This package is a library of common Angular tools intended for use in the BCParks Digital Services branch.
