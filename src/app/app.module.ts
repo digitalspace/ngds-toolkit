@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [AppComponent, CommonComponentsComponent, HomeComponent],
-  imports: [NgdsFormsModule, BrowserModule, NgdsFormsModule, FormsModule, NgdsTabsModule, NgdsNavCardModule, AppRoutingModule, RouterModule.forRoot([])],
+  imports: [BrowserModule, FormsModule, NgdsFormsModule, NgdsTabsModule, NgdsNavCardModule, AppRoutingModule, RouterModule.forRoot([])],
   providers: [
     {
       provide: HIGHLIGHT_OPTIONS,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsComponent } from './forms.component';
 import { PicklistsComponent } from './picklists/picklists.component';
 import { TypeaheadsComponent } from './typeaheads/typeaheads.component';

@@ -12,8 +12,17 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
+      "ngds-common-components/*": [
+        "dist/ngds-common-components/*"
+      ],
       "ngds-common-components": [
         "dist/ngds-common-components"
+      ],
+      "ngds-forms/*": [
+        "dist/ngds-forms/*"
+      ],
+      "ngds-forms": [
+        "dist/ngds-forms"
       ],
       "ngds-public-header": [
         "dist/ngds-public-header"
