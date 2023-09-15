@@ -1,23 +1,23 @@
-# NgdsCommonComponents
+# Ngds Forms
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project ngds-common-components` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngds-common-components`.
-> Note: Don't forget to add `--project ngds-common-components` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate component component-name --project ngds-forms` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngds-forms`.
+> Note: Don't forget to add `--project ngds-forms` or else it will be added to the default project in your `angular.json` file. 
 
 ## Build
 
-Run `ng build ngds-common-components` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build ngds-forms` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build ngds-common-components`, go to the dist folder `cd dist/ngds-common-components` and run `npm publish`.
+After building your library with `ng build ngds-forms`, go to the dist folder `cd dist/ngds-forms` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test ngds-common-components` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test ngds-forms` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 

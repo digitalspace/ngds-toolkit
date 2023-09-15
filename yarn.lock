@@ -4566,6 +4566,13 @@ ng-packagr@^16.0.0:
   optionalDependencies:
     esbuild "^0.17.0"
 
+ngx-bootstrap@^11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-11.0.2.tgz#ed1d0e254ef16ba8245cd9a3450404dc81aabef6"
+  integrity sha512-McvQ72XB6692Jus47jahWWwjpSCa6EtHMIqoyMewKCEHMv0ybDgVnOAdEsWKvwfulowHn7Y/jDjeiURwYJG9cQ==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-highlightjs@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/ngx-highlightjs/-/ngx-highlightjs-10.0.0.tgz#e28cdc652e6396c5d99e691354989b20fe72c1d7"
