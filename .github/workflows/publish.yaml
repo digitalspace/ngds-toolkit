@@ -62,3 +62,18 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Deploy to Pages
+        run: |
+          yarn deploy
+      - name: Generate 404.html
+        uses: canastro/copy-file-action@master
+        with:
+          source: "dist/ngds-toolkit/index.html"
+          target: "dist/ngds-toolkit/404.html"
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist/ngds-toolkit
