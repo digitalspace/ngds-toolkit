@@ -60,4 +60,5 @@ jobs:
           cd $DIST_FOLDER/$PACKAGE_NAME_FORMS
           npm version ${{ github.ref_name }}
           npm publish --access public
-          
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
