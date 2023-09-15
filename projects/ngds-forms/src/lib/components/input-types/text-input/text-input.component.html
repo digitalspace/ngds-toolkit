@@ -10,8 +10,7 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid}"
-      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+    <input class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
 
     <!-- Reset control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"

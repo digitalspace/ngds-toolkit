@@ -145,14 +145,15 @@ export class NgdsInput implements OnInit, OnDestroy {
   private _isInputInitialized = new BehaviorSubject<boolean>(false);
 
   protected subscriptions = new Subscription();
-  protected controlId = null;
+  protected static idCounter: number = 0;
+  protected controlId: number = 0;
 
   constructor(
   ) {
     // Generate 'unique' id for control so label/inputs/etc can talk to one another.
     // Basic angular controls aren't constructed with a unique identifier.
     // This is only to satisfy ARIA - open to better solutions. 
-    this.controlId = Math.floor(Math.random() * 999999);
+    this.controlId = NgdsInput.idCounter++;
   }
 
   ngOnInit(): void {
@@ -212,7 +213,7 @@ export class NgdsInput implements OnInit, OnDestroy {
       }
     }
   }
-
+  
   updateDisabledState(state) {
     if (state === true) {
       setTimeout(() => {

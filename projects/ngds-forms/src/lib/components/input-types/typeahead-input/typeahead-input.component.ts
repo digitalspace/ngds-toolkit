@@ -41,7 +41,8 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     this.isOpen.next(this.control?._isFocused);
     this.subscriptions.add(this.control.valueChanges.subscribe(() => {
       if (!this.editByModel) {
-        this.matchInputToControl()
+        this.isOpen.next(true);
+        this.matchInputToControl();
       }
     }))
     this.cd.detectChanges();
@@ -119,6 +120,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   openDropdown() {
     if (!this.isDisabled) {
       this.isOpen.next(true);
+      this.typeaheadInput.nativeElement.focus();
       this.typeaheadInput.nativeElement.dispatchEvent(new Event(
         'input',
         {

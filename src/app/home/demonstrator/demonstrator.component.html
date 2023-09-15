@@ -7,16 +7,25 @@
   <ngds-tab-row>
     <ngds-tab [active]="true" *ngIf="htmlFile" [title]="'HTML'" [id]="'HTML'">
       <div class="border rounded bg-white">
+        <div class="position-relative">
+          <button [disabled]="isCopied" class="btn btn-outline-secondary position-absolute top-0 end-0 m-3" (click)="copyToClip(htmlFile)">{{ isCopied ? 'Copied' : 'Copy'}}</button>
+        </div>
         <pre><code class="p-0" [highlight]="htmlFile" [languages]="['html']"></code></pre>
       </div>
     </ngds-tab>
     <ngds-tab *ngIf="tsFile" [title]="'TypeScript'" [id]="'TypeScript'">
       <div class="border rounded bg-white">
+        <div class="position-relative">
+          <button [disabled]="isCopied" class="btn btn-outline-secondary position-absolute top-0 end-0 m-3" (click)="copyToClip(tsFile)">{{ isCopied ? 'Copied' : 'Copy'}}</button>
+        </div>
         <pre><code class="p-0" [highlight]="tsFile" [languages]="['typescript']"></code></pre>
       </div>
     </ngds-tab>
     <ngds-tab *ngIf="cssFile" [title]="'CSS'" [id]="'CSS'">
       <div class="border rounded bg-white">
+        <div class="position-relative">
+          <button [disabled]="isCopied" class="btn btn-outline-secondary position-absolute top-0 end-0 m-3" (click)="copyToClip(cssFile)">{{ isCopied ? 'Copied' : 'Copy'}}</button>
+        </div>
         <pre><code class="p-0" [highlight]="cssFile" [languages]="['css']"></code></pre>
       </div>
     </ngds-tab>

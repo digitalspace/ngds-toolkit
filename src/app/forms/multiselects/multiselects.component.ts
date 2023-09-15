@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChildren } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { SidebarService } from 'src/app/home/sidebar/sidebar.service';
+
+import { snippets } from './multiselect-snippets';
 
 @Component({
   selector: 'multiselects-input-demos',
   templateUrl: './multiselects.component.html',
   styleUrls: ['./multiselects.component.scss']
 })
-export class MultiselectsComponent implements OnInit {
+export class MultiselectsComponent implements OnInit, AfterViewInit {
   public form;
   public fields: any = {};
   public isDisabled = false;
   public isLoading = false;
+  public snippets = snippets;
 
   displayProvinceList = [
     {
@@ -66,29 +70,43 @@ export class MultiselectsComponent implements OnInit {
       display: 'Nunavut'
     },
   ]
+  @ViewChildren('section') entries: TemplateRef<any>;
+
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
       basicTypeaheadMulti: new UntypedFormControl(null),
       programmaticTypeaheadMulti: new UntypedFormControl(null),
-      disabledTypeaheadMulti: new UntypedFormControl(null),
-      invalidTypeaheadMulti: new UntypedFormControl(null, [this.customValidator()]),
       basicPicklistMulti: new UntypedFormControl(null),
       programmaticPicklistMulti: new UntypedFormControl(null),
-      disabledPicklistMulti: new UntypedFormControl(null),
-      invalidPicklistMulti: new UntypedFormControl(null, [this.customValidator()]),
     })
     for (const control of Object.keys(this.form.controls)) {
       this.fields[control] = this.form.controls[control];
     }
   }
 
+  ngAfterViewInit(): void {
+    let list = [];
+    for (const item of this.entries?.['_results']) {
+      // get title
+      let titleIndex = item?.nativeElement?.querySelector('h3');
+      list.push({
+        href: item?.nativeElement?.id,
+        title: titleIndex.innerText
+      })
+    }
+    this.sidebarService.updateList(list);
+  }
+
   programSet() {
-    this.fields.programmaticTypeaheadMulti.setValue(['0005', '0007']);
+    this.fields.programmaticTypeaheadMulti.setValue(['0011', '0012', '0013']);
   }
 
   programSetPicklist() {
-    this.fields.programmaticPicklistMulti.setValue(['0005', '0007']);
+    this.fields.programmaticPicklistMulti.setValue(['0011', '0012', '0013']);
   }
 
   disabledSwitch() {

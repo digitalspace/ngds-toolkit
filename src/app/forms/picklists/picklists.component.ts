@@ -1,17 +1,20 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { snippets } from './picklist-snippets';
+import { SidebarService } from 'src/app/home/sidebar/sidebar.service';
 
 @Component({
   selector: 'picklists-input-demos',
   templateUrl: './picklists.component.html',
   styleUrls: ['./picklists.component.scss']
 })
-export class PicklistsComponent implements OnInit {
+export class PicklistsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('customOption') customOption: TemplateRef<any>;
+  @ViewChildren('section') entries: TemplateRef<any>;
+  @ViewChild('customOptionTemplate') customOptionTemplate: TemplateRef<any>;
 
   public form;
   public fields: any = {};
@@ -21,7 +24,10 @@ export class PicklistsComponent implements OnInit {
   public isLoading: boolean = false;
   public isAutoSelect: boolean = false;
 
-  @ViewChild('customOptionTemplate') customOptionTemplate: TemplateRef<any>;
+
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   public basicSelectionItems = ['value 1', 'value 2', 'value 3'];
   public displaySelectionItems = [
@@ -47,6 +53,7 @@ export class PicklistsComponent implements OnInit {
     this.form = new UntypedFormGroup(
       {
         basicPicklist: new UntypedFormControl(null),
+        programmaticPicklist: new UntypedFormControl(null),
         displayPicklist: new UntypedFormControl(null),
         customPicklist: new UntypedFormControl(null),
         disabledPicklist: new UntypedFormControl(null),
@@ -67,17 +74,36 @@ export class PicklistsComponent implements OnInit {
     }, 2500);
   }
 
+  setValue() {
+    this.fields.programmaticPicklist.setValue('value 2')
+  }
+
+  ngAfterViewInit(): void {
+    let list = [];
+    for (const item of this.entries?.['_results']) {
+      console.log('item:', item);
+      // get title
+      let titleIndex = item?.nativeElement?.querySelector('h3');
+      list.push({
+        href: item?.nativeElement?.id,
+        title: titleIndex.innerText
+      })
+    }
+    this.sidebarService.updateList(list);
+  }
+
+
   changeTimer(nextSelectList) {
     setInterval(() => {
       this.currentChangeSelectList = nextSelectList;
     }, 5000);
   }
-
-  disableProgrammatically() {
-    if (this.fields.disabledPicklist?.disabled) {
-      this.fields.disabledPicklist?.enable();
+  
+  disableProgrammatically(control) {
+    if (this.form.controls[control].enabled) {
+      this.form.controls[control].disable();
     } else {
-      this.fields.disabledPicklist?.disable();
+      this.form.controls[control].enable();
     }
   }
 

@@ -1,51 +1,75 @@
-<div class="mb-5 mt-3">
+<section #section id="basicTypeahead" class="mb-5 mt-3">
   <h3>Basic Typeahead</h3>
   <p>
-    Provide the list of selection options as an array in <code>[selectionListItems]</code>.
+    Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank">ngx-bootstrap</a>.
   </p>
-  <demonstrator #basicTypeahead [headerText]="'Basic typeahead'"
-    [description]="'Provide the list of selection options as an array in [selectionListItems].'"
+  <p>
+    In the example below, search for a Canadian province or territory.
+  </p>
+  <demonstrator 
     [htmlFile]="snippets?.basicTypeahead?.html" [tsFile]="snippets?.basicTypeahead?.ts"
     [control]="form?.controls?.['basicTypeahead']">
     <ngds-typeahead-input [control]="form?.controls?.['basicTypeahead']" [selectionListItems]="simpleProvinceList"
       [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'">
     </ngds-typeahead-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5 mt-3">
+<section #section id="programmaticTypeahead" class="mb-5 mt-3">
+  <h3>Set typeahead value programmatically</h3>
+  <p>
+    Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank">ngx-bootstrap</a>.
+  </p>
+  <p>
+    In the example below, search for a Canadian province or territory.
+  </p>
+  <demonstrator [htmlFile]="snippets?.programmaticTypeahead?.html" [tsFile]="snippets?.programmaticTypeahead?.ts"
+    [control]="form?.controls?.['programmaticTypeahead']">
+    <button class="btn btn-primary mb-2" (click)="programmaticSet()">Set value</button>
+    <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeahead']" [selectionListItems]="displayProvinceList">
+    </ngds-typeahead-input>
+  </demonstrator>
+</section>
+
+<section #section id="minLength" class="mb-5 mt-3">
+  <h3>Minimum length prerequisite</h3>
+  <p>
+    If your selection list has many items, you may want to limit the number that are suggested at a given time. Provide <code>[typeaheadMinLength]</code> to enforce a minimum length of characters before suggestions are shown.
+  </p>
+  <demonstrator [htmlFile]="snippets?.minLength?.html" [tsFile]="snippets?.minLength?.ts"
+    [control]="form?.controls?.['minLength']">
+    <ngds-typeahead-input [control]="form?.controls?.['minLength']" [selectionListItems]="displayProvinceList" [typeaheadMinLength]="3">
+    </ngds-typeahead-input>
+  </demonstrator>
+</section>
+
+<section #section id="displayTypeahead" class="mb-5 mt-3">
   <h3>Typeahead with custom option text</h3>
   <p>
     If you want your options to have displays that differ from their values, provide your
     <code>[selectionListItems]</code> array as an array of the following type:
   </p>
   <pre><code [highlight]="'items: [{value: any, display: string}]'" [languages]="['typescript']"></code></pre>
-  <demonstrator #displayTypeahead [headerText]="'Basic typeahead'"
+  <demonstrator [headerText]="'Basic typeahead'"
     [description]="'Provide the list of selection options as an array in [selectionListItems].'"
     [htmlFile]="snippets?.displayTypeahead?.html" [tsFile]="snippets?.displayTypeahead?.ts"
     [control]="form?.controls?.['displayTypeahead']">
     <ngds-typeahead-input [control]="form?.controls?.['displayTypeahead']" [selectionListItems]="displayProvinceList"
       [placeholder]="'Start typing...'" [resetButton]="true">
     </ngds-typeahead-input>
-    <button (click)="setDisplayValue('0005')">set value of control</button>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5 mt-3">
+<section #section id="customTemplateTypeahead" class="mb-5 mt-3">
   <h3>Typeahead with custom option template</h3>
   <p>
-    You can customize the markup of your options by providing an Angular <code>TemplateRef</code> with any item in
-    <code>[selectionListItems]</code>. You can access the properties of the option in your template using the
+    You can provide a template for your dropdown options using the <code>[selectionListTemplate]</code> attribute with
+    an Angular <code>TemplateRef</code>. .You can access the properties of the option in your template using the
     <code>data</code> accessor. If you also provide a value for <code>display</code>, then the input will
-    show the <code>display</code> when the option is selected, otherwise the <code>template</code> will be
-    shown. Provide your <code>[selectionListItems]</code> array as an array of either the following
-    types:
+    show the <code>display</code> when option is selected, otherwise the <code>value</code> will be
+    shown.
   </p>
-  <pre>
-    <code [highlight]="'items: [{value: any, template: TemplateRef}]'" [languages]="['typescript']"></code>
-    <code [highlight]="'items: [{value: any, template: TemplateRef, display: string}]'" [languages]="['typescript']"></code>
-  </pre>
-  <demonstrator #customTemplateTypeahead [headerText]="'Basic typeahead'"
+  <demonstrator [headerText]="'Basic typeahead'"
     [description]="'Provide the list of selection options as an array in [selectionListItems].'"
     [htmlFile]="snippets?.customTemplateTypeahead?.html" [tsFile]="snippets?.customTemplateTypeahead?.ts"
     [cssFile]="snippets?.customTemplateTypeahead?.css"
@@ -54,7 +78,7 @@
       [placeholder]="'Start typing...'" [resetButton]="true" [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
   </demonstrator>
-</div>
+</section>
 
 <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
   <ul class="custom-list-group">
@@ -72,25 +96,44 @@
   </ul>
 </ng-template>
 
-<div class="mb-5 mt-3">
-  <h3>Multiselect Typeahead</h3>
+<section #section id="disableTypeahead" class="mb-5 mt-3">
+  <h3>Disabled and loading typeaheads</h3>
   <p>
-    Provide the list of selection options as an array in <code>[selectionListItems]</code>.
+    Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
+    respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
   </p>
-  <demonstrator #multiselectTypeahead [headerText]="'Basic typeahead'"
+  <demonstrator [headerText]="'Basic typeahead'"
     [description]="'Provide the list of selection options as an array in [selectionListItems].'"
-    [htmlFile]="snippets?.multiselectTypeahead?.html" [tsFile]="snippets?.multiselectTypeahead?.ts"
-    [control]="form?.controls?.['multiselectTypeahead']">
-    <ngds-typeahead-input [control]="form?.controls?.['multiselectTypeahead']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true"
-      [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'">
+    [htmlFile]="snippets?.disableTypeahead?.html" [tsFile]="snippets?.disableTypeahead?.ts"
+    [control]="form?.controls?.['disableTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['disableTypeahead']" [selectionListItems]="displayProvinceList" [disabled]="isDisabled" [loadWhile]="isLoading"
+      [placeholder]="'Start typing...'" [resetButton]="true">
     </ngds-typeahead-input>
-    <button (click)="setMultiValue(['0005'])">set value of control</button>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+        [checked]="form?.controls?.['disableTypeahead'].disabled" (click)="disableProgrammatically('disableTypeahead')">
+      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+    </div>
   </demonstrator>
-</div>
+</section>
 
-<!-- <ngds-typeahead-input [label]="'Basic Typeahead'" [selectionListItems]="basicList1" [control]="fields.basicTypeahead" [subLabel]="'Search for a province or territory'">
-</ngds-typeahead-input>
-<ngds-typeahead-input [label]="'Min Length Typeahead'" [selectionListItems]="basicList1" [control]="fields.minLength" [typeaheadMinLength]="3" [subLabel]="'Typeahead opens after a minimum character length reached'"></ngds-typeahead-input>
-<ngds-typeahead-input [label]="'Invalid Typeahead'" [selectionListItems]="basicList1" [control]="fields.invalidTypeahead" [subLabel]="'Only provinces are valid.'"></ngds-typeahead-input>
-<ngds-typeahead-input [label]="'Multiselect Typeahead'" [selectionListItems]="basicList1" [control]="fields.multiselectTypeahead" [multiselect]="true" [subLabel]="'Use &quot;;&quot; as the delimiter.'"></ngds-typeahead-input>
-<button class="mt-4" (click)="printForm()">print form</button> -->
+<section #section id="disableTypeahead" class="mb-5 mt-3">
+  <h3>Invalid typeaheads</h3>
+  <p>
+    NGDS picklists use Angular's prebuilt <code>Validation</code> capacities. You can use a prebuilt Validator or create a custom one. In the example below, only provinces are valid options.
+  </p>
+  <demonstrator
+    [htmlFile]="snippets?.invalidTypeahead?.html" [tsFile]="snippets?.invalidTypeahead?.ts"
+    [control]="form?.controls?.['invalidTypeahead']">
+    <ngds-typeahead-input [control]="form?.controls?.['invalidTypeahead']" [selectionListItems]="displayProvinceList" [placeholder]="'Start typing...'" [resetButton]="true">
+    </ngds-typeahead-input>
+  </demonstrator>
+</section>

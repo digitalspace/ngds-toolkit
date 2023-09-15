@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, OnInit, TemplateRef, ViewChildren } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { snippets } from './text-input-snippets'
+import { SidebarService } from 'src/app/home/sidebar/sidebar.service';
 
 @Component({
   selector: 'text-input-demos',
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss']
 })
-export class TextInputComponent implements OnInit {
+export class TextInputComponent implements OnInit, AfterViewInit {
   public form;
   public isDisabled = false;
   public isLoading = false;
   public snippets = snippets;
+
+  @ViewChildren('section') entries: TemplateRef<any>;
+
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
@@ -29,6 +36,27 @@ export class TextInputComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(): void {
+    let list = [];
+    for (const item of this.entries?.['_results']) {
+      // get title
+      let titleIndex = item?.nativeElement?.querySelector('h3');
+      list.push({
+        href: item?.nativeElement?.id,
+        title: titleIndex.innerText
+      })
+    }
+    this.sidebarService.updateList(list);
+  }
+
+  disableProgrammatically(control) {
+    if (this.form.controls[control].enabled) {
+      this.form.controls[control].disable();
+    } else {
+      this.form.controls[control].enable();
+    }
+  }
+
   customValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
@@ -38,6 +66,7 @@ export class TextInputComponent implements OnInit {
       return null;
     }
   }
+  
 
   disabledSwitch(){
     this.isDisabled = !this.isDisabled;

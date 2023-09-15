@@ -1,4 +1,4 @@
-<div class="mb-5 mt-3">
+<section #section id="basicTextEntry" class="mb-5 mt-3">
   <h3>Basic text entry</h3>
   <p>
     At a minimum, you must provide every NGDS input with an Angular <code>AbstractControl</code> or derivative. All
@@ -7,28 +7,28 @@
   <p>
     If you wish to use your own input, you can use <code>&lt;ngds-input-header&gt;</code> to match the label styling of NGDS forms.
   </p>
-  <demonstrator #basicTextEntry [htmlFile]="snippets?.basicText?.html" [tsFile]="snippets?.basicText?.ts"
+  <demonstrator [htmlFile]="snippets?.basicText?.html" [tsFile]="snippets?.basicText?.ts"
     [control]="form?.controls?.['basicText']">
     <ngds-text-input [control]="form?.controls?.['basicText']" [label]="'My input label'"
       [subLabel]="'My input sub-label'" [placeholder]="'My placeholder'">
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="resetButton" class="mb-5 mt-3">
   <h3>Reset button</h3>
   <p>
     Click on the <i class="b- bi-x-lg"></i> to reset this control. The <code>[resetButton]</code> attribute calls
     <code>control.reset()</code>.
   </p>
-  <demonstrator #resetButton [htmlFile]="snippets?.resetInput?.html" [tsFile]="snippets?.resetInput?.ts"
+  <demonstrator [htmlFile]="snippets?.resetInput?.html" [tsFile]="snippets?.resetInput?.ts"
     [control]="form?.controls?.['resetInput']">
     <ngds-text-input [control]="form?.controls?.['resetInput']" [resetButton]="true">
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="initialDefault" class="mb-5 mt-3">
   <h3>Initial default value</h3>
   <p>
     Resetting this control will reset it to its initial value of 'My default value'. You can set your custom default
@@ -38,21 +38,21 @@
     your initialization code, so that when <code>control.reset()</code> is called, it does not reset the value of the
     control to <code>null</code>.
   </p>
-  <demonstrator #initialDefault [htmlFile]="snippets?.initialDefault?.html" [tsFile]="snippets?.initialDefault?.ts"
+  <demonstrator [htmlFile]="snippets?.initialDefault?.html" [tsFile]="snippets?.initialDefault?.ts"
     [control]="form?.controls?.['initialDefault']">
     <ngds-text-input [control]="form?.controls?.['initialDefault']" [resetButton]="true">
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="disabledInput" class="mb-5 mt-3">
   <h3>Disabled input</h3>
   <p>
     Use the toggle to enable/disable the control. You can use the <code>[disabled]</code> attribute to bind to a boolean
     or function that evaluates to a boolean. This will set the state of <code>control.enabled</code> and
     <code>control.disabled</code>.
   </p>
-  <demonstrator #disabledInput [htmlFile]="snippets?.disabledInput?.html" [tsFile]="snippets?.disabledInput?.ts"
+  <demonstrator [htmlFile]="snippets?.disabledInput?.html" [tsFile]="snippets?.disabledInput?.ts"
     [control]="form?.controls?.['disabledInput']">
     <ngds-text-input [control]="form?.controls?.['disabledInput']" [resetButton]="true" [disabled]="isDisabled">
     </ngds-text-input>
@@ -60,17 +60,22 @@
       <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
       <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
     </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+        [checked]="form?.controls?.['disabledInput'].disabled" (click)="disableProgrammatically('disabledInput')">
+      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+    </div>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="loadingInput" class="mb-5 mt-3">
   <h3>Loading input</h3>
   <p>
     Use the toggle trigger the loading state of the control. You can use the <code>[loadWhile]</code> attribute to bind
     to a boolean or function that evaluates to a boolean. This will set the state of <code>control.enabled</code> and
     <code>control.disabled</code>. The loading state disables the control, and shows a loading spinner.
   </p>
-  <demonstrator #loadingInput [headerText]="'Loading spinner'" [htmlFile]="snippets?.loadingInput?.html"
+  <demonstrator [headerText]="'Loading spinner'" [htmlFile]="snippets?.loadingInput?.html"
     [tsFile]="snippets?.loadingInput?.ts"
     [description]="'Use the toggle trigger the loading state of the control. You can use the [loadWhile] attribute to bind to a boolean or function that evaluates to a boolean. The loading state disables the control, and shows a loading spinner.'"
     [control]="form?.controls?.['loadingInput']">
@@ -81,41 +86,41 @@
       <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
     </div>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="requiredInput" class="mb-5 mt-3">
   <h3>Required input</h3>
   <p>
     NGDS forms use Angular Validators to determine control validity. This control is required. It will always be invalid
     if it is null or empty, but the invalid styling will not appear until it has been touched.
   </p>
-  <demonstrator #requiredInput [htmlFile]="snippets?.requiredInput?.html" [tsFile]="snippets?.requiredInput?.ts"
+  <demonstrator [htmlFile]="snippets?.requiredInput?.html" [tsFile]="snippets?.requiredInput?.ts"
     [control]="form?.controls?.['requiredInput']" >
     <ngds-text-input [control]="form?.controls?.['requiredInput']"> 
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="customValidator" class="mb-5 mt-3">
   <h3>Custom validation</h3>
   <p>
     NGDS forms support custom validators. You can design your own custom validators using Angular's
     <code>ValidationFn</code> in your components. This control will be invalid if its value is 'invalid'.
   </p>
-  <demonstrator #customValidator [htmlFile]="snippets?.customValidator?.html" [tsFile]="snippets?.customValidator?.ts"
+  <demonstrator [htmlFile]="snippets?.customValidator?.html" [tsFile]="snippets?.customValidator?.ts"
     [control]="form?.controls?.['customValidator']">
     <ngds-text-input [control]="form?.controls?.['customValidator']">
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>
 
-<div class="mb-5">
+<section #section id="inline" class="mb-5 mt-3">
   <h3>Inline input items</h3>
   <p>
     Valid HTML can be rendered inline using the <code>ngdsInputPrepend</code> and <code>ngdsInputAppend</code>
     directives.
   </p>
-  <demonstrator #inline [htmlFile]="snippets?.inline?.html"
+  <demonstrator [htmlFile]="snippets?.inline?.html"
     [tsFile]="snippets?.inline?.ts" [cssFile]="snippets?.inline?.css"
     [control]="form?.controls?.['inline']">
     <h5>Buttons</h5>
@@ -138,4 +143,4 @@
       <div ngdsInputAppend class="custom-append p-2 h-100 rounded-end">Appended text with custom class</div>
     </ngds-text-input>
   </demonstrator>
-</div>
+</section>

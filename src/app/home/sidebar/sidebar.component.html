@@ -1,0 +1,5 @@
+<div *ngIf="items && items.length">
+  <div *ngFor="let item of items row">
+    <button class="btn btn-outline-dark col-12 mb-1" (click)="navTo(item?.href)">{{ item?.title }} </button>
+  </div>
+</div>

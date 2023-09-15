@@ -9,38 +9,47 @@ import { PicklistsComponent } from './forms/picklists/picklists.component';
 import { TypeaheadsComponent } from './forms/typeaheads/typeaheads.component';
 import { MultiselectsComponent } from './forms/multiselects/multiselects.component';
 import { FormsHomeComponent } from './forms/forms-home/forms-home.component';
+import { appResolver } from './app.resolver';
 
 const routes: Routes = [
   {
     path: '',
+    resolve: {clear: appResolver},
     component: HomeComponent,
   },
   {
     path: 'common-components',
+    resolve: {clear: appResolver},
     component: CommonComponentsComponent
   },
   {
     path: 'forms',
+    resolve: {clear: appResolver},
     component: FormsComponent,
     children: [
       {
         path: '',
+        resolve: {clear: appResolver},
         component: FormsHomeComponent
       },
       {
         path: 'text',
+        resolve: {clear: appResolver},
         component: TextInputComponent
       },
       {
         path: 'picklist',
+        resolve: {clear: appResolver},
         component: PicklistsComponent
       },
       {
         path: 'typeahead',
+        resolve: {clear: appResolver},
         component: TypeaheadsComponent
       },
       {
         path: 'multiselect',
+        resolve: {clear: appResolver},
         component: MultiselectsComponent
       }
     ]
@@ -48,6 +57,7 @@ const routes: Routes = [
   {
     // wildcard route
     path: '**',
+    resolve: {clear: appResolver},
     redirectTo: '/',
     pathMatch: 'full',
   },

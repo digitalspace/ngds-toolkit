@@ -26,6 +26,32 @@ export const snippets = {
       }
     })`
   },
+  programmaticPicklist: {
+    html: `
+    <ngds-picklist-input
+      [control]="form?.controls?.['programmaticPicklist']"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'">
+    </ngds-picklist-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'programmatic-picklist'
+      export class ProgrammaticPicklist implements OnInit {
+        public form;
+
+        public basicSelectionItems = ['value 1', 'value 2', 'value 3'];
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            programmaticPicklist: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
   displayPicklist: {
     html: `
     <ngds-picklist-input

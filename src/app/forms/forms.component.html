@@ -1,4 +1,4 @@
-<div class="navbar bg-light p-3">
+<div class="navbar bg-light p-3 mb-3">
   <h2 (click)="navTo('forms')">NGDS Forms</h2>
   <ul>
       <button class="btn btn-dark me-2" (click)="navTo('forms/text')">Text</button>
@@ -7,7 +7,6 @@
       <button class="btn btn-dark me-2" (click)="navTo('forms/multiselect')">Multiselect</button>
   </ul>
 </div>
-<hr>
-<section>
+<section class="max-height">
 <router-outlet></router-outlet>
 </section>

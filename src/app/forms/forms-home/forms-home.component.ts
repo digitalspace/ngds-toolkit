@@ -7,8 +7,13 @@ import { Component } from '@angular/core';
 })
 export class FormsHomeComponent {
 
-  public moduleCode = `
-  import { NgdsFormsModule } from '@digitalspace/ngds-toolkit';
+  public installCode = `  yarn add @digitalspace/ngds-forms`;
+
+  public peerDepCode = `  yarn add bootstrap
+  yarn add bootstrap-icons
+  yarn add ngx-bootstrap`
+
+  public moduleCode = `  import { NgdsFormsModule } from '@digitalspace/ngds-toolkit';
 
   @NgModule({
     ...
@@ -18,7 +23,6 @@ export class FormsHomeComponent {
     ...
   ])
   export class ComponentModule {}
-  }
-  `
+  }`
 
 }

@@ -121,6 +121,245 @@ export const snippets = {
       }
     })`
   },
+  minLength: {
+    html: `
+    <ngds-typeahead-input
+    [control]="form?.controls?.['minLength']"
+    [selectionListItems]="displayProvinceList"
+    [typeaheadMinLength]="3">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'minlength-typeahead'
+      export class MinLengthTypeahead implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            minLength: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
+  programmaticTypeahead: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['programmaticTypeahead']"
+      [selectionListItems]="displayProvinceList">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'programmatic-typeahead'
+      export class ProgrammaticTypeahead implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            programmaticTypeahead: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
+  disableTypeahead: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['disableTypeahead']"
+      [selectionListItems]="displayProvinceList"
+      [disabled]="isDisabled"
+      [loadWhile]="isLoading"
+      [placeholder]="'Start typing...'"
+      [resetButton]="true">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'disable-typeahead'
+      export class DisableTypeahead implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            displayTypeahead: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
   customTemplateTypeahead: {
     html: `
     <ngds-typeahead-input
@@ -394,5 +633,96 @@ export const snippets = {
         }
       }
     })`
+  },
+  invalidTypeahead: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['invalidTypeahead']"
+      [selectionListItems]="displayProvinceList"
+      [placeholder]="'Start typing...'"
+      [resetButton]="true">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component, OnInit, ViewChild, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'invalid-typeahead'
+      export class InvalidTypeahead implements OnInit {
+        public form;
+        
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            invalidTypeahead: new UntypedFormControl(null, [this.customValidator]),
+          })
+        }
+
+        customValidator(): ValidatorFn {
+          return (control: AbstractControl): ValidationErrors | null => {
+            const value = String(control.value);
+            console.log('value:', value);
+            if (value === '0011' || value === '0012' || value === '0013') {
+              return { customValidator: 'This is not a province.' }
+            }
+            return null
+          }
+        }
+
+`
   }
 }

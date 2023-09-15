@@ -9,9 +9,10 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from './forms/forms.module';
 import { CommonComponentsComponent } from './common-components/common-components/common-components.component';
 import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './home/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, CommonComponentsComponent, HomeComponent],
+  declarations: [AppComponent, CommonComponentsComponent, HomeComponent, SidebarComponent],
   imports: [BrowserModule, FormsModule, NgdsFormsModule, NgdsTabsModule, NgdsNavCardModule, AppRoutingModule, RouterModule.forRoot([])],
   providers: [
     {
