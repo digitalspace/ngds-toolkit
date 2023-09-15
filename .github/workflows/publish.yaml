@@ -50,10 +50,14 @@ jobs:
           yarn build
           yarn build $PACKAGE_NAME_FORMS
 
-      - run: git config --global user.email ${{ secrets.EMAIL }}
-      - run: git config --global user.name ${{ secrets.USERNAME }}
-      - run: cd $DIST_FOLDER/PACKAGE_NAME_FORMS && npm version ${{ github.ref_name }}
-      - run: cd $DIST_FOLDER/PACKAGE_NAME_FORMS && npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      ### Config NPM Credentials
+      - run: |
+          git config --global user.email ${{ secrets.EMAIL }}
+          git config --global user.name ${{ secrets.USERNAME }}
+
+      ### Publish NGDS-Forms
+      - run: |
+          cd $DIST_FOLDER/$PACKAGE_NAME_FORMS
+          npm version ${{ github.ref_name }}
+          npm publish --access public
           
