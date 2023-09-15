@@ -5,7 +5,9 @@ on:
     types: [created]
 
 env: 
-  DIST_PATH: dist/ngds-toolkit
+  DIST_FOLDER: dist
+  PACKAGE_NAME_COMMON: ngds-common
+  PACKAGE_NAME_FORMS: ngds-forms
 
 jobs:
   package: 
@@ -44,11 +46,14 @@ jobs:
           key: ${{ github.sha }}-dist
       - name: Run Build
         if: steps.cache-build.outputs.cache-hit != 'true'
-        run: yarn build
+        run: |
+          yarn build
+          yarn build $PACKAGE_NAME_FORMS
 
       - run: git config --global user.email ${{ secrets.EMAIL }}
       - run: git config --global user.name ${{ secrets.USERNAME }}
-      - run: cd $DIST_PATH && npm version ${{ github.ref_name }}
-      - run: cd $DIST_PATH && npm publish --access public
+      - run: cd $DIST_FOLDER/PACKAGE_NAME_FORMS && npm version ${{ github.ref_name }}
+      - run: cd $DIST_FOLDER/PACKAGE_NAME_FORMS && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
