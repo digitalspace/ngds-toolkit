@@ -6,7 +6,7 @@ on:
 
 env: 
   DIST_FOLDER: dist
-  PACKAGE_NAME_COMMON: ngds-common
+  PACKAGE_NAME_COMMON: ngds-common-components
   PACKAGE_NAME_FORMS: ngds-forms
 
 jobs:
