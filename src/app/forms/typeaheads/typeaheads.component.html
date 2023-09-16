@@ -1,7 +1,7 @@
 <section #section id="basicTypeahead" class="mb-5 mt-3">
   <h3>Basic Typeahead</h3>
   <p>
-    Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank">ngx-bootstrap</a>.
+    Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank" rel="noopener">ngx-bootstrap</a>.
   </p>
   <p>
     In the example below, search for a Canadian province or territory.
@@ -17,12 +17,6 @@
 
 <section #section id="programmaticTypeahead" class="mb-5 mt-3">
   <h3>Set typeahead value programmatically</h3>
-  <p>
-    Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank">ngx-bootstrap</a>.
-  </p>
-  <p>
-    In the example below, search for a Canadian province or territory.
-  </p>
   <demonstrator [htmlFile]="snippets?.programmaticTypeahead?.html" [tsFile]="snippets?.programmaticTypeahead?.ts"
     [control]="form?.controls?.['programmaticTypeahead']">
     <button class="btn btn-primary mb-2" (click)="programmaticSet()">Set value</button>

@@ -80,14 +80,16 @@ export class PicklistsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let list = [];
-    for (const item of this.entries?.['_results']) {
-      console.log('item:', item);
-      // get title
-      let titleIndex = item?.nativeElement?.querySelector('h3');
-      list.push({
-        href: item?.nativeElement?.id,
-        title: titleIndex.innerText
-      })
+    if (this.entries['_results']) {
+      for (const item of this.entries['_results']) {
+        console.log('item:', item);
+        // get title
+        let titleIndex = item?.nativeElement?.querySelector('h3');
+        list.push({
+          href: item?.nativeElement?.id,
+          title: titleIndex.innerText
+        })
+      }
     }
     this.sidebarService.updateList(list);
   }
@@ -98,7 +100,7 @@ export class PicklistsComponent implements OnInit, AfterViewInit {
       this.currentChangeSelectList = nextSelectList;
     }, 5000);
   }
-  
+
   disableProgrammatically(control) {
     if (this.form.controls[control].enabled) {
       this.form.controls[control].disable();

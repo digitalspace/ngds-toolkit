@@ -27,7 +27,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
       resetInput: new UntypedFormControl(null),
       disabledInput: new UntypedFormControl(null),
       initialDefault: new UntypedFormControl(
-        'My default value', {nonNullable: true}
+        'My default value', { nonNullable: true }
       ),
       loadingInput: new UntypedFormControl(null),
       requiredInput: new UntypedFormControl(null, Validators.required),
@@ -38,13 +38,15 @@ export class TextInputComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let list = [];
-    for (const item of this.entries?.['_results']) {
-      // get title
-      let titleIndex = item?.nativeElement?.querySelector('h3');
-      list.push({
-        href: item?.nativeElement?.id,
-        title: titleIndex.innerText
-      })
+    if (this.entries['_results']) {
+      for (const item of this.entries['_results']) {
+        // get title
+        let titleIndex = item?.nativeElement?.querySelector('h3');
+        list.push({
+          href: item?.nativeElement?.id,
+          title: titleIndex.innerText
+        })
+      }
     }
     this.sidebarService.updateList(list);
   }
@@ -66,13 +68,13 @@ export class TextInputComponent implements OnInit, AfterViewInit {
       return null;
     }
   }
-  
 
-  disabledSwitch(){
+
+  disabledSwitch() {
     this.isDisabled = !this.isDisabled;
   }
 
-  loadingSwitch(){
+  loadingSwitch() {
     this.isLoading = !this.isLoading;
   }
 

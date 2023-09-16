@@ -90,13 +90,15 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let list = [];
-    for (const item of this.entries?.['_results']) {
-      // get title
-      let titleIndex = item?.nativeElement?.querySelector('h3');
-      list.push({
-        href: item?.nativeElement?.id,
-        title: titleIndex.innerText
-      })
+    if (this.entries['_results']) {
+      for (const item of this.entries['_results']) {
+        // get title
+        let titleIndex = item?.nativeElement?.querySelector('h3');
+        list.push({
+          href: item?.nativeElement?.id,
+          title: titleIndex.innerText
+        })
+      }
     }
     this.sidebarService.updateList(list);
   }
@@ -122,7 +124,7 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
       const value = control?.value;
       console.log('value:', value);
       if (value?.length > 3) {
-        return {customValidator: "You can pick a max of 3 items."};
+        return { customValidator: "You can pick a max of 3 items." };
       }
       return null
     }
