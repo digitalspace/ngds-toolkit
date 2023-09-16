@@ -128,7 +128,7 @@ export class TypeaheadsComponent implements OnInit {
     this.fields.displayTypeahead.setValue(value)
   }
 
-  programmaticSet(){
+  programmaticSet() {
     this.fields.programmaticTypeahead.setValue('0006');
   }
 
@@ -161,13 +161,15 @@ export class TypeaheadsComponent implements OnInit {
 
   ngAfterViewInit(): void {
     let list = [];
-    for (const item of this.entries?.['_results']) {
-      // get title
-      let titleIndex = item?.nativeElement?.querySelector('h3');
-      list.push({
-        href: item?.nativeElement?.id,
-        title: titleIndex.innerText
-      })
+    if (this.entries['_results']) {
+      for (const item of this.entries['_results']) {
+        // get title
+        let titleIndex = item?.nativeElement?.querySelector('h3');
+        list.push({
+          href: item?.nativeElement?.id,
+          title: titleIndex.innerText
+        })
+      }
     }
     this.sidebarService.updateList(list);
   }
