@@ -16,9 +16,9 @@ MIT
 @angular/router
 MIT
 
-@digitalspace/ngds-common-components
-
 @digitalspace/ngds-forms
+
+@digitalspace/ngds-toolkit
 
 bootstrap
 MIT
