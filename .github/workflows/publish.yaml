@@ -49,6 +49,7 @@ jobs:
         run: |
           yarn build
           yarn build $PACKAGE_NAME_FORMS
+          yarn build $PACKAGE_NAME_COMMON
 
       ### Config NPM Credentials
       - run: |
