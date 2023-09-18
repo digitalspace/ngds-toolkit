@@ -64,7 +64,6 @@ export class NgdsInputFooter {
               return `This field has too few characters.`;
             }
           }
-          break;
         case 'maxlength':
           if (this.invalidFieldMsgMaxLength) {
             return this.invalidFieldMsgMaxLength;
@@ -75,7 +74,6 @@ export class NgdsInputFooter {
               return `This field has too many characters.`;
             }
           }
-          break;
         default:
           if (this.control.errors[firstErrorKey]){
             return this.control.errors[firstErrorKey]
