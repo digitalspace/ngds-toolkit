@@ -88,6 +88,27 @@
   </demonstrator>
 </section>
 
+<section #section id="multilineInput" class="mb-5 mt-3">
+  <h3>Multiline text (textarea)</h3>
+  <p>
+    Use <code>[multiline]="true"</code> to change the underlying HTML element from <code>input</code> to <code>textarea</code>. This enables multiline text entry. Set <code>[showCharacterCount]="true"</code> to see a character tally. 
+  </p>
+  <p>
+    Multiline text elements are compatible with Angular's providided <code>minLength</code> and <code>maxLength</code> validators.
+  </p>
+  <demonstrator [headerText]="'Loading spinner'" [htmlFile]="snippets?.multilineInput?.html"
+    [tsFile]="snippets?.multilineInput?.ts"
+    [description]="'Use the toggle trigger the loading state of the control. You can use the [loadWhile] attribute to bind to a boolean or function that evaluates to a boolean. The loading state disables the control, and shows a loading spinner.'"
+    [control]="form?.controls?.['multilineInput']">
+    <ngds-text-input [label]="'With showCharacterCount'" [control]="form?.controls?.['multilineInput']" [resetButton]="true" [loadWhile]="isLoading" [multiline]="true" [showCharacterCount]="true">
+    </ngds-text-input>
+    <ngds-text-input [label]="'With maxLength validator'" [subLabel]="'maxLength is 20'" [control]="form?.controls?.['multilineMaxInput']" [resetButton]="true" [loadWhile]="isLoading" [multiline]="true" [showCharacterCount]="true">
+    </ngds-text-input>
+    <ngds-text-input [label]="'With minLength validator'" [subLabel]="'minLength is 10'" [control]="form?.controls?.['multilineMinInput']" [resetButton]="true" [loadWhile]="isLoading" [multiline]="true" [showCharacterCount]="true">
+    </ngds-text-input>
+  </demonstrator>
+</section>
+
 <section #section id="requiredInput" class="mb-5 mt-3">
   <h3>Required input</h3>
   <p>
