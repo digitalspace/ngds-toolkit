@@ -99,6 +99,52 @@ export const snippets = {
       }
     })`
   },
+  multilineInput: {
+    html: `
+    <ngds-text-input
+      [label]="'With showCharacterCount'"
+      [control]="form?.controls?.['multilineInput']"
+      [resetButton]="true"
+      [multiline]="true"
+      [showCharacterCount]="true">
+    </ngds-text-input>
+    
+    <ngds-text-input
+      [label]="'With maxLength validator'"
+      [subLabel]="'maxLength is 20'"
+      [control]="form?.controls?.['multilineMaxInput']"
+      [resetButton]="true"
+      [multiline]="true"
+      [showCharacterCount]="true">
+    </ngds-text-input>
+
+    <ngds-text-input
+      [label]="'With minLength validator'"
+      [subLabel]="'minLength is 10'"
+      [control]="form?.controls?.['multilineMinInput']"
+      [resetButton]="true"
+      [multiline]="true"
+      [showCharacterCount]="true">
+    </ngds-text-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+
+    @Component({
+      selector: 'multiline-input'
+      export class MultilineInput implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            multilineInput: new UntypedFormControl(null),
+            multilineMaxInput: new UntypedFormControl(null, Validators.maxLength(20)),
+            multilineMaxInput: new UntypedFormControl(null, Validators.minLength(10)),
+          })
+        }
+      }
+    })`
+  },
   loadingInput: {
     html: `
     <ngds-text-input

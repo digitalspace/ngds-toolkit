@@ -30,6 +30,9 @@ export class TextInputComponent implements OnInit, AfterViewInit {
         'My default value', { nonNullable: true }
       ),
       loadingInput: new UntypedFormControl(null),
+      multilineInput: new UntypedFormControl(null),
+      multilineMaxInput: new UntypedFormControl(null, Validators.maxLength(20)),
+      multilineMinInput: new UntypedFormControl(null, Validators.minLength(10)),
       requiredInput: new UntypedFormControl(null, Validators.required),
       customValidator: new UntypedFormControl(null, [this.customValidator()]),
       inline: new UntypedFormControl(null),

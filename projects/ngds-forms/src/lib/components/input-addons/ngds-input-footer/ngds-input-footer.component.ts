@@ -13,6 +13,8 @@ export class NgdsInputFooter {
   @Input() invalidFieldMsgRequiredTrue: string = 'This field is required to be &quot;true&quot;.';
   @Input() invalidFieldMsgMin: string = '';
   @Input() invalidFieldMsgMax: string = '';
+  @Input() invalidFieldMsgMinLength: string = '';
+  @Input() invalidFieldMsgMaxLength: string = '';
   @Input() showMsgWhenInvalid: boolean = true;
 
   constructor() { }
@@ -48,10 +50,30 @@ export class NgdsInputFooter {
             return this.invalidFieldMsgMax
           } else { 
             if (this.control.errors[firstErrorKey].min) {
-              return `The minimum value of this field can be no more than ${this.control.errors[firstErrorKey].max}.`
+              return `The maximum value of this field can be no more than ${this.control.errors[firstErrorKey].max}.`
             }
           }
           break;
+        case 'minlength':
+          if (this.invalidFieldMsgMinLength) {
+            return this.invalidFieldMsgMinLength
+          } else { 
+            if (this.control.errors.minlength.requiredLength) {
+              return `This field must be at least ${this.control.errors.minlength.requiredLength} characters in length.`;
+            } else {
+              return `This field has too few characters.`;
+            }
+          }
+        case 'maxlength':
+          if (this.invalidFieldMsgMaxLength) {
+            return this.invalidFieldMsgMaxLength;
+          } else { 
+            if (this.control.errors.maxlength.requiredLength) {
+              return `This field must be at most ${this.control.errors.maxlength.requiredLength} characters in length.`;
+            }  else {
+              return `This field has too many characters.`;
+            }
+          }
         default:
           if (this.control.errors[firstErrorKey]){
             return this.control.errors[firstErrorKey]

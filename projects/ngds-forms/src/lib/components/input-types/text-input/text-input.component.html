@@ -1,5 +1,5 @@
 <!-- Header -->
-<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control" [showCharacterCount]="showCharacterCount"></ngds-input-header>
 
 <!-- Text input -->
 <div class="d-flex position-relative">
@@ -10,7 +10,10 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+    <input *ngIf="!multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+
+    <!-- Input -->
+    <textarea *ngIf="multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
 
     <!-- Reset control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
