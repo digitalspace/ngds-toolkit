@@ -82,7 +82,6 @@ export class PicklistsComponent implements OnInit, AfterViewInit {
     let list = [];
     if (this.entries['_results']) {
       for (const item of this.entries['_results']) {
-        console.log('item:', item);
         // get title
         let titleIndex = item?.nativeElement?.querySelector('h3');
         list.push({

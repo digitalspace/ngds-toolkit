@@ -21,11 +21,15 @@
         </ngds-multiselect-item>
       </div>
       <!-- Text input for typeahead -->
-      <input #typeaheadInput [hidden]="!isOpen.value" [(ngModel)]="currentDisplay"
+      <input #typeaheadInput [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
         (ngModelChange)="matchControlToInput()" [typeahead]="selectionListItems" (typeaheadOnSelect)="selected()"
         typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength"
         [adaptivePosition]="true" [disabled]="isDisabled" class="py-1 w-100 h-100 rounded border-0 multiselect-input"
         [ngClass]="{'is-invalid': isInvalid, 'shrink-input': !isOpen.value}" (focus)="onFocus()" (blur)="onBlur()">
+        <!-- Placeholder -->
+        <div class="text-muted text-start" *ngIf="multiselect && placeholder && !control.value && !isFocused">
+          {{ placeholder }}
+        </div>
     </button>
 
     <!-- Select all button -->

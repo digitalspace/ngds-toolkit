@@ -21,7 +21,7 @@
         </ngds-multiselect-item>
       </div>
       <!-- Display current value as string -->
-      <div *ngIf="!showSelectedTemplate()">{{ getActiveDisplay() }}</div>
+      <div *ngIf="!showSelectedTemplate()" [ngClass]="{'text-muted': !control?.value}">{{ getActiveDisplay() }}</div>
       <!-- Display current value as template -->
       <div *ngIf="showSelectedTemplate()">
         <ng-container *ngTemplateOutlet="selectionListTemplate"></ng-container>
