@@ -18,7 +18,7 @@
     [control]="form?.controls?.['programmaticPicklistMulti']" [htmlFile]="snippets?.programmaticPicklistMulti?.html"  [tsFile]="snippets?.programmaticPicklistMulti?.ts">
     <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
     <ngds-picklist-input [control]="form?.controls?.['programmaticPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Start typing...'">
+    [placeholder]="'Select multiple'">
     </ngds-picklist-input>
   </demonstrator>
 </section>
@@ -31,7 +31,7 @@
   <demonstrator #basicTypeaheadMulti
     [control]="form?.controls?.['basicTypeaheadMulti']" [htmlFile]="snippets?.basicTypeaheadMulti?.html"  [tsFile]="snippets?.basicTypeaheadMulti?.ts">
     <ngds-typeahead-input [control]="form?.controls?.['basicTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Start typing...'">
+    [placeholder]="'Select multiple'">
     </ngds-typeahead-input>
   </demonstrator>
 </section>
@@ -43,7 +43,7 @@
     [control]="form?.controls?.['programmaticTypeaheadMulti']" [htmlFile]="snippets?.programmaticTypeaheadMulti?.html"  [tsFile]="snippets?.programmaticTypeaheadMulti?.ts">
     <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
     <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Start typing...'">
+    [placeholder]="'Select multiple'">
     </ngds-typeahead-input>
   </demonstrator>
 </section>

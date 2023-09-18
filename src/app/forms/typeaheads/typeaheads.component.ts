@@ -151,7 +151,6 @@ export class TypeaheadsComponent implements OnInit {
   customValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = String(control.value);
-      console.log('value:', value);
       if (value === '0011' || value === '0012' || value === '0013') {
         return { customValidator: `This is not a province.` }
       }

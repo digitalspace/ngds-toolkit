@@ -38,7 +38,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.isOpen.next(this.control?._isFocused);
+    this.isOpen.next(true);
     this.subscriptions.add(this.control.valueChanges.subscribe(() => {
       if (!this.editByModel) {
         this.isOpen.next(true);

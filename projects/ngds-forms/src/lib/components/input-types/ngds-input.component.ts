@@ -334,7 +334,10 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   getActiveDisplay() {
-    return this.getDisplayByValue(this.control.value);
+    if (this.control?.value){
+      return this.getDisplayByValue(this.control.value);
+    } 
+    return this.placeholder || '';
   }
 
   // unsubscribe from all subscriptions when component is destroyed.
