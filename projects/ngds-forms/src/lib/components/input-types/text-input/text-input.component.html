@@ -10,14 +10,14 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input *ngIf="!multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+    <input *ngIf="!multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [attr.disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
 
     <!-- Input -->
-    <textarea *ngIf="multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
+    <textarea *ngIf="multiline" class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid,'disabled-input': isDisabled}" [attr.disabled]="isDisabled || isLoading" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
 
     <!-- Reset control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
-      [disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
+      [attr.disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
 
     <!-- Appended content -->
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>

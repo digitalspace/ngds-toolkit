@@ -2,7 +2,7 @@
   <!-- Show correct option display value -->
   <div class="col-auto mx-2">{{option?.display || option?.value || option}}</div>
   <!-- Remove option button -->
-  <button [disabled]="disabled" type="button" class="btn btn-inline border-0 col-auto rounded-circle p-0 px-1"
+  <button [attr.disabled]="disabled" type="button" class="btn btn-inline border-0 col-auto rounded-circle p-0 px-1"
     (click)="removeItem($event)" [attr.aria-label]="'Remove multiselect item ' + option?.display || option?.value || option">
     <i class="bi bi-x-lg"></i>
   </button>

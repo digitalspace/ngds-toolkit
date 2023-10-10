@@ -11,20 +11,20 @@
 
     <!-- Input -->
     <button class="form-select border-0" style="min-height: 2.25rem;"
-      [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [disabled]="isDisabled"
+      [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [attr.disabled]="isDisabled"
       (click)="openDropdown()">
       <!-- Input display current value -->
       <!-- Multiselect display items -->
       <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
         <ngds-multiselect-item class="col-auto p-0 m-1" *ngFor="let item of control?.value"
-          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled">
+          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [attr.disabled]="isDisabled">
         </ngds-multiselect-item>
       </div>
       <!-- Text input for typeahead -->
       <input #typeaheadInput [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
         (ngModelChange)="matchControlToInput()" [typeahead]="selectionListItems" (typeaheadOnSelect)="selected()"
         typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength"
-        [adaptivePosition]="true" [disabled]="isDisabled" class="py-1 w-100 h-100 rounded border-0 multiselect-input"
+        [adaptivePosition]="true" [attr.disabled]="isDisabled" class="py-1 w-100 h-100 rounded border-0 multiselect-input"
         [ngClass]="{'is-invalid': isInvalid, 'shrink-input': !isOpen.value}" (focus)="onFocus()" (blur)="onBlur()">
         <!-- Placeholder -->
         <div class="text-muted text-start" *ngIf="multiselect && placeholder && !control.value && !isFocused">
@@ -34,11 +34,11 @@
 
     <!-- Select all button -->
     <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0"
-      [disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
+      [attr.disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
 
     <!-- Clear control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
-      [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
+      [attr.disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
 
     <!-- Appended content -->
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
