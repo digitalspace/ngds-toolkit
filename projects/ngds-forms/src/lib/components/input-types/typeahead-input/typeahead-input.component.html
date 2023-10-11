@@ -4,20 +4,20 @@
 <!-- Typeahead input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div #typeaheadContainer class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+  <div class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button class="form-select border-0" style="min-height: 2.25rem;"
-      [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [attr.disabled]="isDisabled"
+    <button #typeaheadContainer class="form-select border-0" style="min-height: 2.25rem;"
+      [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [disabled]="isDisabled"
       (click)="openDropdown()">
       <!-- Input display current value -->
       <!-- Multiselect display items -->
       <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
         <ngds-multiselect-item class="col-auto p-0 m-1" *ngFor="let item of control?.value"
-          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [attr.disabled]="isDisabled">
+          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled">
         </ngds-multiselect-item>
       </div>
       <!-- Text input for typeahead -->
@@ -34,11 +34,11 @@
 
     <!-- Select all button -->
     <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0"
-      [attr.disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
+      [disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
 
     <!-- Clear control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
-      [attr.disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
+      [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
 
     <!-- Appended content -->
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>

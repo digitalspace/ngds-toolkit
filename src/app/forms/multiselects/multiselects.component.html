@@ -16,7 +16,7 @@
   <p>The example below selects only territories when you click the button.</p>
   <demonstrator
     [control]="form?.controls?.['programmaticPicklistMulti']" [htmlFile]="snippets?.programmaticPicklistMulti?.html"  [tsFile]="snippets?.programmaticPicklistMulti?.ts">
-    <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
+    <button class="btn btn-primary my-2" (click)="programSetPicklist()">Set value</button>
     <ngds-picklist-input [control]="form?.controls?.['programmaticPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
     [placeholder]="'Select multiple'">
     </ngds-picklist-input>

@@ -17,7 +17,7 @@
 
     <!-- Reset control button -->
     <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
-      [attr.disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
+      [disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
 
     <!-- Appended content -->
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
