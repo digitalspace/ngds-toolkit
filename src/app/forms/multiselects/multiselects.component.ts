@@ -122,7 +122,6 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
   customValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control?.value;
-      console.log('value:', value);
       if (value?.length > 3) {
         return { customValidator: "You can pick a max of 3 items." };
       }

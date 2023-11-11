@@ -1,0 +1,79 @@
+<div class="p-3" style="max-width: 345px">
+  <!-- Header -->
+  <div class="row d-flex">
+    <div class="d-flex justify-content-between">
+      <div>
+        <div class="col-auto" *ngIf="displayDepth < 1">
+          <button (click)="changeDepth.emit(1)" class="btn btn-outline-secondary border-0" [disabled]="disabled">
+            {{ calendarConfig?.value?.date?.monthLong}}
+          </button>
+        </div>
+      </div>
+      <div class="col-auto">
+        <button (click)="changeDepth.emit(2)" class="btn btn-outline-secondary border-0" [disabled]="disabled">
+          <div *ngIf="displayDepth === 2">{{ calendarConfig?.value?.years?.flat()[0] }} - {{
+            calendarConfig?.value?.years?.flat()[calendarConfig?.value?.years?.flat().length-1]}}</div>
+          <div *ngIf="displayDepth !== 2">{{ calendarConfig?.value?.date?.year}}</div>
+        </button>
+      </div>
+      <div class="d-flex row">
+        <div class="col">
+          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(-1)" [disabled]="disabled">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(1)" [disabled]="disabled">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Body -->
+  <hr>
+  <div *ngIf="displayDepth === 0">
+    <table class="text-center">
+      <thead class="fw-bold mb-1">
+        <tr>
+          <th scope="col" *ngFor="let day of weekdays" class="calendar-cell">
+            {{ day }}
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let week of calendarConfig?.value?.weeks; index as i"
+        (mouseleave)="changeHoverDate.emit(selectedDate)">
+        <tr>
+          <!-- <th scope="row" class="fw-bold me-2 p-2 calendar-cell">{{ week }}</th> -->
+          <td *ngFor="let day of weekdays; index as j" class="px-0">
+            <button [disabled]="checkDisabledDate(week[j])" [ngClass]="getDateClasses(week[j])"
+              (click)="updateDateOnClick(week[j])" (mouseenter)="updateHoverDate(week[j])"
+              (focus)="updateHoverDate(week[j])">
+              {{ week[j].day }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="displayDepth === 1">
+    <div *ngFor="let row of months" class="d-flex">
+      <div *ngFor="let month of row" class="d-flex col-4 justify-content-center">
+        <button [disabled]="checkDisabledMonth(month)" [ngClass]="getMonthClasses(month)"
+          (click)="changeMonth.emit(month?.number)">
+          {{month?.name}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="displayDepth === 2">
+    <div *ngFor="let row of calendarConfig?.value?.years" class="d-flex">
+      <div *ngFor="let year of row" class="d-flex col-4 justify-content-center">
+        <button [disabled]="checkDisabledYear(year)" [ngClass]="getYearClasses(year)" (click)="changeYear.emit(year)">
+          {{year}}
+        </button>
+      </div>
+    </div>
+  </div>

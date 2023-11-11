@@ -1,0 +1,327 @@
+<h2>Datepickers</h2>
+<section>
+  <p>
+    NGDS Forms Datepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a>.
+  </p>
+  <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="luxonCode"></code></pre>
+</section>
+
+<section #section id="basicDatepicker" class="mb-5 mt-3">
+  <h3>Basic Datepicker</h3>
+  <p>
+    Select a single date from the popup calendar.
+  </p>
+  <demonstrator [headerText]="'Basic datepicker'" [htmlFile]="snippets?.basicDatepicker?.html"
+    [tsFile]="snippets?.basicDatepicker?.ts" [control]="form?.controls?.['basicDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['basicDatepicker']" [label]="'My datepicker label'"
+      [subLabel]="'My datepicker sub-label'" [placeholder]="'My placeholder'">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="programmaticDatepicker" class="mb-5 mt-3">
+  <h3>Programmatically set datepicker</h3>
+  <p>
+    The example below selects <code>today</code> (UTC) by default. When you reset the input, it will again select
+    <code>today</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.programmaticDatepicker?.html" [tsFile]="snippets?.programmaticDatepicker?.ts"
+    [control]="form?.controls?.['programmaticDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['programmaticDatepicker']" [resetButton]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="inlineDatepicker" class="mb-5 mt-3">
+  <h3>Inline datepicker</h3>
+  <p>
+    The datepicker calendar is a dropdown by default. You can display the datepicker inline by passing
+    <code>[inline]="true"</code>
+  </p>
+  <demonstrator [htmlFile]="snippets?.inlineDatepicker?.html" [tsFile]="snippets?.inlineDatepicker?.ts"
+    [control]="form?.controls?.['inlineDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['inlineDatepicker']" [resetButton]="true" [inline]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="disabledLoadingDatepicker" class="mb-5 mt-3">
+  <h3>Disabled datepicker</h3>
+  <p>
+    Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
+    respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.disabledLoadingDatepicker?.html" [tsFile]="snippets?.disabledLoadingDatepicker?.ts"
+    [control]="form?.controls?.['disabledLoadingDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['disabledLoadingDatepicker']" [resetButton]="true" [disabled]="isDisabled" [loadWhile]="isLoading" [inline]="true">
+    </ngds-date-input>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+        [checked]="form?.controls?.['disabledLoadingDatepicker'].disabled"
+        (click)="disableProgrammatically('disabledLoadingDatepicker')">
+      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+    </div>
+  </demonstrator>
+</section>
+
+<section #section id="minMaxDatepicker" class="mb-5 mt-3">
+  <h3>Datepicker maximum date and minimum date</h3>
+  <p>
+    You can disable dates up to a set date (<code>minDate</code>) and/or dates beyond a set date (<code>maxDate</code>).
+    Disabling the dates prevents them from being selectable options.
+  </p>
+  <p>
+    You must pass in a <code>luxon</code> DateTime object as the argument for <code>minDate</code> and
+    <code>maxDate</code>.
+  </p>
+  <p>In the examples below, <code>minDate</code> and <code>maxDate</code> are both set to <code>today</code>.</p>
+  <demonstrator [htmlFile]="snippets?.minDatepicker.html" [tsFile]="snippets?.minDatepicker.ts"
+    [control]="form?.controls?.['minDatepicker']">
+    <ngds-date-input [label]="'MinDate'" [control]="form?.controls?.['minDatepicker']" [resetButton]="true"
+      [minDate]="getToday()">
+    </ngds-date-input>
+  </demonstrator>
+  <div class="mt-2"></div>
+  <demonstrator [htmlFile]="snippets?.maxDatepicker.html" [tsFile]="snippets?.maxDatepicker.ts"
+    [control]="form?.controls?.['maxDatepicker']">
+    <ngds-date-input [maxDate]="getToday()" [label]="'MaxDate'" [control]="form?.controls?.['maxDatepicker']" 
+      [resetButton]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="customDisabledDatepicker" class="mb-5 mt-3">
+  <h3>Custom date disable rules</h3>
+  <p>
+    You can employ fine-grain date disabling rules by providing a callback function with
+    <code>customDisableDatesCallback</code>. The function must accept a <code>luxon</code> DateTime object as the only
+    argument, and return a boolean <code>true</code> or <code>false</code>, where returning <code>true</code> will
+    disable the date associated with the passed-in DateTime object.
+  </p>
+  <p>
+    You can combine several different disabling rules into a single callback. In the example below, every weekend, the
+    15th of each month, and March 26th, 2024 are all disabled (UTC).
+  </p>
+  <demonstrator [htmlFile]="snippets?.customDisabledDatepicker.html" [tsFile]="snippets?.customDisabledDatepicker.ts"
+    [control]="form?.controls?.['customDisabledDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['customDisabledDatepicker']" [resetButton]="true"
+      [customDisabledDatesCallback]="customDisabledDatesCallback">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="invalidDatepicker" class="mb-5 mt-3">
+  <h3>Datepicker validation</h3>
+  <p>
+    If you need to allow the user to select dates but reflect the validity of that date, leveraging control validation
+    works similarly to other input types. In the example below, only weekdays are valid dates to select.
+  </p>
+  <demonstrator [htmlFile]="snippets?.invalidDatepicker?.html" [tsFile]="snippets?.invalidDatepicker?.ts"
+    [control]="form?.controls?.['invalidDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['invalidDatepicker']" [resetButton]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="valueFormatDatepicker" class="mb-5 mt-3">
+  <h3>Value format</h3>
+  <p>
+    By default, NGDS Datepicker returns the selected date in YYYY-MM-DD format. The Datepicker leverages
+    <code>luxon's</code>&nbsp;<a
+      href="https://moment.github.io/luxon/api-docs/index.html#datetimetoformat">#toFormat</a> formatter to convert
+    DateTimes to a token-formatted string before updating the control value.
+  </p>
+  <p>
+    You can pass in a <a href="https://moment.github.io/luxon/#/formatting?id=table-of-tokens">token-formatted
+      string</a> to <code>[dateFormat]</code> to change how the DateTime object is represented in the control value
+    itself - this way, for basic use cases you do not have to do any DateTime formatting outside of the input.
+  </p>
+  <p>
+    Sometimes the raw DateTime object may be desired as a return object. In these instances, set
+    <code>[dateFormat]="null"</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.valueFormatDatepicker?.html" [tsFile]="snippets?.valueFormatDatepicker?.ts"
+    [control]="form?.controls?.['valueFormatDatepicker']">
+    <ngds-date-input [label]="'Long Date Format'" [control]="form?.controls?.['valueFormatDatepicker']"
+      [resetButton]="true" [dateFormat]="'ff'">
+    </ngds-date-input>
+  </demonstrator>
+  <div class="mt-2"></div>
+  <demonstrator [htmlFile]="snippets?.rawDateTimeDatepicker?.html" [tsFile]="snippets?.rawDateTimeDatepicker?.ts"
+    [control]="form?.controls?.['rawDateTimeDatepicker']">
+    <div class="mt-2"></div>
+    <ngds-date-input [label]="'Return Raw DateTime'" [control]="form?.controls?.['rawDateTimeDatepicker']"
+      [resetButton]="true" [dateFormat]="null">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="displayFormatDatepicker" class="mb-5 mt-3">
+  <h3>Display format</h3>
+  <p>
+    By default, the datepicker will match the display format to the control's value. If a different format is needed for
+    the display, it can be overridden using <code>[dateDisplayFormat]</code>.
+  </p>
+  <p>
+    Setting <code>[dateDisplayFormat]</code> explicitly will only function as intended if the <code>[dateFormat]</code>
+    token string chosen to format the <strong>VALUE</strong> (note: not display!) of the control is fully reversable -
+    that is, <code>luxon</code> can use <a
+      href="https://moment.github.io/luxon/api-docs/index.html#datetimetoformat">#toFormat</a> to format AND <a
+      href="https://moment.github.io/luxon/api-docs/index.html#datetimefromformat">#fromFormat</a> to parse with the
+    same token string. Review <code>luxon's</code> documentation on <a
+      href="https://moment.github.io/luxon/#/formatting?id=table-of-tokens">formatting</a> vs <a
+      href="https://moment.github.io/luxon/#/parsing?id=table-of-tokens">parsing</a> to determine which token strings
+    can be used for both.
+  </p>
+  <p>
+    For example, the token string <code>'yyyy-LL-dd'</code> can be used both to format a DateTime object into
+    'YYYY-MM-DD' format, and to parse a 'YYYY-MM-DD' string back into a DateTime object.
+  </p>
+  <p>
+    The token string <code>'X'</code> can be used to format a DateTime object into its Unix timestamp, but cannot be
+    used to parse a Unix timestamp into a DateTime object.
+  </p>
+  <p>
+    If NGDS Datepicker fails to format the display using <code>[dateDisplayFormat]</code>, it will default to the format
+    established by <code>[dateFormat]</code>.
+  </p>
+  <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="dateFormatCode"></code></pre>
+  <p>
+    Use the reversable token string checker below to see how <code>luxon</code> will handle formatting and parsing with
+    different token strings.
+  </p>
+  <div class="card p-2 my-4 font-size" [ngClass]="{'success': checkTokenString(), 'failure': !checkTokenString()}">
+    <ngds-text-input [control]="form?.controls?.['reversableChecker']" [resetButton]="true"></ngds-text-input>
+    <div class="mt-2 row d-flex justify-content-between">
+      <div class="col-auto"><strong>{{ getToday().startOf('day') }}</strong></div>
+      <div class="col-auto">
+        <i class="bi bi-arrow-right"></i>
+      </div>
+      <div class="col-auto">
+        .toFormat(<code>'{{form?.controls?.['reversableChecker'].value}}'</code>)
+      </div>
+      <div class="col-auto">
+        <i class="bi bi-arrow-right"></i>
+      </div>
+      <div class="col-auto">
+        <strong>{{getFormattedNow()}}</strong>
+      </div>
+      <div class="col-auto">
+        <i class="bi bi-arrow-right"></i>
+      </div>
+      <div class="col-auto">
+        .fromFormat(<code>'{{form?.controls?.['reversableChecker'].value}}'</code>)
+      </div>
+      <div class="col-auto">
+        <i class="bi bi-arrow-right"></i>
+      </div>
+      <div class="col-auto">
+        <strong>{{ getParsedNow() }}</strong>
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-auto">
+        <div *ngIf="checkTokenString()">
+          <i class="bi bi-check-circle text-success me-2"></i>
+          <code>{{form?.controls?.['reversableChecker'].value}}</code> is reversable.
+        </div>
+        <div *ngIf="!checkTokenString()">
+          <i *ngIf="!checkTokenString()" class="bi bi-x-circle text-danger me-2"></i>
+          <code>{{form?.controls?.['reversableChecker'].value}}</code>&nbsp;is not reversable.
+        </div>
+      </div>
+    </div>
+  </div>
+  <demonstrator [htmlFile]="snippets?.displayFormatDatepicker?.html" [tsFile]="snippets?.displayFormatDatepicker?.ts"
+    [control]="form?.controls?.['displayFormatDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['displayFormatDatepicker']" [resetButton]="true"
+      [dateDisplayFormat]="customDisplayFormat">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="timezones" class="mb-5 mt-3">
+  <h3>Timezones</h3>
+  <p>
+    By default, NGDS Datepicker displays dates in UTC, <strong>NOT</strong> the browser's timezone. You can change the
+    default timezone by providing the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">IANA
+      string</a> of the zone in which you want to root the datepicker.
+  </p>
+  <p>
+    In the examples below, the display of each control is the Unix timestamp associated with the date picked, however
+    the values should be the same for each zone.
+  </p>
+  <p>
+    Change your browser's timezone to see how NGDS Datepickers are affected by timezones. There should be no difference
+    regardless of where the browser timezone is set.
+  </p>
+  <pre class="border rounded px-3 py-1">
+    <code class="p-0">Current browser time: {{ now?.value?.toFormat('DDDD TT (z)') }}</code>
+  </pre>
+  <demonstrator [htmlFile]="snippets?.timezoneUTC?.html" [tsFile]="snippets?.timezoneUTC?.ts"
+    [control]="form?.controls?.['timezoneUTC']">
+    <ngds-date-input [control]="form?.controls?.['timezoneUTC']" [resetButton]="true" [timezone]="'UTC'"
+      [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'" [label]="'UTC'">
+    </ngds-date-input>
+  </demonstrator>
+  <div class="mt-2"></div>
+  <demonstrator [htmlFile]="snippets?.timezoneNiue?.html" [tsFile]="snippets?.timezoneNiue?.ts"
+    [control]="form?.controls?.['timezoneNiue']">
+    <ngds-date-input [control]="form?.controls?.['timezoneNiue']" [resetButton]="true" [timezone]="'Pacific/Niue'"
+      [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'" [label]="'Pacific/Niue (UTC-11)'">
+    </ngds-date-input>
+  </demonstrator>
+  <div class="mt-2"></div>
+  <demonstrator [htmlFile]="snippets?.timezoneKiritimati?.html" [tsFile]="snippets?.timezoneKiritimati?.ts"
+    [control]="form?.controls?.['timezoneKiritimati']">
+    <ngds-date-input [control]="form?.controls?.['timezoneKiritimati']" [resetButton]="true"
+      [timezone]="'Pacific/Kiritimati'" [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'"
+      [label]="'Pacific/Kiritimati (UTC+14)'">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="displayDepth" class="mb-5 mt-3">
+  <h3>Minimum display mode</h3>
+  <p>
+    The displayed precision of time can be changed if the default display of <code>date</code> is too fine. The
+    <code>[minMode]</code> can be used to change the level of precision.
+  </p>
+  <ul>
+    <li>
+      <code>[minMode]="0"</code> (default): Allow selection of date/month/year. Selection returns the date picked.
+    </li>
+    <li>
+      <code>[minMode]="1"</code>: Allow selection of month/year. Selection returns the first day of the month picked.
+    </li>
+    <li>
+      <code>[minMode]="2"</code>: Allow selection year. Selection returns the first day of the year picked.
+    </li>
+  </ul>
+  <p>
+    Since NGDS Datepicker performs calculations in <code>luxon</code> DateTime objects, the control will still perform
+    all calculations on a single date regardless of the <code>[minMode]</code>. You can leverage
+    <code>[dateFormat]</code> and <code>[displayDateFormat]</code> to change the value/display of the control.
+  </p>
+  <demonstrator [htmlFile]="snippets?.minModeMonth?.html" [tsFile]="snippets?.minModeMonth?.ts"
+    [control]="form?.controls?.['minModeMonth']">
+    <ngds-date-input [control]="form?.controls?.['minModeMonth']" [resetButton]="true" [minMode]="1"
+      [dateDisplayFormat]="'LLLL, yyyy'" [label]="'Month (minMode 1)'">
+    </ngds-date-input>
+  </demonstrator>
+  <div class="mt-2"></div>
+  <demonstrator [htmlFile]="snippets?.minModeYear?.html" [tsFile]="snippets?.minModeYear?.ts"
+    [control]="form?.controls?.['minModeYear']">
+    <ngds-date-input [control]="form?.controls?.['minModeYear']" [resetButton]="true" [minMode]="2"
+      [dateDisplayFormat]="'yyyy'" [label]="'Year (minMode 2)'">
+    </ngds-date-input>
+  </demonstrator>
+</section>

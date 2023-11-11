@@ -12,6 +12,8 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { MultiselectsComponent } from './multiselects/multiselects.component';
 import { RouterModule } from '@angular/router';
 import { FormsHomeComponent } from './forms-home/forms-home.component';
+import { DatepickersComponent } from './datepicker/datepickers/datepickers.component';
+import { RangepickersComponent } from './datepicker/rangepickers/rangepickers.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FormsHomeComponent } from './forms-home/forms-home.component';
     TypeaheadsComponent,
     TextInputComponent,
     MultiselectsComponent,
-    FormsHomeComponent
+    FormsHomeComponent,
+    DatepickersComponent,
+    RangepickersComponent
   ],
   imports: [
     CommonModule,

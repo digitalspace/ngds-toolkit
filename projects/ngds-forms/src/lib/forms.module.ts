@@ -9,11 +9,15 @@ import { NgdsInputFooter } from './components/input-addons/ngds-input-footer/ngd
 import { NgdsInputOverlayComponent } from './components/input-addons/ngds-input-overlay/ngds-input-overlay.component';
 import { BsDropdownDirective, BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgdsTypeaheadInput } from './components/input-types/typeahead-input/typeahead-input.component';
 import { NgdsMultiselectItem } from './components/input-addons/multiselect-item/multiselect-item.component';
+import { NgdsDateInput } from './components/input-types/date-input/date-input.component';
+import { NgdsCalendar } from './components/input-types/date-input/calendar/calendar/calendar.component';
+import { NgdsCalendarManager } from './components/input-types/date-input/calendar/calendar-manager/calendar-manager.component';
 
-export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter};
+export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput};
 
 @NgModule({
   declarations: [
@@ -24,13 +28,17 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     NgdsInputFooter,
     NgdsInputOverlayComponent,
     NgdsTypeaheadInput,
-    NgdsMultiselectItem
+    NgdsMultiselectItem,
+    NgdsDateInput,
+    NgdsCalendar,
+    NgdsCalendarManager
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TypeaheadModule.forRoot()
   ],
@@ -44,6 +52,7 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     NgdsTextInput,
     NgdsPicklistInput,
     NgdsTypeaheadInput,
+    NgdsDateInput
   ],
 })
 export class NgdsForms { }
