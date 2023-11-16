@@ -2,7 +2,8 @@
 </p>
 <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="installCode"></code></pre>
 <p>
-  NGDS Forms uses <code>bootstrap</code>, <code>bootstrap-icons</code>, and <code>ngx-bootstrap</code> as peer dependencies.
+  NGDS Forms uses <code>bootstrap</code>, <code>bootstrap-icons</code>, and <code>ngx-bootstrap</code> as peer
+  dependencies.
 </p>
 <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="peerDepCode"></code></pre>
 <p>At a
@@ -24,7 +25,7 @@
       </ngds-nav-card>
     </div>
   </div>
-  <div class="row">
+  <div class="row my-3">
     <div class="col">
       <ngds-nav-card #typeahead [headerText]="'Typeaheads'" [headerClasses]="'bg-dark text-light'"
         [buttonClasses]="'bg-dark text-light'"
@@ -36,5 +37,19 @@
       <ngds-nav-card #multiselect [headerText]="'Multiselects'" [headerClasses]="'bg-dark text-light'"
         [buttonClasses]="'bg-dark text-light'" [bodyText]="'Picklist & typeahead multiselect inputs.'"
         [navigation]="'forms/multiselect'">
+      </ngds-nav-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngds-nav-card #datepicker [headerText]="'Datepickers'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Picklist & typeahead multiselect inputs.'"
+        [navigation]="'forms/datepicker'">
+      </ngds-nav-card>
+    </div>
+    <div class="col">
+      <ngds-nav-card #rangepicker [headerText]="'Rangepickers'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Picklist & typeahead multiselect inputs.'"
+        [navigation]="'forms/rangepicker'">
       </ngds-nav-card>
     </div>

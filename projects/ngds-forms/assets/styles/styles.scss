@@ -6,9 +6,70 @@ $dropdown-active-text-color: #fff;
 $focus-outline-color: #000;
 $dropdown-bg-color: #fff;
 $dropdown-hover-bg-color: #e9ecef;
+$calendar-hover-bg-color: #e0e5e7;
+$calendar-in-range-hover-bg-color:#e6eaee;
+$calendar-active-bg-color: #c5c5c5;
+$calendar-inactive-text-color: #c4c4c4;
+$calendar-out-of-range-color: #707070;
 
 .disabled-input {
   background-color: $input-disabled-bg;
+}
+
+.calendar-cell{
+  min-width: 44px;
+}
+
+.calendar-month{
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-radius: 2rem;
+  &:hover {
+    background-color: $calendar-hover-bg-color;
+  }
+  &:focus {
+    background-color: $calendar-active-bg-color;
+  }
+  &.selected {
+    background-color: $calendar-active-bg-color;
+  }
+}
+
+.calendar-date{
+  border: none;
+  background-color: transparent;
+  min-width: 44px;
+  color: $calendar-inactive-text-color;
+  &.valid-date {
+    cursor: pointer;
+    color: black;
+    &:hover {
+      background-color: $calendar-hover-bg-color !important;
+      &:not(.in-range){
+        border-radius: 2rem;
+      }
+    }
+    &.first-date{
+      border-top-left-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+    }
+    &.last-date {
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+    }
+    &.selected{
+      font-weight: bold;
+      background-color: $calendar-active-bg-color !important;
+      &:hover {
+        background-color: $calendar-hover-bg-color !important;
+      }
+    }
+    &.in-range {
+      background-color: $calendar-in-range-hover-bg-color;
+      font-weight: bold;
+    }
+  }
 }
 
 .btn-inline {
@@ -21,7 +82,7 @@ $dropdown-hover-bg-color: #e9ecef;
   }
 
   &:focus {
-    outline: 2px solid $focus-outline-color;
+    border: 2px solid $focus-outline-color;
   }
 }
 

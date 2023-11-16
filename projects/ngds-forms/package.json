@@ -6,6 +6,7 @@
     "@angular/core": "^16.0.0",
     "bootstrap": "^5.0.0",
     "bootstrap-icons": "^1.10.0",
+    "luxon": "^3.4.3",
     "ngx-bootstrap": "^11.0.2"
   },
   "dependencies": {

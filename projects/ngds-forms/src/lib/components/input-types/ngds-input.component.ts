@@ -213,7 +213,7 @@ export class NgdsInput implements OnInit, OnDestroy {
       }
     }
   }
-  
+
   updateDisabledState(state) {
     if (state === true) {
       setTimeout(() => {
@@ -334,9 +334,9 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   getActiveDisplay() {
-    if (this.control?.value){
+    if (this.control?.value) {
       return this.getDisplayByValue(this.control.value);
-    } 
+    }
     return this.placeholder || '';
   }
 

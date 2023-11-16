@@ -1,0 +1,55 @@
+<!-- Header -->
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+
+<!-- Date input -->
+<div class="d-flex position-relative">
+  <!-- Input wrapper -->
+  <div class="input-group rounded-3 d-flex align-items-center dropdown" [ngClass]="getInputClasses()" #dropdown>
+
+    <!-- Prepended content -->
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+
+    <!-- Input display control value-->
+    <button class="form-control border-0 px-3 m-0 text-start" type="button" data-bs-toggle="dropdown"
+      data-bs-auto-close="outside" [ngClass]="{'is-invalid': isInvalid}" [disabled]="isDisabled"
+      style="min-height:2.25rem;" [value]="control?.value">
+      {{ currentDisplay }}
+    </button>
+
+    <!-- Calendar dropdowns -->
+    <span [hidden]="inline" class="dropdown-menu">
+      <ng-container *ngTemplateOutlet="calendarTemplate">
+      </ng-container>
+    </span>
+
+    <!-- Reset control button -->
+    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
+      [disabled]="isDisabled" (click)="control?.reset()"><i class="bi bi-x-lg"></i></button>
+
+    <!-- Appended content -->
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+
+  </div>
+
+  <!-- Overlay content -->
+  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+</div>
+
+<!-- Footer -->
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>
+
+<!-- Calendar inline -->
+<div *ngIf="inline">
+  <ng-container *ngTemplateOutlet="calendarTemplate">
+  </ng-container>
+</div>
+
+<!-- Calendar template -->
+<ng-template #calendarTemplate>
+  <div>
+    <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)"
+      (clearDates)="handleClearDates()" [timezone]="timezone" [disabledDatesFn]="disabledDatesFn.bind(this)"
+      [dateRange]="dateRange" [minDisplayDepth]="minMode" [maxRange]="maxRange" [selectedDate]="selectedDate.value"
+      [selectedEndDate]="selectedEndDate.value" [allowDisabledInRange]="allowDisabledInRange"></ngds-calendar-manager>
+  </div>
+</ng-template>

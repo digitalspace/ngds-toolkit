@@ -10,6 +10,8 @@ import { TypeaheadsComponent } from './forms/typeaheads/typeaheads.component';
 import { MultiselectsComponent } from './forms/multiselects/multiselects.component';
 import { FormsHomeComponent } from './forms/forms-home/forms-home.component';
 import { appResolver } from './app.resolver';
+import { DatepickersComponent } from './forms/datepicker/datepickers/datepickers.component';
+import { RangepickersComponent } from './forms/datepicker/rangepickers/rangepickers.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,16 @@ const routes: Routes = [
         path: 'multiselect',
         resolve: {clear: appResolver},
         component: MultiselectsComponent
+      },
+      {
+        path: 'datepicker',
+        resolve: {clear: appResolver},
+        component: DatepickersComponent
+      },
+      {
+        path: 'rangepicker',
+        resolve: {clear: appResolver},
+        component: RangepickersComponent
       }
     ]
   },
