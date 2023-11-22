@@ -9,8 +9,7 @@ import { NgdsInputFooter } from './components/input-addons/ngds-input-footer/ngd
 import { NgdsInputOverlayComponent } from './components/input-addons/ngds-input-overlay/ngds-input-overlay.component';
 import { BsDropdownDirective, BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgdsTypeaheadInput } from './components/input-types/typeahead-input/typeahead-input.component';
 import { NgdsMultiselectItem } from './components/input-addons/multiselect-item/multiselect-item.component';
 import { NgdsDateInput } from './components/input-types/date-input/date-input.component';
@@ -37,13 +36,12 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TypeaheadModule.forRoot()
   ],
   providers: [
-    BsDropdownDirective
+    BsDropdownDirective,
+    provideAnimations()
   ],
   exports: [
     NgdsInput,
