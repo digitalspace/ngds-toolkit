@@ -12,6 +12,10 @@ $calendar-active-bg-color: #c5c5c5;
 $calendar-inactive-text-color: #c4c4c4;
 $calendar-out-of-range-color: #707070;
 
+.sublabel-text {
+  font-size: 0.9rem;
+}
+
 .disabled-input {
   background-color: $input-disabled-bg;
 }

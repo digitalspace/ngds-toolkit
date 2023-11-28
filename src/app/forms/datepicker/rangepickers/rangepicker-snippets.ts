@@ -1,12 +1,13 @@
 export const snippets = {
   basicRangepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['basicRangepicker']"
       [dateRange]="true"
       [label]="'My rangepicker label'"
-      [subLabel]="'My rangepicker sub-label'" [placeholder]="'My placeholder'">
-    </ngds-datepicker-input>`,
+      [subLabel]="'My rangepicker sub-label'"
+      [placeholder]="'My placeholder'">
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';

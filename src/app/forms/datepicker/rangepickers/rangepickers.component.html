@@ -2,13 +2,20 @@
 </h2>
 <section>
   <p>
-    NGDS Forms Rangepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a>.
+    NGDS Forms Rangepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a> and <a href="https://popper.js.org/">popper.js</a>.
   </p>
   <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="luxonCode"></code></pre>
   <p>
     Rangepicker functionality is currently in beta.
   </p>
 </section>
+
+<h4>Browser time</h4>
+<pre class="border rounded px-3 py-1">
+  <code class="p-0">Current browser time: {{ now?.value?.toFormat('DDDD TT (z)') }}</code>
+  <code class="p-0">Current UTC time: {{ now?.value?.setZone('UTC').toFormat('DDDD TT (z)') }}</code>
+</pre>
+
 
 <section #section id="basicRangepicker" class="mb-5 mt-3">
   <h3>Basic Rangepicker</h3>
