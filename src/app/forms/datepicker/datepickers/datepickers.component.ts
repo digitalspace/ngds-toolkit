@@ -15,7 +15,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
   public fields: any = {};
   public now = new BehaviorSubject(null);
   public snippets = snippets;
-  public luxonCode = `yarn add luxon`;
+  public luxonCode = `yarn add luxon \nyarn add @popperjs/core`;
   public isDisabled = false;
   public isLoading = false;
   public customDisplayFormat = "DDDD"
@@ -52,6 +52,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
       valueFormatDatepicker: new UntypedFormControl(null),
       rawDateTimeDatepicker: new UntypedFormControl(DateTime.now(), { nonNullable: true }),
       displayFormatDatepicker: new UntypedFormControl(null),
+      hideOnSelectDatepicker: new UntypedFormControl(null),
       timezoneUTC: new UntypedFormControl(null),
       timezoneNiue: new UntypedFormControl(null),
       timezoneKiritimati: new UntypedFormControl(null),
@@ -64,7 +65,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
     }
 
     setInterval(()=>{
-      this.now.next(this.getToday());
+      this.now.next(DateTime.now());
     },1000);
   }
 
@@ -86,7 +87,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
 
   getParsedNow(){
     const formatted = this.getFormattedNow();
-    return DateTime.fromFormat(formatted, this.form.controls['reversableChecker'].value)
+    return DateTime.fromFormat(formatted, this.form.controls['reversableChecker'].value, {zone: 'UTC'});
   }
 
   checkTokenString(){
@@ -129,6 +130,10 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
   }
 
   getToday() {
+    return DateTime.now().setZone('UTC');
+  }
+
+  getBrowserTime() {
     return DateTime.now();
   }
 

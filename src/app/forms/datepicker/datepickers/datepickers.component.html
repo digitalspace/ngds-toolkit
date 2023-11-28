@@ -1,10 +1,18 @@
 <h2>Datepickers</h2>
 <section>
   <p>
-    NGDS Forms Datepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a>.
+    NGDS Forms Datepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a> and <a
+      href="https://popper.js.org/">popper.js</a>.
   </p>
   <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="luxonCode"></code></pre>
 </section>
+
+<h4>Browser time</h4>
+
+<pre class="border rounded px-3 py-1">
+  <code class="p-0">Current browser time: {{ now?.value?.toFormat('DDDD TT (z)') }}</code>
+  <code class="p-0">Current UTC time: {{ now?.value?.setZone('UTC').toFormat('DDDD TT (z)') }}</code>
+</pre>
 
 <section #section id="basicDatepicker" class="mb-5 mt-3">
   <h3>Basic Datepicker</h3>
@@ -51,9 +59,10 @@
     Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
     respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
   </p>
-  <demonstrator [htmlFile]="snippets?.disabledLoadingDatepicker?.html" [tsFile]="snippets?.disabledLoadingDatepicker?.ts"
-    [control]="form?.controls?.['disabledLoadingDatepicker']">
-    <ngds-date-input [control]="form?.controls?.['disabledLoadingDatepicker']" [resetButton]="true" [disabled]="isDisabled" [loadWhile]="isLoading" [inline]="true">
+  <demonstrator [htmlFile]="snippets?.disabledLoadingDatepicker?.html"
+    [tsFile]="snippets?.disabledLoadingDatepicker?.ts" [control]="form?.controls?.['disabledLoadingDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['disabledLoadingDatepicker']" [resetButton]="true"
+      [disabled]="isDisabled" [loadWhile]="isLoading" [inline]="true">
     </ngds-date-input>
     <div class="form-check form-switch mt-2">
       <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
@@ -80,7 +89,8 @@
   </p>
   <p>
     You must pass in a <code>luxon</code> DateTime object as the argument for <code>minDate</code> and
-    <code>maxDate</code>.
+    <code>maxDate</code>. Keep in mind that the default NGDS Datepicker timezone is <code>UTC</code>. Ensure the
+    DateTime you pass in contains the appropriate timezone.
   </p>
   <p>In the examples below, <code>minDate</code> and <code>maxDate</code> are both set to <code>today</code>.</p>
   <demonstrator [htmlFile]="snippets?.minDatepicker.html" [tsFile]="snippets?.minDatepicker.ts"
@@ -92,7 +102,7 @@
   <div class="mt-2"></div>
   <demonstrator [htmlFile]="snippets?.maxDatepicker.html" [tsFile]="snippets?.maxDatepicker.ts"
     [control]="form?.controls?.['maxDatepicker']">
-    <ngds-date-input [maxDate]="getToday()" [label]="'MaxDate'" [control]="form?.controls?.['maxDatepicker']" 
+    <ngds-date-input [maxDate]="getToday()" [label]="'MaxDate'" [control]="form?.controls?.['maxDatepicker']"
       [resetButton]="true">
     </ngds-date-input>
   </demonstrator>
@@ -244,6 +254,19 @@
     [control]="form?.controls?.['displayFormatDatepicker']">
     <ngds-date-input [control]="form?.controls?.['displayFormatDatepicker']" [resetButton]="true"
       [dateDisplayFormat]="customDisplayFormat">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="hideOnClickDatepicker" class="mb-5 mt-3">
+  <h3>Persist datepicker on click</h3>
+  <p>
+    By default, the calendar will hide itself when a date is selected. To keep the calendar open after a date is
+    selected, set <code>[hideOnSelect]="false"</code>. This does not apply to inline datepickers.
+  </p>
+  <demonstrator [htmlFile]="snippets?.hideOnSelectDatepicker.html" [tsFile]="snippets?.hideOnSelectDatepicker.ts"
+    [control]="form?.controls?.['hideOnSelectDatepicker']">
+    <ngds-date-input [control]="form?.controls?.['hideOnSelectDatepicker']" [resetButton]="true" [hideOnSelect]="false">
     </ngds-date-input>
   </demonstrator>
 </section>

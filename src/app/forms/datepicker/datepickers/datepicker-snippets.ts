@@ -1,11 +1,12 @@
 export const snippets = {
   basicDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['basicDatepicker']"
       [label]="'My datepicker label'"
-      [subLabel]="'My datepicker sub-label'" [placeholder]="'My placeholder'">
-    </ngds-datepicker-input>`,
+      [subLabel]="'My datepicker sub-label'"
+      [placeholder]="'My placeholder'">
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -25,10 +26,10 @@ export const snippets = {
   },
   programmaticDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['programmaticDatePicker']"
       [resetButton]="true">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -48,12 +49,12 @@ export const snippets = {
   },
   inlineDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['inlineDatepicker']"
       [resetButton]="true"
       [inline]="true"
     >
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -73,13 +74,13 @@ export const snippets = {
   },
   disabledLoadingDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
        [control]="form?.controls?.['disabledDatepicker']"
        [resetButton]="true"
        [disabled]="isDisabled"
        [loadWhile]="isLoading"
        [inline]="true">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -116,12 +117,12 @@ export const snippets = {
   },
   minDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['minDatePicker']"
       [label]="'MinDate'" 
       [resetButton]="true"
       [minDate]="getToday()">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -146,12 +147,12 @@ export const snippets = {
   },
   maxDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['maxDatepicker']"
       [label]="'MaxDate'" 
       [resetButton]="true"
       [maxDate]="getToday()">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -176,11 +177,11 @@ export const snippets = {
   },
   customDisabledDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['customDisabledDatepicker']"
       [resetButton]="true"
       [customDisableDatesCallback]="customDisableDatesCallback">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -217,10 +218,10 @@ export const snippets = {
   },
   invalidDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['invalidDatepicker']"
       [resetButton]="true">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -253,12 +254,12 @@ export const snippets = {
   },
   valueFormatDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['valueFormatDatepicker']"
       [label]="'Long Date Format'"
       [resetButton]="true"
       [dateFormat]="'ff'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -278,12 +279,12 @@ export const snippets = {
   },
   rawDateTimeDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['rawDateTimeDatepicker']"
       [label]="'Return Raw DateTime'"
       [resetButton]="true"
       [dateFormat]="null">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -304,11 +305,11 @@ export const snippets = {
   },
   displayFormatDatepicker: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['displayFormatDatepicker']"
       [resetButton]="true"
       [dateDisplayFormat]="customDisplayFormat">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -327,16 +328,40 @@ export const snippets = {
       }
     })`
   },
+  hideOnSelectDatepicker: {
+    html: `
+    <ngds-date-input
+      [control]="form?.controls?.['hideOnSelectDatepicker']"
+      [resetButton]="true"
+      [hideOnSelect]="false">
+    </ngds-date-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'hide-on-select-datepicker'
+      export class HideOnSelectDatepicker implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            hideOnSelectDatepicker: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
   timezoneUTC: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['timezoneUTC']"
       [resetButton]="true"
       [timezone]="'UTC'"
       [dateDisplayFormat]="'X (z)'"
       [dateFormat]="'yyyy-LL-dd, hh:mm:ss'"
       [label]="'UTC'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -356,14 +381,14 @@ export const snippets = {
   },
   timezoneKiritimati: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['timezoneKiritimati']"
       [resetButton]="true"
       [timezone]="'Pacific/Kiritimati'"
       [dateDisplayFormat]="'X (z)'"
       [dateFormat]="'yyyy-LL-dd, hh:mm:ss'"
       [label]="'Pacific/Kiritimati (UTC+14)'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -383,14 +408,14 @@ export const snippets = {
   },
   timezoneNiue: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['timezoneNiue']"
       [resetButton]="true"
       [timezone]="'Pacific/Niue'"
       [dateDisplayFormat]="'X (z)'"
       [dateFormat]="'yyyy-LL-dd, hh:mm:ss'"
       [label]="'Pacific/Niue (UTC-11)'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -410,13 +435,13 @@ export const snippets = {
   },
   minModeMonth: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['minModeMonth']"
       [resetButton]="true"
       [minMode]="1"
       [dateDisplayFormat]="'LLLL, yyyy'"
       [label]="'Month (minMode 1)'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -436,13 +461,13 @@ export const snippets = {
   },
   minModeYear: {
     html: `
-    <ngds-datepicker-input
+    <ngds-date-input
       [control]="form?.controls?.['minModeYear']"
       [resetButton]="true"
       [minMode]="2"
       [dateDisplayFormat]="'yyyy'"
       [label]="'Year (minMode 2)'">
-    </ngds-datepicker-input>`,
+    </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';

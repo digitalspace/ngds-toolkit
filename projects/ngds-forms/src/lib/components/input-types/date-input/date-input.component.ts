@@ -45,13 +45,18 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // Whether or not to allow range selections to include disabled dates. 
   @Input() allowDisabledInRange: boolean = false;
 
+  // Hide the datepicker once a date is picked
+  @Input() hideOnSelect: boolean = true;
+
   // A function that takes a DateTime as an argument and returns a boolean.
   // If the function returns true, the date associated with the supplied DateTime will be disabled.
   // If the function returns false, the date associated with the supplied DateTime will be available to select.
   @Input() customDisabledDatesCallback: (date: DateTime) => boolean;
 
-  // The dropdown that contains the datepicker/rangepicker calendar(s).
+  // The element that contains the dropdown trigger and the date selection calendars.
   @ViewChild('dropdown') dropdown: ElementRef;
+  // The template that contains the datepicker/rangepicker calendar(s).
+  @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
 
   protected currentDisplay;
   protected selectedDate = new BehaviorSubject<any>(null);
@@ -107,10 +112,10 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
       return true;
     }
     if (this.minMode === 0) {
-      if (this.maxDate && date > this.maxDate) {
+      if (this.maxDate && date.day > this.maxDate.day) {
         return true;
       }
-      if (this.minDate && date < this.minDate) {
+      if (this.minDate && date.day < this.minDate.day) {
         return true;
       }
     }
@@ -159,6 +164,9 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
         } else {
           this.control.setValue([this.selectedDate.value, newDate]);
         }
+        if (this.hideOnSelect) {
+          this.hideCalendar();
+        }
       } else {
         // clear the dates and restart
         this.currentDisplay = `${this.convertDateTimeToFormat(e, this.dateDisplayFormat)} ${this.rangeSeparator} ...`;
@@ -170,6 +178,9 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
         this.control.setValue(this.convertDateTimeToFormat(e));
       } else {
         this.control.setValue(e);
+      }
+      if (this.hideOnSelect) {
+        this.hideCalendar();
       }
     }
   }
@@ -274,5 +285,13 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    */
   onCalendarHide() {
     this.control.setValue(this.control?.value);
+  }
+
+  /**
+   * Manually hides the calendar.
+   */
+  hideCalendar() {
+    this.blur.emit();
+    this.dropdownMenu?.nativeElement?.classList?.remove('show');
   }
 };

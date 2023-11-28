@@ -14,7 +14,7 @@ export class RangepickersComponent {
   public form;
   public fields;
   public snippets = snippets
-  public luxonCode = `yarn add luxon`;
+  public luxonCode = `yarn add luxon \nyarn add @popperjs/core`;
   public isDisabled = false;
   public isLoading = false;
   public now = new BehaviorSubject(null);
