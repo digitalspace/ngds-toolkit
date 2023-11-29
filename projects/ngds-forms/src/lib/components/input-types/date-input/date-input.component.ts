@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgdsInput } from '../ngds-input.component';
 import { DateTime } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
@@ -52,6 +52,9 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // If the function returns true, the date associated with the supplied DateTime will be disabled.
   // If the function returns false, the date associated with the supplied DateTime will be available to select.
   @Input() customDisabledDatesCallback: (date: DateTime) => boolean;
+
+  // Emits when the display changes.
+  @Output() displayChange = new EventEmitter;
 
   // The element that contains the dropdown trigger and the date selection calendars.
   @ViewChild('dropdown') dropdown: ElementRef;
@@ -191,6 +194,13 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   handleClearDates() {
     this.selectedDate.next(null);
     this.selectedEndDate.next(null);
+  }
+
+  /**
+   * Emits when the display changes (on calendar update)
+   */
+  handleDisplayChange() {
+    this.displayChange.emit();
   }
 
   /**

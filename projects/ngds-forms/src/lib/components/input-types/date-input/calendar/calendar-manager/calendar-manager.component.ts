@@ -61,6 +61,9 @@ export class NgdsCalendarManager implements OnInit {
   // Emits when input is cleared.
   @Output() clearDates = new EventEmitter;
 
+  //Emits when the display changes.
+  @Output() displayChange = new EventEmitter;
+
   protected startCalendar = new BehaviorSubject<calendarConfig>({ index: 1 });
   protected endCalendar = new BehaviorSubject<calendarConfig>({ index: 2 });
   protected displayDepth = new BehaviorSubject<number>(0); // date, 1 = month, 2 = year 
@@ -242,6 +245,7 @@ export class NgdsCalendarManager implements OnInit {
       years: this.getYears(date.year),
       maxRange: this.maxRange
     });
+    this.displayChange.emit();
     if (emitChange) {
       this.sendDate(date);
     }
