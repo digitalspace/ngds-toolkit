@@ -10,7 +10,7 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button #typeaheadContainer class="form-select border-0" style="min-height: 2.25rem;"
+    <button #typeaheadContainer class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
       [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [disabled]="isDisabled"
       (click)="openDropdown()">
       <!-- Input display current value -->

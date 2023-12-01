@@ -4,20 +4,20 @@
 <!-- Date input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="input-group rounded-3 d-flex align-items-center dropdown" [ngClass]="getInputClasses()" #dropdown>
+  <div class="input-group border rounded-3 d-flex align-items-center dropdown" [ngClass]="getInputClasses()" #dropdown>
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input display control value-->
-    <button class="form-control border-0 px-3 m-0 text-start" type="button" data-bs-toggle="dropdown"
-      data-bs-auto-close="outside" [ngClass]="{'is-invalid': isInvalid, 'text-muted': !control?.value }" [disabled]="isDisabled"
-      style="min-height:2.25rem;" [value]="control?.value">
+    <button class="form-control border-0 text-start rounded-3" style="margin-left: 1px" type="button"   data-bs-toggle="dropdown"
+      data-bs-auto-close="outside" [ngClass]="{'is-invalid': isInvalid, 'text-muted': !control?.value }"
+      [disabled]="isDisabled" style="min-height:2.25rem;" [value]="control?.value">
       {{ currentDisplay || placeholder }}
+      <!-- Calendar dropdowns -->
     </button>
 
-    <!-- Calendar dropdowns -->
-    <span [hidden]="inline" class="dropdown-menu" #dropdownMenu>
+    <span [hidden]="inline" class="dropdown-menu inline-dropdown" #dropdownMenu>
       <ng-container *ngTemplateOutlet="calendarTemplate">
       </ng-container>
     </span>
@@ -46,10 +46,10 @@
 
 <!-- Calendar template -->
 <ng-template #calendarTemplate>
-  <div>
-    <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)"
-      (clearDates)="handleClearDates()" (displayChange)="handleDisplayChange()" [timezone]="timezone" [disabledDatesFn]="disabledDatesFn.bind(this)"
-      [dateRange]="dateRange" [minDisplayDepth]="minMode" [maxRange]="maxRange" [selectedDate]="selectedDate.value"
-      [selectedEndDate]="selectedEndDate.value" [allowDisabledInRange]="allowDisabledInRange"></ngds-calendar-manager>
-  </div>
+  <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)"
+    (clearDates)="handleClearDates()" (displayChange)="handleDisplayChange()" [timezone]="timezone"
+    [disabledDatesFn]="disabledDatesFn.bind(this)" [dateRange]="dateRange" [minDisplayDepth]="minMode"
+    [maxRange]="maxRange" [selectedDate]="selectedDate.value" [selectedEndDate]="selectedEndDate.value"
+    [allowDisabledInRange]="allowDisabledInRange">
+  </ngds-calendar-manager>
 </ng-template>

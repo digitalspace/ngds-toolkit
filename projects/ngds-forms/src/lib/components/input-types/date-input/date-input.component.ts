@@ -123,18 +123,18 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
       }
     }
     if (this.minMode === 1) {
-      if (this.maxDate && date.month > this.maxDate.month){
+      if (this.maxDate && date.month > this.maxDate.month) {
         return true;
       }
-      if (this.minDate && date.month < this.minDate.month){
+      if (this.minDate && date.month < this.minDate.month) {
         return true;
       }
     }
     if (this.minMode === 2) {
-      if (this.maxDate && date.year > this.maxDate.year){
+      if (this.maxDate && date.year > this.maxDate.year) {
         return true;
       }
-      if (this.minDate && date.year < this.minDate.year){
+      if (this.minDate && date.year < this.minDate.year) {
         return true;
       }
     }
@@ -295,6 +295,14 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    */
   onCalendarHide() {
     this.control.setValue(this.control?.value);
+  }
+
+  /**
+   * Manually shows the calendar
+   */
+  showCalendar() {
+    this.focus.emit();
+    this.dropdownMenu.nativeElement.classList.add('show');
   }
 
   /**

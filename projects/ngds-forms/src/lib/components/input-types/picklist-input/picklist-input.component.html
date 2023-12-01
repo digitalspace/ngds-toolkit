@@ -11,7 +11,7 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button dropdownToggle type="button" style="min-height: 2.25rem;" class="form-select border-0 text-start" [ngClass]="{'is-invalid': isInvalid}"
+    <button dropdownToggle type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="{'is-invalid': isInvalid}"
       [value]="control?.value">
       <!-- Input display current value -->
       <!-- Multiselect display items -->
