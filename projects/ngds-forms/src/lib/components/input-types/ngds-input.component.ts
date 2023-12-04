@@ -165,9 +165,11 @@ export class NgdsInput implements OnInit, OnDestroy {
       if (this.emitValueChangeWhenNull) {
         // Emit status change only if the value isn't null or undefined
         this.valueChange.emit(res);
+        this.control.markAsDirty();
       } else {
         if (res !== null && res !== undefined) {
           this.valueChange.emit(res);
+          this.control.markAsDirty();
         }
       }
     }));
@@ -288,6 +290,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     } else {
       this.control.setValue(value);
     }
+    this.control.markAsDirty();
   }
 
   multiselectAll() {

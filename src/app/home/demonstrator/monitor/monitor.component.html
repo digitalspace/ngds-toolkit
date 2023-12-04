@@ -6,6 +6,12 @@
     <div>
       <pre class="mb-0"><strong>State: </strong><span [ngClass]="getStatusClass()">{{control?.status || null}}</span></pre>
     </div>
+    <div>
+      <pre class="mb-0"><strong>Touched: </strong><span [ngClass]="getTouchedClass()">{{getTouchedString() || null}}</span></pre>
+    </div>
+    <div>
+      <pre class="mb-0"><strong>Interacted: </strong><span [ngClass]="getPristineClass()">{{getPristineString() || null}}</span></pre>
+    </div>
   </div>
   <div class="col-auto d-flex justify-content-end btn-group">
     <button class="btn btn-outline-secondary" title="log raw control to console" (click)="logToConsole()"><i class="bi bi-box-arrow-in-right"></i></button>
