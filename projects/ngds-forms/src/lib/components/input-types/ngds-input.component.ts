@@ -250,10 +250,12 @@ export class NgdsInput implements OnInit, OnDestroy {
       classes["border-danger"] = true;
     } else {
     }
-    if (this.isDisabled && type !== 'toggle') {
-      classes["disabled-input"] = true;
-    } else {
-      classes["bg-white"] = true;
+    if (type !== 'toggle') {
+      if (this.isDisabled) {
+        classes["disabled-input"] = true;
+      } else {
+        classes["bg-white"] = true;
+      }
     }
     classes = Object.assign(classes, this.inputClasses);
     return classes;

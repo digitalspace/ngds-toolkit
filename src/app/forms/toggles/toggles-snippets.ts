@@ -4,7 +4,7 @@ export const snippets = {
     <ngds-toggle-input
       [control]="form?.controls?.['basicCheckbox']"
       [label]="My input label"
-      [sublabel]="My input sublabel">
+      [subLabel]="My input sublabel">
     </ngds-toggle-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
@@ -28,7 +28,7 @@ export const snippets = {
     <ngds-toggle-input
       [control]="form?.controls?.['basicSwitch']"
       [label]="My input label"
-      [sublabel]="My input sublabel"
+      [subLabel]="My input sublabel"
       [switch]="true">
     </ngds-toggle-input>`,
     ts: `
@@ -53,7 +53,7 @@ export const snippets = {
     <ngds-input-header
       [control]="form?.controls?.['standardLabelToggle']"
       [label]="'My input label'"
-      [sublabel]="'My input sublabel'">
+      [subLabel]="'My input sublabel'">
     </ngds-input-header>
     <ngds-toggle-input
       [control]="form?.controls?.['standardLabelToggle']">
@@ -63,13 +63,13 @@ export const snippets = {
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 
     @Component({
-      selector: 'basic-switch'
-      export class BasicSwitch implements OnInit {
+      selector: 'standard-label-toggle'
+      export class StandardLabelToggle implements OnInit {
         public form;
 
         ngOnInit(): void {
           this.form = new UntypedFormGroup({
-            basicSwitch: new UntypedFormControl(false);
+            standardLabelToggle: new UntypedFormControl(false);
           })
         }
       }
