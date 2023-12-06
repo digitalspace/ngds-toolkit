@@ -1,0 +1,176 @@
+<h2>Toggle Inputs</h2>
+<p>
+  NGDS toggles are comprised of checkboxes and switches and are good for representing boolean controls. Note that NGDS
+  toggles require an underlying Angular <code>FormControl</code> object and therefore may be overkill for some toggle
+  applications. Rudumentary toggles can be implemented with raw bootstrap.
+</p>
+<section #section id="basicCheckbox" class="mb-5 mt-3">
+  <h3>Basic checkbox</h3>
+  <p>
+    NGDS toggle inputs can be <code>true</code> (checked) or <code>false</code> (unchecked).
+  </p>
+  <demonstrator [htmlFile]="snippets?.basicCheckbox?.html" [tsFile]="snippets?.basicCheckbox?.ts"
+    [control]="form?.controls?.['basicCheckbox']">
+    <ngds-toggle-input [control]="form?.controls?.['basicCheckbox']" [label]="'My input label'"
+      [subLabel]="'My input sub-label'">
+    </ngds-toggle-input>
+  </demonstrator>
+</section>
+<section #section id="basicSwitch" class="mb-5 mt-3">
+  <h3>Basic switch</h3>
+  <p>
+    The default toggle type is a checkbox.
+  </p>
+  <p>
+    Pass in <code>[switch]="true"</code> to change the toggle to a switch.
+  </p>
+  <demonstrator [htmlFile]="snippets?.basicSwitch?.html" [tsFile]="snippets?.basicSwitch?.ts"
+    [control]="form?.controls?.['basicSwitch']">
+    <ngds-toggle-input [control]="form?.controls?.['basicSwitch']" [label]="'My input label'"
+      [subLabel]="'My input sub-label'" [switch]="true">
+    </ngds-toggle-input>
+  </demonstrator>
+</section>
+
+<section #section id="standardLabelToggle" class="mb-5 mt-3">
+  <h3>Toggle with standard label</h3>
+  <p>
+    By default, NGDS toggle labels are positioned to the right of the toggle instead of above standard like other
+    controls. If the above standard is desired, manually adding a <code>ngds-input-header</code> is possible.
+  </p>
+  <demonstrator [htmlFile]="snippets?.standardLabelToggle?.html" [tsFile]="snippets?.standardLabelToggle?.ts"
+    [control]="form?.controls?.['standardLabelToggle']">
+    <ngds-input-header [control]="form?.controls?.['standardLabelToggle']" [label]="'My input label'"
+      [subLabel]="'My input sub-label'">
+    </ngds-input-header>
+    <ngds-toggle-input [control]="form?.controls?.['standardLabelToggle']">
+    </ngds-toggle-input>
+  </demonstrator>
+</section>
+
+<section #section id="disabledToggle" class="mb-5 mt-3">
+  <h3>Disabled toggle</h3>
+  <p>
+    Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
+    respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.disabledToggle?.html" [tsFile]="snippets?.disabledToggle?.ts"
+    [control]="form?.controls?.['disabledToggle']">
+    <div class="row">
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['disabledToggle']" [disabled]="isDisabled"
+          [loadWhile]="isLoading" [label]="'Checkbox'">
+        </ngds-toggle-input>
+      </div>
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['disabledToggle']" [disabled]="isDisabled"
+          [loadWhile]="isLoading" [switch]="true" [label]="'Switch'">
+        </ngds-toggle-input>
+      </div>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+        [checked]="form?.controls?.['disabledToggle'].disabled" (click)="disableProgrammatically('disabledToggle')">
+      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+    </div>
+  </demonstrator>
+</section>
+
+<section #section id="toggleValidation" class="mb-5 mt-3">
+  <h3>Toggle validation</h3>
+  <p>
+    Angular Validators will work with NGDS toggles. <code>requireTrue</code> is common for toggle inputs.
+  </p>
+  <demonstrator [htmlFile]="snippets?.toggleValidation?.html" [tsFile]="snippets?.toggleValidation?.ts"
+    [control]="form?.controls?.['toggleValidation']">
+    <div class="row">
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['toggleValidation']"
+          [label]="'Yes, I have totally read the EULA terms and conditions.'">
+        </ngds-toggle-input>
+      </div>
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['toggleValidation']" [switch]="true"
+          [label]="'This switch cannot be off.'">
+        </ngds-toggle-input>
+      </div>
+    </div>
+  </demonstrator>
+</section>
+
+<section #section id="inlineToggle" class="mb-5 mt-3">
+  <h3>Inline toggle</h3>
+  <p>
+    NGDS's <code>ngdsInputPrepend</code> and <code>ngdsInputAppend</code> can be leveraged to show checkboxes inline.
+    Inline text looks similar to a toggle <code>[label]</code> but is unclickable by default.
+  </p>
+  <demonstrator [htmlFile]="snippets?.inlineToggle?.html" [tsFile]="snippets?.inlineToggle?.ts"
+    [control]="form?.controls?.['inlineToggle']">
+    <div class="row">
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['inlineToggle']">
+          <i ngdsInputPrepend class="bi bi-house me-2"></i>
+          <div ngdsInputAppend class="ms-1">This checkbox is styled inline.</div>
+        </ngds-toggle-input>
+      </div>
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['inlineToggle']" [switch]="true">
+          <i ngdsInputPrepend class="bi bi-house me-2"></i>
+          <div ngdsInputAppend>This switch is styled inline.</div>
+        </ngds-toggle-input>
+      </div>
+    </div>
+  </demonstrator>
+</section>
+
+
+
+<section #section id="clickablePrependAppend" class="mb-5 mt-3">
+  <h3>Clickable prepends and appends</h3>
+  <p>
+    The clickable behaviour of <code>ngdsInputPrepend</code> and <code>ngdsInputAppend</code> can be altered using
+    <code>[clickablePrepend]="true"</code> and <code>[clickableAppend]="true"</code>.
+  </p>
+  <p>When set to true, the input will toggle when the prepended/appended elements are clicked.</p>
+  <demonstrator [htmlFile]="snippets?.clickablePrependAppend?.html" [tsFile]="snippets?.clickablePrependAppend?.ts"
+    [control]="form?.controls?.['clickablePrependAppend']">
+    <div class="row">
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['clickablePrependAppend']" [clickableAppend]="true">
+          <div ngdsInputPrepend class="me-1 text-muted">Unclickable prepend</div>
+          <div ngdsInputAppend class="ms-1">Clickable append</div>
+        </ngds-toggle-input>
+      </div>
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['clickablePrependAppend']" [switch]="true"
+          [clickableAppend]="true">
+          <div ngdsInputPrepend class="me-1 text-muted">Unclickable prepend</div>
+          <div ngdsInputAppend>Clickable append</div>
+        </ngds-toggle-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['clickablePrependAppend']" [clickablePrepend]="true">
+          <div ngdsInputPrepend class="me-1">Clickable prepend</div>
+          <div ngdsInputAppend class="ms-1 text-muted">Unclickable append</div>
+        </ngds-toggle-input>
+      </div>
+      <div class="col">
+        <ngds-toggle-input [control]="form?.controls?.['clickablePrependAppend']" [switch]="true"
+          [clickablePrepend]="true">
+          <div ngdsInputPrepend class="me-1">Clickable prepend</div>
+          <div ngdsInputAppend class="text-muted">Unclickable append</div>
+        </ngds-toggle-input>
+      </div>
+    </div>
+  </demonstrator>
+</section>

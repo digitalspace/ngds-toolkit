@@ -11,6 +11,7 @@ export class NgdsInputHeader {
   @Input() label: string;
   @Input() subLabel: string;
   @Input() showCharacterCount: boolean = false;
+  @Input() normalFont: boolean = false // Don't bold the header label
 
   // TODO: implement tooltip.
 

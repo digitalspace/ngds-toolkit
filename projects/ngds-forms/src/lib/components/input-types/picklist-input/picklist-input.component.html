@@ -4,7 +4,7 @@
 <!-- Picklist Input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div #inputGroup class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()" dropdown
+  <div #inputGroup class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()" dropdown
     (isOpenChange)="onOpenChange($event)" [isDisabled]="isDisabled">
 
     <!-- Prepended content -->
@@ -16,8 +16,8 @@
       <!-- Input display current value -->
       <!-- Multiselect display items -->
       <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
-        <ngds-multiselect-item class="col-auto p-0 m-1" *ngFor="let item of control?.value"
-          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled">
+        <ngds-multiselect-item class="col-auto p-0 my-0 me-1" *ngFor="let item of control?.value"
+          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled" >
         </ngds-multiselect-item>
       </div>
       <!-- Display current value as string -->
@@ -40,11 +40,11 @@
     </button>
 
     <!-- Select all button -->
-    <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0"
+    <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0 focus-highlight"
     [disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
 
     <!-- Clear control button -->
-    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0"
+    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
       [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
 
       <!-- Appended content -->

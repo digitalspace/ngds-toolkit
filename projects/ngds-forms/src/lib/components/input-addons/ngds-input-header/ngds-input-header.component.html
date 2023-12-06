@@ -1,7 +1,9 @@
 <!-- Label -->
 <div *ngIf="label || showCharacterCount" class="my-1 d-flex row">
   <div *ngIf="label" class="col">
-    <label [attr.for]="control?.id"><strong>{{label}}</strong>
+    <label [attr.for]="control?.id">
+      <strong *ngIf="!normalFont">{{label}}</strong>
+      <div *ngIf="normalFont">{{label}}</div>
       <!-- Show required asterisk -->
       <span *ngIf="isRequired()" class="text-danger ms-1">*</span>
       <!-- Show sub label -->
@@ -10,10 +12,12 @@
       </div>
     </label>
   </div>
-  <div *ngIf="showCharacterCount && getMaxLength()" class="col-auto ms-auto mt-auto" [ngClass]="{'text-danger': control?.value?.length > getMaxLength()}">
+  <div *ngIf="showCharacterCount && getMaxLength()" class="col-auto ms-auto mt-auto"
+    [ngClass]="{'text-danger': control?.value?.length > getMaxLength()}">
     {{ control?.value?.length || 0}}/{{ getMaxLength()}}
   </div>
-  <div *ngIf="showCharacterCount && !getMaxLength()" class="col-auto ms-auto mt-auto" [ngClass]="{'text-danger': control?.errors}">
+  <div *ngIf="showCharacterCount && !getMaxLength()" class="col-auto ms-auto mt-auto"
+    [ngClass]="{'text-danger': control?.errors}">
     {{ control?.value?.length || 0}}
   </div>
 </div>

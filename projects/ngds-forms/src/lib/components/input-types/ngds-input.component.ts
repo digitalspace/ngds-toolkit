@@ -237,7 +237,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     return false;
   }
 
-  getInputClasses() {
+  getInputClasses(type = 'default') {
     let classes = {};
     if (this.inputClasses && this.inputClasses.length > 1) {
       for (const inputClass of this.inputClasses) {
@@ -246,12 +246,11 @@ export class NgdsInput implements OnInit, OnDestroy {
     }
     if (this.isInvalid) {
       classes["is-invalid"] = true;
-      classes["border"] = true;
+      classes["was-validated"] = true;
       classes["border-danger"] = true;
     } else {
-      classes["border"] = true;
     }
-    if (this.isDisabled) {
+    if (this.isDisabled && type !== 'toggle') {
       classes["disabled-input"] = true;
     } else {
       classes["bg-white"] = true;

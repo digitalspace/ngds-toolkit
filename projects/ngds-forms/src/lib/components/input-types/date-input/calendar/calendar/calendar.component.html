@@ -18,12 +18,12 @@
       </div>
       <div class="d-flex row">
         <div class="col">
-          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(-1)" [disabled]="disabled">
+          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(-1)" [disabled]="disabled" aria-label="previous calendar">
             <i class="bi bi-chevron-left"></i>
           </button>
         </div>
         <div class="col">
-          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(1)" [disabled]="disabled">
+          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(1)" [disabled]="disabled" aria-label="next calendar">
             <i class="bi bi-chevron-right"></i>
           </button>
         </div>
