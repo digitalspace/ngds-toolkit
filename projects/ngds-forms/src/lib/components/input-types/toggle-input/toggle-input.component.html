@@ -1,0 +1,28 @@
+<!-- Toggle input -->
+<div class="d-flex position-relative">
+  <!-- Input wrapper -->
+  <div class="d-flex align-items-center rounded" [ngClass]="getInputClasses('toggle')">
+
+    <!-- Prepended content -->
+    <div (click)="toggle(clickablePrepend)">
+      <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+    </div>
+
+    <div [ngClass]="{'form-switch': switch}" class="d-flex align-items-center">
+      <input type="checkbox" class="form-check-input mt-0 was-validated" [value]="control.value" (change)="toggle()"
+        [required]="isInvalid" [checked]="control?.value" [disabled]="isDisabled" [attr.id]="control?.id">
+    </div>
+
+    <!-- Header -->
+    <ngds-input-header class="ms-2" *ngIf="label || subLabel" #inputHeader [label]="label" [subLabel]="subLabel"
+      [control]="control" [normalFont]="true"></ngds-input-header>
+
+    <!-- Appended content -->
+    <div (click)="toggle(clickableAppend)">
+      <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>

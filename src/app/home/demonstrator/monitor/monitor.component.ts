@@ -30,8 +30,11 @@ export class MonitorComponent {
     if (this.control?.value === '' || this.control?.value?.length === 0) {
       return 'text-primary';
     }
-    if (this.control?.value === null || this.control?.value === undefined) {
+    if (this.control?.value === null || this.control?.value === undefined || this.control?.value === false) {
       return 'text-danger';
+    }
+    if (this.control?.value === true) {
+      return 'text-success';
     }
     return ''
   }
@@ -51,6 +54,9 @@ export class MonitorComponent {
     }
     if (this.control?.value === undefined) {
       return '<undefined>';
+    }
+    if (this.control?.value === false) {
+      return 'false';
     }
     return this.control.value || null;
   }

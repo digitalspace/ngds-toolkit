@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { FormsHomeComponent } from './forms-home/forms-home.component';
 import { DatepickersComponent } from './datepicker/datepickers/datepickers.component';
 import { RangepickersComponent } from './datepicker/rangepickers/rangepickers.component';
+import { TogglesComponent } from './toggles/toggles.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RangepickersComponent } from './datepicker/rangepickers/rangepickers.co
     MultiselectsComponent,
     FormsHomeComponent,
     DatepickersComponent,
-    RangepickersComponent
+    RangepickersComponent,
+    TogglesComponent
   ],
   imports: [
     CommonModule,

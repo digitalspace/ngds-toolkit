@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   // The minimum length that must be typed before suggestion dropdown appears. If 0, dropdown opens on select.
-  @Input() typeaheadMinLength: number = 0; 
+  @Input() typeaheadMinLength: number = 0;
 
   @ViewChild('defaultListTemplate') defaultListTemplate: TemplateRef<any>;
   @ViewChild('typeaheadInput') typeaheadInput: ElementRef;
@@ -73,6 +73,17 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
       this.currentDisplay = null;
     }
     this.currentDisplay = this.getDisplayByValue(this.control?.value);
+  }
+
+  resetClicked() {
+    this.control.reset();
+    this.matchInputToControl();
+    this.isOpen.next(false);
+  }
+
+  selectAll() {
+    this.multiselectAll();
+    this.isOpen.next(false);
   }
 
   // User interacted with the UI model; update the control to reflect.
