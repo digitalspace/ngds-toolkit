@@ -17,7 +17,7 @@ import { NgdsCalendar } from './components/input-types/date-input/calendar/calen
 import { NgdsCalendarManager } from './components/input-types/date-input/calendar/calendar-manager/calendar-manager.component';
 import { NgdsToggleInput } from './components/input-types/toggle-input/toggle-input.component';
 
-export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput};
+export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput, NgdsToggleInput};
 
 @NgModule({
   declarations: [
