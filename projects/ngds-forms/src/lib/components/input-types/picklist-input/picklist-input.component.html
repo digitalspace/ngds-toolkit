@@ -28,7 +28,7 @@
       </div>
       <!-- Dropdown menu -->
       <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li *ngFor="let option of selectionListItems" (click)="updateValue(option?.value || option)" role="menuitem" class="option-item">
+        <li *ngFor="let option of selectionListItems" (click)="onValueChange(option?.value || option)" role="menuitem" class="option-item">
           <!-- Display current menu item as template -->
           <ng-container *ngIf="showTemplate()" [ngTemplateOutlet]="selectionListTemplate"
             [ngTemplateOutletContext]="{data: option}"></ng-container>
