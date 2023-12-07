@@ -26,6 +26,12 @@ export class NgdsPicklistInput extends NgdsInput {
     return false;
   }
 
+  onValueChange(value) {
+    this.updateValue(value);
+    this.control.markAsDirty();
+    this.control.updateValueAndValidity();
+  }
+
   onOpenChange(e) {
     if (e) {
       this.onFocus();

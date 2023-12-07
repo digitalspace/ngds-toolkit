@@ -245,13 +245,21 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           this.selectedDate.next(e[0]);
           this.selectedEndDate.next(e[1]);
         }
+        this.control.markAsDirty();
+        this.control.updateValueAndValidity();
       }
     } else {
       // expect string
-      if (this.dateFormat && e) {
-        this.selectedDate.next(DateTime.fromFormat(e, this.dateFormat, { zone: this.timezone }));
+      if (e) {
+        if (this.dateFormat) {
+          this.selectedDate.next(DateTime.fromFormat(e, this.dateFormat, { zone: this.timezone }));
+        } else {
+          this.selectedDate.next(e);
+        }
+        this.control.markAsDirty();
+        this.control.updateValueAndValidity();
       } else {
-        this.selectedDate.next(e || null);
+        this.selectedDate.next(null);
       }
     }
   }
@@ -294,6 +302,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    * We can trigger this reset by just setting the control value to itself. 
    */
   onCalendarHide() {
+    this.control.markAsTouched();
     this.control.setValue(this.control?.value);
   }
 

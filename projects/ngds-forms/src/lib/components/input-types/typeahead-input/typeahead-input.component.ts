@@ -101,6 +101,8 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     });
     if (match) {
       this.updateValue(match.value);
+      this.control.markAsDirty();
+      this.control.updateValueAndValidity();
     } else {
       this.updateValue(null);
     }
