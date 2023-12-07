@@ -22,7 +22,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   protected isOpen = new BehaviorSubject<boolean>(false);
 
   // If true, control update follows model change. If false, model update follows control change.
-  private editByModel: boolean;
+  private editByModel: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -41,7 +41,11 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     this.isOpen.next(true);
     this.subscriptions.add(this.control.valueChanges.subscribe(() => {
       if (!this.editByModel) {
-        this.isOpen.next(true);
+        if (this.multiselect) {
+          this.isOpen.next(false);
+        } else {
+          this.isOpen.next(true);
+        }
         this.matchInputToControl();
       }
     }))

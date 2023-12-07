@@ -246,7 +246,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           this.selectedEndDate.next(e[1]);
         }
         this.control.markAsDirty();
-        this.control.updateValueAndValidity();
       }
     } else {
       // expect string
@@ -257,7 +256,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           this.selectedDate.next(e);
         }
         this.control.markAsDirty();
-        this.control.updateValueAndValidity();
       } else {
         this.selectedDate.next(null);
       }
