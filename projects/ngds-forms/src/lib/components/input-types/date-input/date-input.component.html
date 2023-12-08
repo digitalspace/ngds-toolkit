@@ -46,7 +46,7 @@
 
 <!-- Calendar template -->
 <ng-template #calendarTemplate>
-  <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)"
+  <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)" [control]="control"
     (clearDates)="handleClearDates()" (displayChange)="handleDisplayChange()" [timezone]="timezone"
     [disabledDatesFn]="disabledDatesFn.bind(this)" [dateRange]="dateRange" [minDisplayDepth]="minMode"
     [maxRange]="maxRange" [selectedDate]="selectedDate.value" [selectedEndDate]="selectedEndDate.value"

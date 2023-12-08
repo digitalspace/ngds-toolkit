@@ -152,7 +152,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
     if (this.disabledDatesFn(e)) {
       return;
     }
-    this.control.markAsTouched();
     if (this.dateRange) {
       // create array of start/end dates
       if (this.selectedDate.value && !this.selectedEndDate.value) {
@@ -245,7 +244,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           this.selectedDate.next(e[0]);
           this.selectedEndDate.next(e[1]);
         }
-        this.control.markAsDirty();
       }
     } else {
       // expect string
@@ -255,7 +253,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
         } else {
           this.selectedDate.next(e);
         }
-        this.control.markAsDirty();
       } else {
         this.selectedDate.next(null);
       }
@@ -317,6 +314,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    */
   hideCalendar() {
     this.blur.emit();
+    this.control.markAsTouched();
     this.dropdownMenu?.nativeElement?.classList?.remove('show');
   }
 };

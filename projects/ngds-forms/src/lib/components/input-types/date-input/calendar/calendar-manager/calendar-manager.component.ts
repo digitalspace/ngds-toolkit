@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 import { DateTime, Interval } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 
@@ -22,6 +23,9 @@ interface weekConfig {
   styleUrls: ['../../../../../../../assets/styles/styles.scss']
 })
 export class NgdsCalendarManager implements OnInit {
+  // The control object
+  @Input() control: UntypedFormControl;
+
   // The IANA string pertaining to the luxon timezone in which all DateTime calculations are performed.
   @Input() timezone: string = 'UTC';
 
@@ -248,6 +252,7 @@ export class NgdsCalendarManager implements OnInit {
     this.displayChange.emit();
     if (emitChange) {
       this.sendDate(date);
+      this.control.markAsDirty();
     }
   }
 
