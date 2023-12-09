@@ -114,28 +114,43 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
     if (this.isDisabled) {
       return true;
     }
-    if (this.minMode === 0) {
-      if (this.maxDate && date.day > this.maxDate.day) {
-        return true;
-      }
-      if (this.minDate && date.day < this.minDate.day) {
-        return true;
+    const dateISO = date.toISODate();
+    if (this.minDate) {
+      const minISO = this.minDate?.toISODate();
+      switch (this.minMode) {
+        case 2:
+          if (dateISO.slice(0, 4) < minISO.slice(0, 4)) {
+            return true;
+          };
+          break;
+        case 1:
+          if (dateISO.slice(0, 7) < minISO.slice(0, 7)) {
+            return true;
+          };
+          break;
+        default:
+          if (dateISO < minISO) {
+            return true;
+          };
       }
     }
-    if (this.minMode === 1) {
-      if (this.maxDate && date.month > this.maxDate.month) {
-        return true;
-      }
-      if (this.minDate && date.month < this.minDate.month) {
-        return true;
-      }
-    }
-    if (this.minMode === 2) {
-      if (this.maxDate && date.year > this.maxDate.year) {
-        return true;
-      }
-      if (this.minDate && date.year < this.minDate.year) {
-        return true;
+    if (this.maxDate) {
+      const maxISO = this.maxDate?.toISODate();
+      switch (this.minMode) {
+        case 2:
+          if (dateISO.slice(0, 4) > maxISO.slice(0, 4)) {
+            return true;
+          };
+          break;
+        case 1:
+          if (dateISO.slice(0, 7) > maxISO.slice(0, 7)) {
+            return true;
+          };
+          break;
+        default:
+          if (dateISO > maxISO) {
+            return true;
+          };
       }
     }
     if (this.customDisabledDatesCallback && this.customDisabledDatesCallback(date)) {
@@ -143,6 +158,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
     }
     return false;
   }
+
 
   /**
    * Handles when new dates are selected from the calendar elements.
