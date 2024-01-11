@@ -34,6 +34,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
       multilineMaxInput: new UntypedFormControl(null, Validators.maxLength(20)),
       multilineMinInput: new UntypedFormControl(null, Validators.minLength(10)),
       requiredInput: new UntypedFormControl(null, Validators.required),
+      hideInvalidState: new UntypedFormControl(null, Validators.required),
       customValidator: new UntypedFormControl(null, [this.customValidator()]),
       inline: new UntypedFormControl(null),
     })
@@ -65,6 +66,9 @@ export class TextInputComponent implements OnInit, AfterViewInit {
   customValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
+      if (!value) {
+        return { emptyField: 'Field cannot be empty!'};
+      }
       if (value === 'invalid') {
         return { customValidator: 'The value of this input cannot be "invalid"' }
       }

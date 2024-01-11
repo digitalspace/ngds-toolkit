@@ -123,6 +123,18 @@
   </demonstrator>
 </section>
 
+<section #section id="hideInvalidState" class="mb-5 mt-3">
+  <h3>Hide invalid state</h3>
+  <p>
+    Set <code>[hideInvalidState]="true"</code> if you do not want to display a red border or error messages when the control is invalid. The field below is required, but no invalidation message shows.
+  </p>
+  <demonstrator [htmlFile]="snippets?.hideInvalidState?.html" [tsFile]="snippets?.hideInvalidState?.ts"
+    [control]="form?.controls?.['hideInvalidState']">
+    <ngds-text-input [control]="form?.controls?.['hideInvalidState']" [hideInvalidState]="true" > 
+    </ngds-text-input>
+  </demonstrator>
+</section>
+
 <section #section id="customValidator" class="mb-5 mt-3">
   <h3>Custom validation</h3>
   <p>

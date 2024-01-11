@@ -97,14 +97,14 @@
   <demonstrator [htmlFile]="snippets?.minDatepicker.html" [tsFile]="snippets?.minDatepicker.ts"
     [control]="form?.controls?.['minDatepicker']">
     <ngds-date-input [label]="'MinDate'" [control]="form?.controls?.['minDatepicker']" [resetButton]="true"
-      [minDate]="getToday()">
+      [minDate]="getToday()" [timezone]="'America/Vancouver'">
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
   <demonstrator [htmlFile]="snippets?.maxDatepicker.html" [tsFile]="snippets?.maxDatepicker.ts"
     [control]="form?.controls?.['maxDatepicker']">
     <ngds-date-input [maxDate]="getToday()" [label]="'MaxDate'" [control]="form?.controls?.['maxDatepicker']"
-      [resetButton]="true">
+      [resetButton]="true" [timezone]="'America/Vancouver'">
     </ngds-date-input>
   </demonstrator>
 </section>
@@ -338,14 +338,14 @@
   <demonstrator [htmlFile]="snippets?.minModeMonth?.html" [tsFile]="snippets?.minModeMonth?.ts"
     [control]="form?.controls?.['minModeMonth']">
     <ngds-date-input [control]="form?.controls?.['minModeMonth']" [resetButton]="true" [minMode]="1"
-      [dateDisplayFormat]="'LLLL, yyyy'" [label]="'Month (minMode 1)'">
+      [dateDisplayFormat]="'LLLL, yyyy'" [label]="'Month (minMode 1)'" [maxDate]="getToday()">
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
   <demonstrator [htmlFile]="snippets?.minModeYear?.html" [tsFile]="snippets?.minModeYear?.ts"
     [control]="form?.controls?.['minModeYear']">
     <ngds-date-input [control]="form?.controls?.['minModeYear']" [resetButton]="true" [minMode]="2"
-      [dateDisplayFormat]="'yyyy'" [label]="'Year (minMode 2)'">
+      [dateDisplayFormat]="'yyyy'" [label]="'Year (minMode 2)'" [maxDate]="getToday()">
     </ngds-date-input>
   </demonstrator>
 </section>

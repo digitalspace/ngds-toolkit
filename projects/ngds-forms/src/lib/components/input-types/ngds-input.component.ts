@@ -88,6 +88,9 @@ export class NgdsInput implements OnInit, OnDestroy {
     this._loading.next(isLoading);
   }
 
+  // If true, invalid colouring and invalid messages are not used. 
+  @Input() hideInvalidState = false;
+
   // OUTPUTS
 
   // Emits the new value of the control when it changes.
@@ -242,7 +245,7 @@ export class NgdsInput implements OnInit, OnDestroy {
         classes[inputClass] = true;
       }
     }
-    if (this.isInvalid) {
+    if (this.isInvalid && !this.hideInvalidState) {
       if (type === 'toggle') {
         classes["was-validated"] = true;
       }

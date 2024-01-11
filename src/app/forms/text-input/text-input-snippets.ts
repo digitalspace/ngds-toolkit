@@ -192,6 +192,28 @@ export const snippets = {
       }
     })`
   },
+  hideInvalidState: {
+    html: `
+    <ngds-text-input
+      [control]="form?.controls?.['hideInvalidState']" [hideInvalidState]="true">
+    </ngds-text-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+
+    @Component({
+      selector: 'required-input'
+      export class HideInvalidState implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            hideInvalidState: new UntypedFormControl(null, Validators.required),
+          })
+        }
+      }
+    })`
+  },
   customValidator: {
     html: `
     <ngds-text-input
