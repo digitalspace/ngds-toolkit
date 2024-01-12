@@ -268,6 +268,17 @@ export class NgdsInput implements OnInit, OnDestroy {
     return this.control.hasValidator(Validators.required);
   }
 
+  // If there is a required validator on the field we need to hide the resetButton until the field is dirty to prevent weird invalid display issues.
+  showResetButton() {
+    if (!this.resetButton) {
+      return false;
+    }
+    if (this.control.hasValidator(Validators.required)) {
+      return this.resetButton && this.control.dirty
+    }
+    return true
+  }
+
   onFocus() {
     this._isFocused.next(true);
     this.focus.emit();

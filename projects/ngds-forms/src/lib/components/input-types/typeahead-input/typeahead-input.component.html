@@ -37,7 +37,7 @@
       [disabled]="isDisabled" (click)="selectAll()"><i class="bi bi-list-check"></i></button>
 
     <!-- Clear control button -->
-    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
+    <button *ngIf="showResetButton()" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
       [disabled]="isDisabled" (click)="resetClicked()"><i class="bi bi-x-lg"></i></button>
 
     <!-- Appended content -->
