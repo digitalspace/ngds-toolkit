@@ -17,8 +17,6 @@ export class NgdsInputFooter {
   @Input() invalidFieldMsgMaxLength: string = '';
   @Input() showMsgWhenInvalid: boolean = true;
 
-  constructor() { }
-
   // If the control is invalid, show the message.
   isShowInvalid() {
     if (this.showMsgWhenInvalid) {
@@ -39,49 +37,45 @@ export class NgdsInputFooter {
         case 'min':
           if (this.invalidFieldMsgMin) {
             return this.invalidFieldMsgMin
-          } else { 
-            if (this.control.errors[firstErrorKey].min) {
-              return `The minimum value of this field can be no less than ${this.control.errors[firstErrorKey].min}.`
-            }
+          } else if (this.control.errors[firstErrorKey].min) {
+            return `The minimum value of this field can be no less than ${this.control.errors[firstErrorKey].min}.`
           }
           break;
         case 'max':
           if (this.invalidFieldMsgMax) {
             return this.invalidFieldMsgMax
-          } else { 
-            if (this.control.errors[firstErrorKey].min) {
-              return `The maximum value of this field can be no more than ${this.control.errors[firstErrorKey].max}.`
-            }
+          } else if (this.control.errors[firstErrorKey].min) {
+            return `The maximum value of this field can be no more than ${this.control.errors[firstErrorKey].max}.`
           }
           break;
         case 'minlength':
           if (this.invalidFieldMsgMinLength) {
             return this.invalidFieldMsgMinLength
-          } else { 
+          } else if (this.control.errors.minlength.requiredLength) {
             if (this.control.errors.minlength.requiredLength) {
               return `This field must be at least ${this.control.errors.minlength.requiredLength} characters in length.`;
             } else {
               return `This field has too few characters.`;
             }
           }
+          break;
         case 'maxlength':
           if (this.invalidFieldMsgMaxLength) {
             return this.invalidFieldMsgMaxLength;
-          } else { 
+          } else {
             if (this.control.errors.maxlength.requiredLength) {
               return `This field must be at most ${this.control.errors.maxlength.requiredLength} characters in length.`;
-            }  else {
+            } else {
               return `This field has too many characters.`;
             }
           }
         default:
-          if (this.control.errors[firstErrorKey]){
+          if (this.control.errors[firstErrorKey]) {
             return this.control.errors[firstErrorKey]
           }
           return this.invalidFieldMsgDefault
       }
     }
-    return;
   }
 
 }

@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ngds-nav-card',
-  templateUrl: './nav-card.component.html',
-  styleUrls: ['./nav-card.component.scss']
+  templateUrl: './nav-card.component.html'
 })
 export class NgdsNavCard {
   @Input() headerText: string = '';
@@ -17,8 +16,6 @@ export class NgdsNavCard {
   @Input() navIsRelative: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
-
-  ngOnInit(): void { }
 
   navigate(nav) {
     if (this.navIsRelative) {

@@ -13,8 +13,6 @@ export class NgdsInputHeader {
   @Input() showCharacterCount: boolean = false;
   @Input() normalFont: boolean = false // Don't bold the header label
 
-  // TODO: implement tooltip.
-
   // Show red asterisk if input is required.
   isRequired() {
     return this.control?.hasValidator(Validators.required);

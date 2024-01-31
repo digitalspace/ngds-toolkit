@@ -101,7 +101,6 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
       if (this.currentDisplay?.indexOf(e.matcher) > -1) {
         return e;
       }
-      return;
     });
     if (match) {
       this.updateValue(match.value);

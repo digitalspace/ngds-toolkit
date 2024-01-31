@@ -261,17 +261,15 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           this.selectedEndDate.next(e[1]);
         }
       }
-    } else {
+    } else if (e) {
       // expect string
-      if (e) {
-        if (this.dateFormat) {
-          this.selectedDate.next(DateTime.fromFormat(e, this.dateFormat, { zone: this.timezone }));
-        } else {
-          this.selectedDate.next(e);
-        }
+      if (this.dateFormat) {
+        this.selectedDate.next(DateTime.fromFormat(e, this.dateFormat, { zone: this.timezone }));
       } else {
-        this.selectedDate.next(null);
+        this.selectedDate.next(e);
       }
+    } else {
+      this.selectedDate.next(null);
     }
   }
 

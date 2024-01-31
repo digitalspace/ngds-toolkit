@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef,
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
 
-import { selectionItemSchema } from '../../form-models';
+import { SelectionItemSchema } from '../../form-models';
 
 @Directive({
   selector: 'ngds-input',
@@ -46,7 +46,7 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // The list of available options in a picklist or typeahead. Provide options as either a basic array, or an array of type selectionItemSchema for more custom options.
   private _selectionListItems = new BehaviorSubject<any>([]);
-  @Input() set selectionListItems(items: any[] | selectionItemSchema[]) {
+  @Input() set selectionListItems(items: any[] | SelectionItemSchema[]) {
     if (items) {
       if (this._isInputInitialized.value) {
         this.updateSelectionListItems(items);
@@ -168,21 +168,17 @@ export class NgdsInput implements OnInit, OnDestroy {
       if (this.emitValueChangeWhenNull) {
         // Emit status change only if the value isn't null or undefined
         this.valueChange.emit(res);
-      } else {
-        if (res !== null && res !== undefined) {
-          this.valueChange.emit(res);
-        }
+      } else if (res !== null && res !== undefined) {
+        this.valueChange.emit(res);
       }
     }));
     this.subscriptions.add(this.control.statusChanges.subscribe((res) => {
       if (this.emitStatusWhenRecalculated) {
         // Emit status change only if the status actually changes.
         this.statusChange.emit(res);
-      } else {
-        if (res !== this.lastControlState) {
-          this.statusChange.emit(res);
-          this.lastControlState = res;
-        }
+      } else if (res !== this.lastControlState) {
+        this.statusChange.emit(res);
+        this.lastControlState = res;
       }
     }));
 
@@ -208,12 +204,10 @@ export class NgdsInput implements OnInit, OnDestroy {
     })
     if (found) {
       this.control?.setValue(controlValue);
+    } else if (this.autoSelectFirstItem) {
+      this.control?.setValue(this.selectionListItems[0]);
     } else {
-      if (this.autoSelectFirstItem) {
-        this.control?.setValue(this.selectionListItems[0]);
-      } else {
-        this.control?.reset();
-      }
+      this.control?.reset();
     }
   }
 
@@ -251,7 +245,6 @@ export class NgdsInput implements OnInit, OnDestroy {
       }
       classes["is-invalid"] = true;
       classes["border-danger"] = true;
-    } else {
     }
     if (type !== 'toggle') {
       if (this.isDisabled) {

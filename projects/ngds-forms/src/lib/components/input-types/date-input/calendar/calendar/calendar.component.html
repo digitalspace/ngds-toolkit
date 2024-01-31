@@ -44,7 +44,6 @@
       <tbody *ngFor="let week of calendarConfig?.value?.weeks; index as i"
         (mouseleave)="changeHoverDate.emit(selectedDate)">
         <tr>
-          <!-- <th scope="row" class="fw-bold me-2 p-2 calendar-cell">{{ week }}</th> -->
           <td *ngFor="let day of weekdays; index as j" class="px-0">
             <button [disabled]="checkDisabledDate(week[j])" [ngClass]="getDateClasses(week[j])"
               (click)="updateDateOnClick(week[j])" (mouseenter)="updateHoverDate(week[j])"

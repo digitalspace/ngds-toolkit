@@ -3,17 +3,17 @@ import { UntypedFormControl } from '@angular/forms';
 import { DateTime, Interval } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 
-interface calendarConfig {
+interface CalendarConfig {
   index: number,
   date?: DateTime,
   monthNumber?: number;
   monthName?: string;
   year?: number;
-  weeks?: weekConfig[];
+  weeks?: WeekConfig[];
   years?: number[];
 }
 
-interface weekConfig {
+interface WeekConfig {
   dates: DateTime[]
 }
 
@@ -68,8 +68,8 @@ export class NgdsCalendarManager implements OnInit {
   //Emits when the display changes.
   @Output() displayChange = new EventEmitter;
 
-  protected startCalendar = new BehaviorSubject<calendarConfig>({ index: 1 });
-  protected endCalendar = new BehaviorSubject<calendarConfig>({ index: 2 });
+  protected startCalendar = new BehaviorSubject<CalendarConfig>({ index: 1 });
+  protected endCalendar = new BehaviorSubject<CalendarConfig>({ index: 2 });
   protected displayDepth = new BehaviorSubject<number>(0); // date, 1 = month, 2 = year 
 
   ngOnInit() {
@@ -206,7 +206,7 @@ export class NgdsCalendarManager implements OnInit {
     let sendDate = false;
     if (this.minDisplayDepth === 2) {
       newDate = newDate.startOf('year');
-      increment*=12;
+      increment *= 12;
       sendDate = true;
     }
     this.updateCalendarConfig(newDate, calendar, sendDate);
@@ -230,8 +230,6 @@ export class NgdsCalendarManager implements OnInit {
     let weeks = [];
     let week = [];
     for (const date of dates) {
-      if (date.hour !== 0) {
-      }
       week.push(date);
       if (week.length > 6) {
         weeks.push(week);
@@ -272,7 +270,6 @@ export class NgdsCalendarManager implements OnInit {
         i++;
         first++;
       }
-      i = 0;
       years.push(row);
     }
     return years;

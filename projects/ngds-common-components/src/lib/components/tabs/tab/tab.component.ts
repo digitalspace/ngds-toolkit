@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ngds-tab',
-  templateUrl: './tab.component.html',
-  styleUrls: ['./tab.component.scss']
+  templateUrl: './tab.component.html'
 })
 export class NgdsTab {
   @Input() id: string; // tab id
