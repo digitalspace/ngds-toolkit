@@ -4,14 +4,13 @@
 <!-- Picklist Input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div #inputGroup class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()" dropdown
-    (isOpenChange)="onOpenChange($event)" [isDisabled]="isDisabled">
+  <div class="dropdown input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button dropdownToggle type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="{'is-invalid': isInvalid}"
+    <button data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="{'is-invalid': isInvalid}" [disabled]="isDisabled"
       [value]="control?.value">
       <!-- Input display current value -->
       <!-- Multiselect display items -->
@@ -27,7 +26,7 @@
         <ng-container *ngTemplateOutlet="selectionListTemplate"></ng-container>
       </div>
       <!-- Dropdown menu -->
-      <ul *dropdownMenu class="dropdown-menu" role="menu">
+      <ul class="dropdown-menu" role="menu">
         <li *ngFor="let option of selectionListItems" (click)="onValueChange(option?.value || option)" role="menuitem" class="option-item">
           <!-- Display current menu item as template -->
           <ng-container *ngIf="showTemplate()" [ngTemplateOutlet]="selectionListTemplate"

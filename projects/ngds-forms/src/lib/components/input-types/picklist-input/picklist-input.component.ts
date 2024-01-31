@@ -29,6 +29,7 @@ export class NgdsPicklistInput extends NgdsInput {
   onValueChange(value) {
     this.updateValue(value);
     this.control.markAsDirty();
+    this.control.markAsTouched();
     this.control.updateValueAndValidity();
   }
 
