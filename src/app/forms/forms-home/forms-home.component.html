@@ -19,6 +19,11 @@
       </ngds-nav-card>
     </div>
     <div class="col">
+      <ngds-nav-card #text [headerText]="'Number Input'" [headerClasses]="'bg-dark text-light'"
+        [buttonClasses]="'bg-dark text-light'" [bodyText]="'Numerical inputs.'" [navigation]="'forms/numbers'">
+      </ngds-nav-card>
+    </div>
+    <div class="col">
       <ngds-nav-card #picklist [headerText]="'Picklists'" [headerClasses]="'bg-dark text-light'"
         [buttonClasses]="'bg-dark text-light'" [bodyText]="'Select from a list of pre-defined options.'"
         [navigation]="'forms/picklist'">

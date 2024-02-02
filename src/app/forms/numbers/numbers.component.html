@@ -1,0 +1,153 @@
+<h2>Number Inputs</h2>
+<p>
+  Numerical inputs can be notoriously complicated to implement, and typically enforce many formatting rules and
+  restrictions. Therefore, NGDS-Forms number inputs remain relatively simplistic in the behaviour they can achieve.
+  Importantly, NGDS-Forms number inputs store their values as <code>string</code>, not <code>number</code>, due to heavy
+  use of regular expressions and complications arising from using the HTML <code>type="number"</code> property of the
+  <code>&lt;input&gt;</code> tag. Conversion to the desired type is left to the developer.
+</p>
+<p>
+  For complex numerical inputs, it may be advisable to create a custom input that extends the base
+  <code>NgdsInput</code> component (<a
+    href="https://github.com/digitalspace/ngds-toolkit/blob/master/projects/ngds-forms/src/lib/components/input-types/ngds-input.component.ts"
+    target="_blank">view on Github</a>).
+</p>
+<section #section id="basicNumberEntry" class="mb-5 mt-3">
+  <h3>Basic numerical entry</h3>
+  <p>
+    Number formatting is enforced by regular expression. By default, the following regex rules are enforced:
+  </p>
+  <ul>
+    <li>Only digits, 1 decimal point, and 1 minus sign allowed.</li>
+    <li>The minus sign can only be placed at the beginning of the input.</li>
+    <li>Unlimited decimal places.</li>
+  </ul>
+  <demonstrator [htmlFile]="snippets?.basicNumber?.html" [tsFile]="snippets?.basicNumber?.ts"
+    [control]="form?.controls?.['basicNumber']">
+    <ngds-number-input [control]="form?.controls?.['basicNumber']" [label]="'My input label'"
+      [subLabel]="'My input sub-label'" [placeholder]="'My placeholder'" [resetButton]="true">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="disabledInput" class="mb-5 mt-3">
+  <h3>Disabled number input</h3>
+  <p>
+    Use the toggle to enable/disable the control. You can use the <code>[disabled]</code> attribute to bind to a boolean
+    or function that evaluates to a boolean. This will set the state of <code>control.enabled</code> and
+    <code>control.disabled</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.disabledNumber?.html" [tsFile]="snippets?.disabledNumber?.ts"
+    [control]="form?.controls?.['disabledNumber']">
+    <ngds-number-input [control]="form?.controls?.['disabledNumber']" [resetButton]="true" [disabled]="isDisabled"
+      [loadWhile]="isLoading">
+    </ngds-number-input>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
+      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
+      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+    </div>
+    <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+        [checked]="form?.controls?.['disabledNumber'].disabled" (click)="disableProgrammatically('disabledNumber')">
+      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+    </div>
+  </demonstrator>
+</section>
+
+<section #section id="validation" class="mb-5 mt-3">
+  <h3>Number validation</h3>
+  <p>
+    Use the toggle to enable/disable the control. You can use the <code>[disabled]</code> attribute to bind to a boolean
+    or function that evaluates to a boolean. This will set the state of <code>control.enabled</code> and
+    <code>control.disabled</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.maxNumber?.html" [tsFile]="snippets?.maxNumber?.ts"
+    [control]="form?.controls?.['maxNumber']">
+    <ngds-number-input [control]="form?.controls?.['maxNumber']" [label]="'Maximum'">
+    </ngds-number-input>
+  </demonstrator>
+  <demonstrator [htmlFile]="snippets?.minNumber?.html" [tsFile]="snippets?.minNumber?.ts"
+    [control]="form?.controls?.['minNumber']">
+    <ngds-number-input [control]="form?.controls?.['minNumber']" [label]="'Minimum'">
+    </ngds-number-input>
+  </demonstrator>
+  <demonstrator [htmlFile]="snippets?.customNumberValidator?.html" [tsFile]="snippets?.customNumberValidator?.ts"
+    [control]="form?.controls?.['customNumberValidator']">
+    <ngds-number-input [control]="form?.controls?.['customNumberValidator']" [label]="'Custom validation'">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="enforcePositive" class="mb-5 mt-3">
+  <h3>Enforce positive numbers</h3>
+  <p>
+    Set <code>[allowNegative]="false"</code> to restrict entry to positive numbers.
+  </p>
+  <demonstrator [htmlFile]="snippets?.positiveOnly?.html" [tsFile]="snippets?.positiveOnly?.ts"
+    [control]="form?.controls?.['positiveOnly']">
+    <ngds-number-input [control]="form?.controls?.['positiveOnly']" [allowNegative]="false" [resetButton]="true">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="decimalPlaces" class="mb-5 mt-3">
+  <h3>Integers and decimal places</h3>
+  <p>
+    The <code>[decimalPlaces]</code> property can be used to limit the number of decimal places in the entry. By default
+    <code>[decimalPlaces]="-1"</code> which correlates to unlimited decimal places.
+  </p>
+  <p>
+    Using <code>[decimalPlaces]="0"</code> enforces integers - no decimal places.
+  </p>
+  <p>
+    Using <code>[decimalPlaces]=">0"</code> enforces the provided number of decimal places.
+  </p>
+  <demonstrator [htmlFile]="snippets?.integer?.html" [tsFile]="snippets?.integer?.ts"
+    [control]="form?.controls?.['integer']">
+    <ngds-number-input [control]="form?.controls?.['integer']" [resetButton]="true" [label]="'Integer'"
+      [decimalPlaces]="0">
+    </ngds-number-input>
+  </demonstrator>
+  <demonstrator [htmlFile]="snippets?.twoDecimalPlaces?.html" [tsFile]="snippets?.twoDecimalPlaces?.ts"
+    [control]="form?.controls?.['twoDecimalPlaces']">
+    <ngds-number-input [control]="form?.controls?.['twoDecimalPlaces']" [resetButton]="true"
+      [label]="'Two Decimal Places'" [decimalPlaces]="2">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="padDecimals" class="mb-5 mt-3">
+  <h3>Pad decimal places</h3>
+  <p>
+    Setting <code>[padDecimals]="true"</code> will format the entered number to the number of decimal places specified in <code>[decimalPlaces]</code> when the control loses focus. In the example below, <code>[decimalPlaces]="3"</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.padDecimals?.html" [tsFile]="snippets?.padDecimals?.ts"
+    [control]="form?.controls?.['padDecimals']">
+    <ngds-number-input [control]="form?.controls?.['padDecimals']" [resetButton]="true"[padDecimals]="true" [decimalPlaces]="3">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="increment" class="mb-5 mt-3">
+  <h3>Scroll and button increment</h3>
+  <p>
+    Allow a user to increment and decrement the value of the input using the mouse scroll wheel by setting <code>[mouseScrollIncrement]="true"</code>. Add increment/decrement buttons to the input by setting <code>[showIncrements]="true"</code>.
+  </p>
+  <p>
+    Increment size can be changed by setting <code>[incrementValue]</code> to the desired number. Default value is 1. Note that <code>[incrementValue]</code> must be greater than or equal to the smallest number that can be represented with the number of decimal places allowed for the input.
+  </p>
+  <demonstrator [htmlFile]="snippets?.increment?.html" [tsFile]="snippets?.increment?.ts"
+    [control]="form?.controls?.['increment']">
+    <ngds-number-input [control]="form?.controls?.['increment']" [label]="'Increment by 1'" [resetButton]="true" [showIncrements]="true" [mouseScrollIncrement]="true">
+    </ngds-number-input>
+  </demonstrator>
+  <demonstrator [htmlFile]="snippets?.increment2?.html" [tsFile]="snippets?.increment2?.ts"
+    [control]="form?.controls?.['increment2']">
+    <ngds-number-input [control]="form?.controls?.['increment2']" [resetButton]="true" [label]="'Increment by 0.02, no negatives, pad decimals'" [showIncrements]="true" [mouseScrollIncrement]="true" [incrementValue]="0.02" [decimalPlaces]="2" [allowNegative]="false" [padDecimals]="true">
+    </ngds-number-input>
+  </demonstrator>
+</section>

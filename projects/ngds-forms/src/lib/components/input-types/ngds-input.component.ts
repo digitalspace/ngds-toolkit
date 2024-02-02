@@ -165,6 +165,7 @@ export class NgdsInput implements OnInit, OnDestroy {
 
     // add subscriptions to emit status and value changes
     this.subscriptions.add(this.control.valueChanges.subscribe((res) => {
+      this.onControlValueChanges(res);
       if (this.emitValueChangeWhenNull) {
         // Emit status change only if the value isn't null or undefined
         this.valueChange.emit(res);
@@ -350,6 +351,9 @@ export class NgdsInput implements OnInit, OnDestroy {
     }
     return this.placeholder || '';
   }
+
+  // Override this method in extended classes to tap into onchanges
+  onControlValueChanges(value) {}
 
   // unsubscribe from all subscriptions when component is destroyed.
   ngOnDestroy() {

@@ -26,6 +26,10 @@ export class MonitorComponent {
     console.log('Control:', this.control);
   }
 
+  getType() {
+    return typeof this.control.value;
+  }
+
   getValueClass() {
     if (this.control?.value === '' || this.control?.value?.length === 0) {
       return 'text-primary';
@@ -57,6 +61,9 @@ export class MonitorComponent {
     }
     if (this.control?.value === false) {
       return 'false';
+    }
+    if (this.control.value === 0) {
+      return 0;
     }
     return this.control.value || null;
   }

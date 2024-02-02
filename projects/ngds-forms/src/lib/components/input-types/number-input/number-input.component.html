@@ -1,0 +1,46 @@
+<!-- Header -->
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+
+<!-- Number input -->
+<div class="d-flex position-relative">
+
+  <!-- Input wrapper -->
+  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+
+    <!-- Prepended content -->
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+
+    <!-- Input -->
+    <input inputmode="numeric" #inputField [formControl]="control"
+      class="form-control border-0 rounded-3"
+      [ngClass]="{'is-invalid': hideInvalidState ? false : isInvalid,'disabled-input': isDisabled}"
+      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onLoseFocus()" [attr.id]="control?.id">
+
+    <!-- Increment/decrement buttons -->
+    <div *ngIf="showIncrements" class="d-block mx-3">
+      <div class="row">
+        <button type="button" aria-label="increment" class="btn btn-inline border-0 focus-highlight p-0 increment-button"
+          [disabled]="isDisabled" (click)="increment()"><i class="bi bi-caret-up-fill"></i></button>
+      </div>
+      <div class="row">
+        <button type="button" aria-label="decrement" class="btn btn-inline border-0 focus-highlight p-0 increment-button"
+          [disabled]="isDisabled" (click)="increment(true)"><i class="bi bi-caret-down-fill"></i></button>
+      </div>
+    </div>
+
+    <!-- Reset control button -->
+    <button *ngIf="showResetButton()" type="button" aria-label="reset input"
+      class="btn btn-inline border-0 focus-highlight" [disabled]="isDisabled" (click)="control.reset()"><i
+        class="bi bi-x-lg"></i></button>
+
+    <!-- Appended content -->
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+  </div>
+
+
+  <!-- Overlay content -->
+  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+</div>
+
+<!-- Footer -->
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState"></ngds-input-footer>

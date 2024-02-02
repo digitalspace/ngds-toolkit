@@ -36,15 +36,15 @@ export class NgdsInputFooter {
           return this.invalidFieldMsgRequiredTrue;
         case 'min':
           if (this.invalidFieldMsgMin) {
-            return this.invalidFieldMsgMin
+            return this.invalidFieldMsgMin;
           } else if (this.control.errors[firstErrorKey].min) {
             return `The minimum value of this field can be no less than ${this.control.errors[firstErrorKey].min}.`
           }
           break;
         case 'max':
           if (this.invalidFieldMsgMax) {
-            return this.invalidFieldMsgMax
-          } else if (this.control.errors[firstErrorKey].min) {
+            return this.invalidFieldMsgMax;
+          } else if (this.control.errors[firstErrorKey].max) {
             return `The maximum value of this field can be no more than ${this.control.errors[firstErrorKey].max}.`
           }
           break;

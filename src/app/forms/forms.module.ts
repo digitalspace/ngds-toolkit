@@ -15,6 +15,7 @@ import { FormsHomeComponent } from './forms-home/forms-home.component';
 import { DatepickersComponent } from './datepicker/datepickers/datepickers.component';
 import { RangepickersComponent } from './datepicker/rangepickers/rangepickers.component';
 import { TogglesComponent } from './toggles/toggles.component';
+import { NumbersComponent } from './numbers/numbers.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TogglesComponent } from './toggles/toggles.component';
     FormsHomeComponent,
     DatepickersComponent,
     RangepickersComponent,
-    TogglesComponent
+    TogglesComponent,
+    NumbersComponent
   ],
   imports: [
     CommonModule,

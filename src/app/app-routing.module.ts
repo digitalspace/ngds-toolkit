@@ -13,6 +13,7 @@ import { appResolver } from './app.resolver';
 import { DatepickersComponent } from './forms/datepicker/datepickers/datepickers.component';
 import { RangepickersComponent } from './forms/datepicker/rangepickers/rangepickers.component';
 import { TogglesComponent } from './forms/toggles/toggles.component';
+import { NumbersComponent } from './forms/numbers/numbers.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
         path: 'text',
         resolve: {clear: appResolver},
         component: TextInputComponent
+      },
+      {
+        path: 'numbers',
+        resolve: {clear: appResolver},
+        component: NumbersComponent
       },
       {
         path: 'picklist',

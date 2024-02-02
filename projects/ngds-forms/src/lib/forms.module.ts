@@ -16,6 +16,7 @@ import { NgdsDateInput } from './components/input-types/date-input/date-input.co
 import { NgdsCalendar } from './components/input-types/date-input/calendar/calendar/calendar.component';
 import { NgdsCalendarManager } from './components/input-types/date-input/calendar/calendar-manager/calendar-manager.component';
 import { NgdsToggleInput } from './components/input-types/toggle-input/toggle-input.component';
+import { NgdsNumberInput } from './components/input-types/number-input/number-input.component';
 
 export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput, NgdsToggleInput};
 
@@ -32,7 +33,8 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     NgdsDateInput,
     NgdsCalendar,
     NgdsCalendarManager,
-    NgdsToggleInput
+    NgdsToggleInput,
+    NgdsNumberInput
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     NgdsPicklistInput,
     NgdsTypeaheadInput,
     NgdsDateInput,
-    NgdsToggleInput
+    NgdsToggleInput,
+    NgdsNumberInput
   ],
 })
 export class NgdsForms { }
