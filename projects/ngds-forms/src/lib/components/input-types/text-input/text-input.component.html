@@ -4,16 +4,16 @@
 <!-- Text input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input *ngIf="!multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="{'is-invalid': hideInvalidState ? false : isInvalid,'disabled-input': isDisabled}" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+    <input #inputElement *ngIf="!multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
 
     <!-- Input -->
-    <textarea *ngIf="multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="{'is-invalid': hideInvalidState ? false : isInvalid,'disabled-input': isDisabled}" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
+    <textarea *ngIf="multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
 
     <!-- Reset control button -->
     <button *ngIf="showResetButton()" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"

@@ -30,8 +30,6 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     "-"
   ];
 
-  @ViewChild('inputField') inputField: ElementRef;
-
   public functionKeyCodes: string[] = [
     "AltLeft",
     "AltRight",
@@ -176,7 +174,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
   }
 
   getCaretPos() {
-    return Number(this.inputField?.nativeElement?.selectionStart || 0);
+    return Number(this.inputElement?.nativeElement?.selectionStart || 0);
   }
 
   increment(decrement = false) {

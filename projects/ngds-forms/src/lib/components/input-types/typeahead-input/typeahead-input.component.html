@@ -4,14 +4,14 @@
 <!-- Typeahead input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button #typeaheadContainer class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
-      [ngClass]="{'is-invalid': isInvalid, 'disabled-input': isDisabled}" [disabled]="isDisabled"
+    <button #inputElement class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
+      [ngClass]="getInputClasses()" [disabled]="isDisabled"
       (click)="openDropdown()">
       <!-- Input display current value -->
       <!-- Multiselect display items -->

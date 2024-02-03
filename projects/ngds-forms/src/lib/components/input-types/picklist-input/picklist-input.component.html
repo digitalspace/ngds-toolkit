@@ -4,13 +4,13 @@
 <!-- Picklist Input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="dropdown input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+  <div class="dropdown input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <button data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="{'is-invalid': isInvalid}" [disabled]="isDisabled"
+    <button #inputElement data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="getInputClasses()" [disabled]="isDisabled"
       [value]="control?.value">
       <!-- Input display current value -->
       <!-- Multiselect display items -->

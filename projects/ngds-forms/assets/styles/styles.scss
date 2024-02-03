@@ -11,6 +11,8 @@ $calendar-in-range-hover-bg-color:#e6eaee;
 $calendar-active-bg-color: #c5c5c5;
 $calendar-inactive-text-color: #c4c4c4;
 $calendar-out-of-range-color: #707070;
+$active-outline: #123456;
+$active-invalid-outline: red;
 
 .sublabel-text {
   font-size: 0.9rem;
@@ -132,5 +134,22 @@ $calendar-out-of-range-color: #707070;
 
 .increment-button{
   font-size: 0.75rem;
+}
+
+.is-focused {
+  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+  border-color: #86b7fe !important;
+  &.is-invalid {
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb),.25);
+    border-color: #ea868f !important;
+  }
+}
+
+.form-control {
+  box-shadow: none !important;
+}
+
+.form-select {
+  box-shadow: none !important;
 }
 

@@ -5,15 +5,15 @@
 <div class="d-flex position-relative">
 
   <!-- Input wrapper -->
-  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
+  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
 
     <!-- Prepended content -->
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input inputmode="numeric" #inputField [formControl]="control"
+    <input inputmode="numeric" #inputElement [formControl]="control"
       class="form-control border-0 rounded-3"
-      [ngClass]="{'is-invalid': hideInvalidState ? false : isInvalid,'disabled-input': isDisabled}"
+      [ngClass]="getInputClasses()"
       [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onLoseFocus()" [attr.id]="control?.id">
 
     <!-- Increment/decrement buttons -->

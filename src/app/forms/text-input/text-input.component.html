@@ -148,6 +148,18 @@
   </demonstrator>
 </section>
 
+<section #section id="justification" class="mb-5 mt-3">
+  <h3>Justification</h3>
+  <p>
+    The justification of some input types can be changed with <code>[justify]</code>, which uses the Bootstrap locations <code>start</code>, <code>end</code>, and <code>center</code> to justify the input value. Default is <code>start</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.justify?.html" [tsFile]="snippets?.justify?.ts"
+    [control]="form?.controls?.['justify']">
+    <ngds-text-input [control]="form?.controls?.['justify']"  [justify]="'end'">
+    </ngds-text-input>
+  </demonstrator>
+</section>
+
 <section #section id="inline" class="mb-5 mt-3">
   <h3>Inline input items</h3>
   <p>

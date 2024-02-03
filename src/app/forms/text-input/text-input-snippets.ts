@@ -246,6 +246,29 @@ export const snippets = {
       }
     })`
   },
+  justify: {
+    html: `
+    <ngds-text-input
+      [control]="form?.controls?.['justify']"
+      [justify]="'end'">
+    </ngds-text-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+
+    @Component({
+      selector: 'justified-text-input'
+      export class JustifiedTextInput implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            justify: new UntypedFormControl(null),
+          })
+        }       
+      }
+    })`
+  },
   inline: {
     html: `
     <ngds-text-input [control]="form?.controls?.['inline']" [resetButton]="true">

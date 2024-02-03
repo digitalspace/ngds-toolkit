@@ -73,7 +73,8 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // Subscribe to the datepicker closing
-    this.dropdown.nativeElement.addEventListener('hide.bs.dropdown', () => this.onCalendarHide());
+    this.dropdown.nativeElement.addEventListener('hide.bs.dropdown', () => this.hideCalendar());
+    this.dropdown.nativeElement.addEventListener('show.bs.dropdown', () => this.showCalendar());
     // Set dateDisplayFormat to dateFormat if not provided
     if (!this.dateDisplayFormat) {
       this.dateDisplayFormat = this.dateFormat;
@@ -319,7 +320,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    * Manually shows the calendar
    */
   showCalendar() {
-    this.focus.emit();
+    this.onFocus();
     this.dropdownMenu.nativeElement.classList.add('show');
   }
 
@@ -327,7 +328,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
    * Manually hides the calendar.
    */
   hideCalendar() {
-    this.blur.emit();
+    this.onBlur();
     this.control.markAsTouched();
     this.dropdownMenu?.nativeElement?.classList?.remove('show');
   }

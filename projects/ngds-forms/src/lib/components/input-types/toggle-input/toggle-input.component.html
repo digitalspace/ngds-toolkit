@@ -1,7 +1,7 @@
 <!-- Toggle input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="d-flex align-items-center rounded" [ngClass]="getInputClasses('toggle')">
+  <div class="d-flex align-items-center rounded" [ngClass]="getWrapperClasses('toggle')">
 
     <!-- Prepended content -->
     <div (click)="toggle(clickablePrepend)">
@@ -9,8 +9,7 @@
     </div>
 
     <div [ngClass]="{'form-switch': switch}" class="d-flex align-items-center">
-      <input type="checkbox" class="form-check-input mt-0 was-validated" [value]="control.value" (change)="toggle()"
-        [required]="isInvalid" [checked]="control?.value" [disabled]="isDisabled" [attr.id]="control?.id">
+      <input #inputElement type="checkbox" class="form-check-input mt-0 was-validated" [value]="control.value" (change)="toggle()" [ngClass]="getInputClasses('toggle')" [required]="isInvalid" [checked]="control?.value" [disabled]="isDisabled" [attr.id]="control?.id">
     </div>
 
     <!-- Header -->

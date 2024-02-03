@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { NgdsInput } from '../ngds-input.component';
 
 @Component({
@@ -6,7 +6,12 @@ import { NgdsInput } from '../ngds-input.component';
   templateUrl: './picklist-input.component.html',
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
-export class NgdsPicklistInput extends NgdsInput {
+export class NgdsPicklistInput extends NgdsInput implements AfterViewInit {
+
+  ngAfterViewInit(): void {
+    this.inputElement.nativeElement.addEventListener('hide.bs.dropdown', () => this.onBlur());
+    this.inputElement.nativeElement.addEventListener('show.bs.dropdown', () => this.onFocus());
+  }
 
   showSelectedTemplate(): boolean {
     if (this.selectionListTemplate) {

@@ -13,7 +13,6 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
 
   @ViewChild('defaultListTemplate') defaultListTemplate: TemplateRef<any>;
   @ViewChild('typeaheadInput') typeaheadInput: ElementRef;
-  @ViewChild('typeaheadContainer') typeaheadContainer: ElementRef;
 
   // Current value to display in the typeahead input.
   protected currentDisplay;
@@ -31,7 +30,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     super();
     // Listen for click events that happen outside of the input. The typeahead text entry should close when the input loses focus, but unfortunately the blur event occurs before any changes are captured, so when selecting from the dropdown, the select is missed if the input closes itself first. 
     this.renderer.listen('window', 'mousedown', (e: Event) => {
-      if (!this.typeaheadContainer.nativeElement.contains(e.target)) {
+      if (!this.inputElement.nativeElement.contains(e.target)) {
         this.preBlurEvent();
       }
     })

@@ -37,6 +37,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
       hideInvalidState: new UntypedFormControl(null, Validators.required),
       customValidator: new UntypedFormControl(null, [this.customValidator()]),
       inline: new UntypedFormControl(null),
+      justify: new UntypedFormControl(null),
     })
   }
 

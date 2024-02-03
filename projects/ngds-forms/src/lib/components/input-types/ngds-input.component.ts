@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
 
@@ -43,6 +43,12 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // Globally available classes to apply to the input. Provide classes as array of string class names.
   @Input() inputClasses: any[];
+
+  // Globally available classes to apply to the wrapper. Provide classes as array of string class names.
+  @Input() wrapperClasses: any[];
+
+  // start, end, or center
+  @Input() justify: string = 'start';
 
   // The list of available options in a picklist or typeahead. Provide options as either a basic array, or an array of type selectionItemSchema for more custom options.
   private _selectionListItems = new BehaviorSubject<any>([]);
@@ -110,6 +116,9 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // Emits when the input has been initialized. 
   @Output() inputIsInitialized = new EventEmitter<any>();
+
+  // CHILDREN
+  @ViewChild('inputElement') inputElement: ElementRef<any>;
 
   // VARS
 
@@ -233,7 +242,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     return false;
   }
 
-  getInputClasses(type = 'default') {
+  getWrapperClasses(type = 'default') {
     let classes = {};
     if (this.inputClasses && this.inputClasses.length > 1) {
       for (const inputClass of this.inputClasses) {
@@ -254,6 +263,22 @@ export class NgdsInput implements OnInit, OnDestroy {
         classes["bg-white"] = true;
       }
     }
+    if (this.isFocused) {
+      classes['is-focused'] = true;
+    }
+    classes = Object.assign(classes, this.wrapperClasses);
+    return classes;
+  }
+
+  getInputClasses(type = 'default') {
+    let classes = {};
+    if (!this.hideInvalidState && this.isInvalid) {
+      classes['is-invalid'] = true;
+    }
+    if (this.isDisabled) {
+      classes['disabled-input'] = true;
+    }
+    classes[`text-${this.justify}`] = true;
     classes = Object.assign(classes, this.inputClasses);
     return classes;
   }
@@ -353,7 +378,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   // Override this method in extended classes to tap into onchanges
-  onControlValueChanges(value) {}
+  onControlValueChanges(value) { }
 
   // unsubscribe from all subscriptions when component is destroyed.
   ngOnDestroy() {
