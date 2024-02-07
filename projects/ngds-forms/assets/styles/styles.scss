@@ -1,5 +1,4 @@
 $input-disabled-bg: #e9ecef;
-$input-invalid-border-color: #dc3545;
 $input-border-color: #dee2e6;
 $dropdown-active-bg-color: #0d6efd;
 $dropdown-active-text-color: #fff;
@@ -19,7 +18,7 @@ $active-invalid-outline: red;
 }
 
 .disabled-input {
-  background-color: $input-disabled-bg;
+  background-color: var(--bs-gray-200);
 }
 
 .calendar-cell{
@@ -32,13 +31,13 @@ $active-invalid-outline: red;
   background-color: transparent;
   border-radius: 2rem;
   &:hover {
-    background-color: $calendar-hover-bg-color;
+    background-color: var(--bs-gray-300);
   }
   &:focus {
-    background-color: $calendar-active-bg-color;
+    background-color: var(--bs-gray-400);
   }
   &.selected {
-    background-color: $calendar-active-bg-color;
+    background-color: var(--bs-gray-400);
   }
 }
 
@@ -46,12 +45,12 @@ $active-invalid-outline: red;
   border: none;
   background-color: transparent;
   min-width: 44px;
-  color: $calendar-inactive-text-color;
+  color: var(--bs-gray-400);
   &.valid-date {
     cursor: pointer;
     color: black;
     &:hover {
-      background-color: $calendar-hover-bg-color !important;
+      background-color: var(--bs-gray-300) !important;
       &:not(.in-range){
         border-radius: 2rem;
       }
@@ -66,29 +65,15 @@ $active-invalid-outline: red;
     }
     &.selected{
       font-weight: bold;
-      background-color: $calendar-active-bg-color !important;
+      background-color: var(--bs-gray-500) !important;
       &:hover {
-        background-color: $calendar-hover-bg-color !important;
+        background-color: var(--bs-gray-400) !important;
       }
     }
     &.in-range {
-      background-color: $calendar-in-range-hover-bg-color;
+      background-color: var(--bs-gray-200);
       font-weight: bold;
     }
-  }
-}
-
-.btn-inline {
-  height: 100%;
-  background-color: inherit;
-
-  &:hover {
-    background-color: $input-disabled-bg;
-    transition: 0.2s linear;
-  }
-
-  &:focus {
-    border: 2px solid $focus-outline-color;
   }
 }
 
@@ -113,7 +98,7 @@ $active-invalid-outline: red;
   position: relative;
   display: block;
   padding: 0.3rem 0.75rem;
-  background-color: $dropdown-bg-color;
+  background-color: var(--bs-white);
 }
 
 .focus-highlight {
@@ -124,11 +109,11 @@ $active-invalid-outline: red;
 
 .default-list-group-item.active {
   z-index: 2;
-  background-color: $dropdown-hover-bg-color;
+  background-color: var(--bs-gray-200);
 
   &:active {
-    color: $dropdown-active-text-color;
-    background-color: $dropdown-active-bg-color;
+    color: var(--bs-light);
+    background-color: var(--bs-primary);
   }
 }
 
