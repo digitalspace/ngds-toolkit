@@ -1,10 +1,7 @@
-<h2>Number Inputs</h2>
+<h2>Number Inputs <div class="badge bg-primary">beta</div></h2>
 <p>
   Numerical inputs can be notoriously complicated to implement, and typically enforce many formatting rules and
   restrictions. Therefore, NGDS-Forms number inputs remain relatively simplistic in the behaviour they can achieve.
-  Importantly, NGDS-Forms number inputs store their values as <code>string</code>, not <code>number</code>, due to heavy
-  use of regular expressions and complications arising from using the HTML <code>type="number"</code> property of the
-  <code>&lt;input&gt;</code> tag. Conversion to the desired type is left to the developer.
 </p>
 <p>
   For complex numerical inputs, it may be advisable to create a custom input that extends the base
@@ -15,12 +12,13 @@
 <section #section id="basicNumberEntry" class="mb-5 mt-3">
   <h3>Basic numerical entry</h3>
   <p>
-    Number formatting is enforced by regular expression. By default, the following regex rules are enforced:
+    Number formatting is enforced by regular expression and by Javascript number representation limitations. By default, the following rules are enforced:
   </p>
   <ul>
     <li>Only digits, 1 decimal point, and 1 minus sign allowed.</li>
     <li>The minus sign can only be placed at the beginning of the input.</li>
-    <li>Unlimited decimal places.</li>
+    <li>Number must be within Javascript's <code>MIN_SAFE_INTEGER</code> and <code>MAX_SAFE_INTEGER</code>.</li>
+    <li>At most 17 digits in length (16 if integer). If the input cannot be cast as a Javascript <code>number</code>, the input will not be registered.</li>
   </ul>
   <demonstrator [htmlFile]="snippets?.basicNumber?.html" [tsFile]="snippets?.basicNumber?.ts"
     [control]="form?.controls?.['basicNumber']">
@@ -77,7 +75,8 @@
   </demonstrator>
   <demonstrator [htmlFile]="snippets?.customNumberValidator?.html" [tsFile]="snippets?.customNumberValidator?.ts"
     [control]="form?.controls?.['customNumberValidator']">
-    <ngds-number-input [control]="form?.controls?.['customNumberValidator']" [label]="'Custom validation'">
+    <ngds-number-input [control]="form?.controls?.['customNumberValidator']" [label]="'Custom validation'"
+      [subLabel]="'This input value cannot be 40.'">
     </ngds-number-input>
   </demonstrator>
 </section>
@@ -123,11 +122,14 @@
 <section #section id="padDecimals" class="mb-5 mt-3">
   <h3>Pad decimal places</h3>
   <p>
-    Setting <code>[padDecimals]="true"</code> will format the entered number to the number of decimal places specified in <code>[decimalPlaces]</code> when the control loses focus. In the example below, <code>[decimalPlaces]="3"</code>.
+    Setting <code>[padDecimals]="true"</code> will format the entered number to the number of decimal places specified
+    in <code>[decimalPlaces]</code> when the control loses focus. In the example below,
+    <code>[decimalPlaces]="3"</code>.
   </p>
   <demonstrator [htmlFile]="snippets?.padDecimals?.html" [tsFile]="snippets?.padDecimals?.ts"
     [control]="form?.controls?.['padDecimals']">
-    <ngds-number-input [control]="form?.controls?.['padDecimals']" [resetButton]="true"[padDecimals]="true" [decimalPlaces]="3">
+    <ngds-number-input [control]="form?.controls?.['padDecimals']" [resetButton]="true" [padDecimals]="true"
+      [decimalPlaces]="3">
     </ngds-number-input>
   </demonstrator>
 </section>
@@ -135,19 +137,40 @@
 <section #section id="increment" class="mb-5 mt-3">
   <h3>Scroll and button increment</h3>
   <p>
-    Allow a user to increment and decrement the value of the input using the mouse scroll wheel by setting <code>[mouseScrollIncrement]="true"</code>. Add increment/decrement buttons to the input by setting <code>[showIncrements]="true"</code>.
+    Allow a user to increment and decrement the value of the input using the mouse scroll wheel by setting
+    <code>[mouseScrollIncrement]="true"</code>. Add increment/decrement buttons to the input by setting
+    <code>[showIncrements]="true"</code>.
   </p>
   <p>
-    Increment size can be changed by setting <code>[incrementValue]</code> to the desired number. Default value is 1. Note that <code>[incrementValue]</code> must be greater than or equal to the smallest number that can be represented with the number of decimal places allowed for the input.
+    Increment size can be changed by setting <code>[incrementValue]</code> to the desired number. Default value is 1.
+    Note that <code>[incrementValue]</code> must be greater than or equal to the smallest number that can be represented
+    with the number of decimal places allowed for the input.
   </p>
   <demonstrator [htmlFile]="snippets?.increment?.html" [tsFile]="snippets?.increment?.ts"
     [control]="form?.controls?.['increment']">
-    <ngds-number-input [control]="form?.controls?.['increment']" [label]="'Increment by 1'" [resetButton]="true" [showIncrements]="true" [mouseScrollIncrement]="true">
+    <ngds-number-input [control]="form?.controls?.['increment']" [label]="'Increment by 1'" [resetButton]="true"
+      [showIncrements]="true" [mouseScrollIncrement]="true">
     </ngds-number-input>
   </demonstrator>
   <demonstrator [htmlFile]="snippets?.increment2?.html" [tsFile]="snippets?.increment2?.ts"
     [control]="form?.controls?.['increment2']">
-    <ngds-number-input [control]="form?.controls?.['increment2']" [resetButton]="true" [label]="'Increment by 0.02, no negatives, pad decimals'" [showIncrements]="true" [mouseScrollIncrement]="true" [incrementValue]="0.02" [decimalPlaces]="2" [allowNegative]="false" [padDecimals]="true">
+    <ngds-number-input [control]="form?.controls?.['increment2']" [resetButton]="true"
+      [label]="'Increment by 0.02, no negatives, pad decimals'" [showIncrements]="true" [mouseScrollIncrement]="true"
+      [incrementValue]="0.02" [decimalPlaces]="2" [allowNegative]="false" [padDecimals]="true">
+    </ngds-number-input>
+  </demonstrator>
+</section>
+
+<section #section id="asString" class="mb-5 mt-3">
+  <h3>Number as String</h3>
+  <p>
+    To represent the number as a string exactly as it is shown in the input, set <code>[valueAsString]="true"</code>. No
+    formatting to number type will occur when the input value changes.
+  </p>
+  <demonstrator [htmlFile]="snippets?.asString?.html" [tsFile]="snippets?.asString?.ts"
+    [control]="form?.controls?.['asString']">
+    <ngds-number-input [control]="form?.controls?.['asString']" [resetButton]="true" [decimalPlaces]="4"
+      [padDecimals]="true" [valueAsString]="true">
     </ngds-number-input>
   </demonstrator>
 </section>

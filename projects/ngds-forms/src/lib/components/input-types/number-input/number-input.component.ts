@@ -10,12 +10,21 @@ import { BehaviorSubject } from 'rxjs';
 export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
   // Hide increment/decrement arrows
   @Input() showIncrements: boolean = false;
+  // Increment size
   @Input() incrementValue: number = 1;
+  // Whether or not to allow incrementing with the mouse scroll wheel
   @Input() mouseScrollIncrement: boolean = false;
+  // Number of decimal places (-1 for no limit)
   @Input() decimalPlaces: number = -1;
+  // Whether or not to allow negative values
   @Input() allowNegative: boolean = true;
+  // Whether or not to pad decimal places with zeroes on blur
   @Input() padDecimals: boolean = false;
-  @Input() allowedKeys: string[] = [
+  // Whether or not to represent the field value as a string
+  @Input() valueAsString: boolean = false;
+
+  // Allowed characters
+  public allowedKeys: string[] = [
     "0",
     "1",
     "2",
@@ -30,6 +39,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     "-"
   ];
 
+  // Allowed function keys
   public functionKeyCodes: string[] = [
     "AltLeft",
     "AltRight",
@@ -55,19 +65,46 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     "Backspace"
   ]
 
-  public value: any;
+  // The regex used to enforce the field display, can change based on Input values
   public regex;
+  // Tracks the display of the field
   public _displayValue = new BehaviorSubject(null);
+  // Flag to ignore control valueChanges when they are enforced by the input displace
+  private isProgrammaticUpdate: boolean = true;
 
   get displayValue() {
     return this._displayValue.value;
   }
 
   set displayValue(value) {
-    this._displayValue.next(value);
+    if (value) {
+      // We cannot safely represent all numbers
+      if (this.checkNumberRepresentation(value)) {
+        let next = String(value).match(this.regex)?.[0];
+        if (value === '-') {
+          next = '-';
+        }
+        if (next) {
+          this._displayValue.next(next);
+        } else {
+          this._displayValue.next(null);
+        }
+      } else {
+        return;
+      }
+    } else {
+      this._displayValue.next(null);
+    }
+    this.matchControlToDisplay();
   }
 
   ngAfterViewInit(): void {
+    // monitor control value changes
+    this.subscriptions.add(
+      this.control.valueChanges.subscribe((value) => {
+        this.matchDisplayToControl();
+      })
+    )
     // build regex
     const signRegExp = this.allowNegative ? '[+-]?' : '';
     if (this.decimalPlaces < 0) {
@@ -98,7 +135,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
       return;
     }
     // prevent more than 1 decimal or minus sign not at the start
-    if (e.key === '-' && (this.getCaretPos() > 0 || !this.allowNegative)) {
+    if (e.key === '-' && (this.getCaretPos().startPos > 0 || !this.allowNegative)) {
       e.preventDefault();
       return;
     }
@@ -107,53 +144,21 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
       return;
     }
     // Decimal places & enforce regex
-    if (this.allowedKeys.indexOf(e.key) > -1 && this.control.value) {
-      const value = this.control.value?.toString();
-      const pos = this.getCaretPos();
-      const next = [value.slice(0, pos), e.key, value.slice(pos)].join('');
-      const match = next.match(this.regex);
-      if (match[0] !== match['input']) {
-        e.preventDefault();
-        return;
+    if (this.allowedKeys.indexOf(e.key) > -1 && this.displayValue) {
+      let value = this.displayValue?.toString();
+      const { startPos, endPos } = this.getCaretPos();
+      // perform regex
+      const next = [value.slice(0, startPos), e.key, value.slice(endPos, value?.length - 1)].join('');
+      if (next !== '-' && next !== '.' &&  next !== '-.') {
+        if (!this.checkRegex(next) || !this.checkNumberRepresentation(next)) {
+          e.preventDefault();
+          return;
+        }
       }
     }
   }
 
-  @HostListener('paste', ['$event'])
-  onPaste(e: ClipboardEvent) {
-    if (this.isDisabled) {
-      return;
-    }
-    e.preventDefault()
-    let payload = e.clipboardData.getData('text/plain').match(this.regex)[0];
-    this.control.setValue(payload);
-  }
-
-  @HostListener('drop', ['$event'])
-  onDrop(e: DragEvent) {
-    if (this.isDisabled) {
-      return;
-    }
-    e.preventDefault()
-    const payload = e.dataTransfer.getData('text/plain').match(this.regex)[0];
-    this.control.setValue(payload);
-  }
-
-  @HostListener('mousewheel', ['$event'])
-  scroll(e: MouseEvent) {
-    if (this.isDisabled) {
-      return;
-    }
-    if (this.mouseScrollIncrement) {
-      e.preventDefault()
-      if (e['wheelDelta'] > 0) {
-        this.increment();
-      } else {
-        this.increment(true);
-      }
-    }
-  }
-
+  // Check for allowable key combinations
   isAllowableKeyCombo(e) {
     // check copy, cut, paste
     if ((e.key === 'a' && e.ctrlKey === true) || // Allow: Ctrl+A
@@ -173,10 +178,121 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     return false;
   }
 
-  getCaretPos() {
-    return Number(this.inputElement?.nativeElement?.selectionStart || 0);
+  // For paste event
+  @HostListener('paste', ['$event'])
+  onPaste(e: ClipboardEvent) {
+    if (this.isDisabled) {
+      return;
+    }
+    e.preventDefault();
+    let payload = e.clipboardData.getData('text/plain').match(this.regex)[0];
+    this.control.setValue(payload);
   }
 
+  // For drag and drop event
+  @HostListener('drop', ['$event'])
+  onDrop(e: DragEvent) {
+    if (this.isDisabled) {
+      return;
+    }
+    e.preventDefault()
+    const payload = e.dataTransfer.getData('text/plain').match(this.regex)[0];
+    this.control.setValue(payload);
+  }
+
+  // For mouse wheel event
+  @HostListener('mousewheel', ['$event'])
+  scroll(e: MouseEvent) {
+    if (this.isDisabled) {
+      return;
+    }
+    if (this.mouseScrollIncrement) {
+      e.preventDefault()
+      if (e['wheelDelta'] > 0) {
+        this.increment();
+      } else {
+        this.increment(true);
+      }
+    }
+  }
+
+  // Check whether or not a (String) value has an identical number representation
+  checkNumberRepresentation(value: string, mustBeNumber = false) {
+    const num = Number(value) ?? null;
+    // Check safe integers
+    if (num && (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER)) {
+      return false;
+    }
+    // Allow single characters that arent digits
+    if (value === '-' || value === '.') {
+      if (mustBeNumber) {
+        return false;
+      }
+      return true;
+    }
+    // Check number conversion
+    // Apply regex
+    if (!this.checkRegex(value)){
+      return false;
+    }
+    // Remove minus sign
+    let comp = String(value).replace('-', '');
+    // Add leading zero if value begins with decimal
+    if (comp.startsWith('.')) {
+      comp = '0' + comp;
+    }
+    if (String(Math.abs(num)) !== comp && !comp?.endsWith('.') && !comp?.endsWith('0')) {
+      return false;
+    }
+    return true;
+  }
+
+  // Match the input display to the control value
+  matchDisplayToControl() {
+    if (this.isProgrammaticUpdate) {
+      let next = String(this.control?.value).match(this.regex)?.[0];
+      if (this.padDecimals && this.decimalPlaces > 0 && next !== null && next?.toString() !== '') {
+        next = Number(next).toFixed(this.decimalPlaces);
+      }
+      if (!next || isNaN(Number(next))) {
+        this.displayValue = null;
+      } else {
+        this.displayValue = String(next);
+      }
+    }
+    this.isProgrammaticUpdate = true;
+  }
+
+  // Match the control value to the display
+  matchControlToDisplay() {
+    // If value as string, don't do anything fancy
+    if (this.valueAsString) {
+      this.setControlValue(this.displayValue, true);
+      return;
+    }
+    // Otherwise convert to number before updating
+    if (this.displayValue) {
+      const next = Number(this.displayValue);
+      if (isNaN(next)) {
+        this.setControlValue(NaN);
+      }
+      if (this.control.value !== next) {
+        this.setControlValue(next);
+      }
+    } else {
+      this.setControlValue(NaN);
+    }
+  }
+
+  // Get start and end selection position for checking what the next value would be
+  getCaretPos() {
+    return {
+      startPos: Number(this.inputElement?.nativeElement?.selectionStart || 0),
+      endPos: Number(this.inputElement?.nativeElement?.selectionEnd || 0)
+    };
+  }
+
+  // Increment or decrement the field value
   increment(decrement = false) {
     const value = this.control.value || 0;
     let newValue = Number(value);
@@ -187,18 +303,19 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     }
     // round value (floating point handling)
     const power = Math.pow(10, Math.abs(this.decimalPlaces));
-    newValue = Math.round(newValue*power)/power;
+    newValue = Math.round(newValue * power) / power;
     if (!this.checkRegex(newValue.toString())) {
       return;
     }
     this.control.markAsDirty();
     this.control.markAsTouched();
-    this.padAndSetValue(newValue, true);
+    this.padAndSetDisplay(newValue, true);
   }
 
+  // Check if the regex passes or not
   checkRegex(value) {
     if (value) {
-      const match = value.match(this.regex);
+      const match = String(value).match(this.regex);
       if (!match || match?.[0] !== match?.['input']) {
         return false;
       }
@@ -206,21 +323,41 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     return true;
   }
 
-  padAndSetValue(value, alwaysSet = false) {
+  // Pad display with zeroes (and set control value if valueAsString)
+  padAndSetDisplay(value, alwaysSet = false) {
     if (this.padDecimals && this.decimalPlaces > 0 && value !== null && value?.toString() !== '') {
-      this.control.setValue(Number(value).toFixed(this.decimalPlaces));
+      this.displayValue = Number(value).toFixed(this.decimalPlaces);
     }
     else if (alwaysSet) {
-      this.control.setValue(value);
+      this.displayValue = value;
+    }
+    if (this.valueAsString) {
+      this.setControlValue(this.displayValue);
     }
   }
 
+  // Set control value from a change in the display input
+  // This puts down the isProgrammaticUpdate flag so control.valueChanges() methods are ignored.
+  setControlValue(value, string = false) {
+    this.isProgrammaticUpdate = false;
+    if (this.valueAsString || string) {
+      if (!value) {
+        this.control.setValue(null);
+      } else {
+        this.control.setValue(String(value));
+      }
+    } else {
+      this.control.setValue(isNaN(Number(value)) ? null : Number(value));
+    }
+  }
+
+  // Fires the padding method on blur
   onLoseFocus() {
     this.onBlur();
-    if (!this.checkRegex(this.control.value?.toString())) {
+    if (!this.checkRegex(this.displayValue?.toString())) {
       this.control.reset();
     }
-    this.padAndSetValue(this.control.value);
+    this.padAndSetDisplay(this.displayValue);
   }
 
 }

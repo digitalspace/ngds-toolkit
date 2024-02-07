@@ -48,7 +48,11 @@ import { NumbersComponent } from './numbers/numbers.component';
     PicklistsComponent,
     TypeaheadsComponent,
     TextInputComponent,
-    MultiselectsComponent
+    MultiselectsComponent,
+    DatepickersComponent,
+    RangepickersComponent,
+    TogglesComponent,
+    NumbersComponent
   ]
 })
 export class FormsModule { }

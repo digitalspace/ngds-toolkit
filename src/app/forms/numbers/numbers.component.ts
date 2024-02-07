@@ -33,6 +33,7 @@ export class NumbersComponent implements OnInit, AfterViewInit {
       padDecimals: new UntypedFormControl(null),
       increment: new UntypedFormControl(null),
       increment2: new UntypedFormControl(null),
+      asString: new UntypedFormControl(null),
     })
   }
 

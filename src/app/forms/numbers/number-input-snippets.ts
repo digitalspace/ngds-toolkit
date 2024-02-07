@@ -281,5 +281,31 @@ export const snippets = {
         }
       }
     })`
+  },
+  asString: {
+    html: `
+    <ngds-number-input
+      [control]="form?.controls?.['asString']"
+      [decimalPlaces]="2"
+      [valueAsString]="true"
+      [padDecimals]="true"
+      [resetButton]="true">
+    </ngds-number-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'value-as-string'
+      export class ValueAsStringNumber implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            asString: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
   }
 }

@@ -11,7 +11,7 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input inputmode="numeric" #inputElement [formControl]="control"
+    <input inputmode="numeric" #inputElement [(ngModel)]="displayValue"
       class="form-control border-0 rounded-3"
       [ngClass]="getInputClasses()"
       [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onLoseFocus()" [attr.id]="control?.id">
