@@ -111,6 +111,13 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     this.editByModel = false;
   }
 
+  placeholderDisplay() {
+    if (!this.isOpen.value && this.placeholder && !this.multiselect) {
+      return this.placeholder;
+    }
+    return '';
+  }
+
   // Get the dropdown list template
   getTemplate() {
     if (this.selectionListTemplate) {

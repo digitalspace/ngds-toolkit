@@ -12,8 +12,10 @@
     <!-- Input display control value-->
     <button #inputElement class="form-control border-0 text-start rounded-3" style="margin-left: 1px" type="button"   data-bs-toggle="dropdown"
       data-bs-auto-close="outside" [ngClass]="getInputClasses()"
-      [disabled]="isDisabled" style="min-height:2.25rem;" [value]="control?.value">
-      {{ currentDisplay || placeholder }}
+      [disabled]="isDisabled" style="height:2.25rem;" [value]="control?.value">
+      <div [ngClass]="{'text-muted': !control?.value}">
+        {{ currentDisplay || placeholder }}
+      </div>
       <!-- Calendar dropdowns -->
     </button>
 
@@ -45,7 +47,7 @@
 </div>
 
 <!-- Calendar template -->
-<ng-template #calendarTemplate>
+<ng-template #calendarTemplate style="width: 345px;">
   <ngds-calendar-manager [disabled]="isDisabled" (dateChange)="handleDateChange($event)" [control]="control"
     (clearDates)="handleClearDates()" (displayChange)="handleDisplayChange()" [timezone]="timezone"
     [disabledDatesFn]="disabledDatesFn.bind(this)" [dateRange]="dateRange" [minDisplayDepth]="minMode"

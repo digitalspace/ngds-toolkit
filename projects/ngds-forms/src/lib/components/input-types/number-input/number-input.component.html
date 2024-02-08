@@ -14,6 +14,7 @@
     <input inputmode="numeric" #inputElement [(ngModel)]="displayValue"
       class="form-control border-0 rounded-3"
       [ngClass]="getInputClasses()"
+      autocomplete="off"
       [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onLoseFocus()" [attr.id]="control?.id">
 
     <!-- Increment/decrement buttons -->

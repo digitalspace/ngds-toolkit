@@ -53,11 +53,11 @@ export class MonitorComponent {
     if (this.control?.value?.length > 0 && Array.isArray(this.control.value)) {
       return `[ ` + this.control.value.join(', ') + ` ]`;
     }
+    if (isNaN(this.control?.value) && typeof this.control?.value === 'number') {
+      return '<NaN>';
+    }
     if (this.control?.value === null) {
       return '<null>';
-    }
-    if (isNaN(this.control?.value)) {
-      return '<NaN>';
     }
     if (this.control?.value === undefined) {
       return '<undefined>';

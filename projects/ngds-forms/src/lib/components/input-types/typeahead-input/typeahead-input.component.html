@@ -13,6 +13,9 @@
     <button #inputElement class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
       [ngClass]="getInputClasses()" [disabled]="isDisabled"
       (click)="openDropdown()">
+      <div class="text-muted">
+        {{ placeholderDisplay() }}
+      </div>
       <!-- Input display current value -->
       <!-- Multiselect display items -->
       <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
@@ -21,10 +24,10 @@
         </ngds-multiselect-item>
       </div>
       <!-- Text input for typeahead -->
-      <input #typeaheadInput [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
+      <input #typeaheadInput autocomplete="off" [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
         (ngModelChange)="matchControlToInput()" [typeahead]="selectionListItems" (typeaheadOnSelect)="selected()"
         typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength"
-        [adaptivePosition]="true" [attr.disabled]="isDisabled" class="py-1 w-100 h-100 rounded border-0 multiselect-input"
+        [adaptivePosition]="true" [disabled]="isDisabled" class="w-100 h-100 rounded border-0 multiselect-input"
         [ngClass]="{'is-invalid': isInvalid, 'shrink-input': !isOpen.value}" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
         <!-- Placeholder -->
         <div class="text-muted text-start" *ngIf="multiselect && placeholder && !control.value && !isFocused">
