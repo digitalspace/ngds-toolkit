@@ -26,7 +26,7 @@
       <!-- Text input for typeahead -->
       <input #typeaheadInput autocomplete="off" [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
         (ngModelChange)="matchControlToInput()" [typeahead]="selectionListItems" (typeaheadOnSelect)="selected()"
-        typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength"
+        typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength" [typeaheadOptionsLimit]="selectionListItems?.length || 20"
         [adaptivePosition]="adaptivePosition" [disabled]="isDisabled" class="w-100 h-100 rounded border-0 multiselect-input"
         [ngClass]="{'is-invalid': isInvalid, 'shrink-input': !isOpen.value}" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
         <!-- Placeholder -->

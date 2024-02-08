@@ -12,6 +12,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   @Input() typeaheadMinLength: number = 0;
   // The typeahead options will drop up or drop down unless this is set to false.
   @Input() adaptivePosition: boolean = true;
+  @Input() optionsLimit: number = 0;
 
   @ViewChild('defaultListTemplate') defaultListTemplate: TemplateRef<any>;
   @ViewChild('typeaheadInput') typeaheadInput: ElementRef;
@@ -36,6 +37,9 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
         this.preBlurEvent();
       }
     })
+    if (!this.optionsLimit) {
+      this.optionsLimit = this.selectionListItems.length || 20;
+    }
   }
 
   ngAfterViewInit(): void {
