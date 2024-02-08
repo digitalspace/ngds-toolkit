@@ -10,6 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
   // The minimum length that must be typed before suggestion dropdown appears. If 0, dropdown opens on select.
   @Input() typeaheadMinLength: number = 0;
+  // The typeahead options will drop up or drop down unless this is set to false.
+  @Input() adaptivePosition: boolean = true;
 
   @ViewChild('defaultListTemplate') defaultListTemplate: TemplateRef<any>;
   @ViewChild('typeaheadInput') typeaheadInput: ElementRef;

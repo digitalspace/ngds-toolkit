@@ -5,6 +5,9 @@
     Provide the list of selection options as an array in <code>[selectionListItems]</code>, same as the picklist input. NGDS Forms Typeahead extends the functionality of the typeahead provided in <a href="https://valor-software.com/ngx-bootstrap/#/components/typeahead" target="_blank" rel="noopener">ngx-bootstrap</a>.
   </p>
   <p>
+    Use <code>[adaptivePosition]="false"</code> to force the suggestions to dropdown.
+  </p>
+  <p>
     In the example below, search for a Canadian province or territory.
   </p>
   <demonstrator 
@@ -21,7 +24,7 @@
   <demonstrator [htmlFile]="snippets?.programmaticTypeahead?.html" [tsFile]="snippets?.programmaticTypeahead?.ts"
     [control]="form?.controls?.['programmaticTypeahead']">
     <button class="btn btn-primary mb-2" (click)="programmaticSet()">Set value</button>
-    <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeahead']" [selectionListItems]="displayProvinceList">
+    <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeahead']" [selectionListItems]="displayProvinceList" [adaptivePosition]="false">
     </ngds-typeahead-input>
   </demonstrator>
 </section>
