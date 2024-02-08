@@ -13,7 +13,7 @@
     <button #inputElement class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
       [ngClass]="getInputClasses()" [disabled]="isDisabled"
       (click)="openDropdown()">
-      <div class="text-muted">
+      <div class="text-muted" style="overflow: hidden; white-space: nowrap;">
         {{ placeholderDisplay() }}
       </div>
       <!-- Input display current value -->
