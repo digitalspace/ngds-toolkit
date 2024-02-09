@@ -1,6 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
+import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component' 
 
 import { SelectionItemSchema } from '../../form-models';
 
@@ -49,6 +50,9 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // start, end, or center
   @Input() justify: string = 'start';
+
+  // Configure invalid messages
+  @Input() invalidConfig: invalidConfig;
 
   // The list of available options in a picklist or typeahead. Provide options as either a basic array, or an array of type selectionItemSchema for more custom options.
   private _selectionListItems = new BehaviorSubject<any>([]);
