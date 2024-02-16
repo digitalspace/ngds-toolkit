@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgdsInput } from '../ngds-input.component';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 import { ValidationErrors, ValidatorFn } from '@angular/forms';
 
@@ -42,7 +42,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // Whether or not to display the datepicker/rangepicker inline.
   @Input() inline: boolean = false;
 
-  // Whether or not to allow range selections to include disabled dates. 
+  // Whether or not to allow range selections to include disabled dates.
   @Input() allowDisabledInRange: boolean = false;
 
   // Hide the datepicker once a date is picked
@@ -52,6 +52,12 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // If the function returns true, the date associated with the supplied DateTime will be disabled.
   // If the function returns false, the date associated with the supplied DateTime will be available to select.
   @Input() customDisabledDatesCallback: (date: DateTime) => boolean;
+
+  // Whether or not to show just one calendar in the rangepicker
+  @Input() hideSecondCalendar: boolean = false;
+
+  // Fixed range to select when picking date. When a start date is selected, the endDate will automatically be set.
+  @Input() fixedRangeSize: Duration;
 
   // Emits when the display changes.
   @Output() displayChange = new EventEmitter;
@@ -178,19 +184,18 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
           newDate = this.selectedDate.value;
           this.selectedDate.next(e);
         }
-        if (this.dateFormat) {
-          this.control.setValue([this.convertDateTimeToFormat(this.selectedDate.value), this.convertDateTimeToFormat(newDate)]);
-        } else {
-          this.control.setValue([this.selectedDate.value, newDate]);
-        }
-        if (this.hideOnSelect) {
-          this.hideCalendar();
-        }
+        this.setEndDate(newDate);
       } else {
         // clear the dates and restart
         this.currentDisplay = `${this.convertDateTimeToFormat(e, this.dateDisplayFormat)} ${this.rangeSeparator} ...`;
         this.selectedDate.next(e);
-        this.selectedEndDate.next(null);
+        if (this.fixedRangeSize) {
+          // automatically set end date if fixedrangesize
+          let end = e.plus(this.fixedRangeSize);
+          this.setEndDate(end);
+        } else {
+          this.selectedEndDate.next(null);
+        }
       }
     } else {
       if (this.dateFormat) {
@@ -201,6 +206,17 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
       if (this.hideOnSelect) {
         this.hideCalendar();
       }
+    }
+  }
+
+  setEndDate(dateTime) {
+    if (this.dateFormat) {
+      this.control.setValue([this.convertDateTimeToFormat(this.selectedDate.value), this.convertDateTimeToFormat(dateTime)]);
+    } else {
+      this.control.setValue([this.selectedDate.value, dateTime]);
+    }
+    if (this.hideOnSelect) {
+      this.hideCalendar();
     }
   }
 
@@ -296,7 +312,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
 
   /**
    * Converts a control value into a display value if dateFormat and dateDisplayFormat are different.
-   * @param value string 
+   * @param value string
    * @returns string formatted for display
    */
   convertValueToFormat(value) {
@@ -309,7 +325,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
 
   /**
    * When the dropdown closes, match the display to the actual control value.
-   * We can trigger this reset by just setting the control value to itself. 
+   * We can trigger this reset by just setting the control value to itself.
    */
   onCalendarHide() {
     this.control.markAsTouched();

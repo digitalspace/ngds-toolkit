@@ -34,9 +34,9 @@ export class NgdsCalendarManager implements OnInit {
 
   // The precision of the datepicker. By default (0), dates can be picked.
   // If minDisplayDepth is 1 or 2, only months or years will be displayed and enabled, respectively.
-  // When picking months or years, the datepicker will return the luxon startOf('term'), where 
-  // 'term' is months or years, respectively.  
-  @Input() minDisplayDepth: number = 0; // date, 1 = month, 2 = year 
+  // When picking months or years, the datepicker will return the luxon startOf('term'), where
+  // 'term' is months or years, respectively.
+  @Input() minDisplayDepth: number = 0; // date, 1 = month, 2 = year
 
   // The current selected date of the calendar (start date if rangepicker).
   @Input() selectedDate;
@@ -50,7 +50,7 @@ export class NgdsCalendarManager implements OnInit {
   // A function that returns a boolean when provided a DateTime. DateTimes that return true are disabled in the calendar.
   @Input() disabledDatesFn;
 
-  // The maximum number of days that can be selected in a rangepicker. Default (0) is unlimited days. 
+  // The maximum number of days that can be selected in a rangepicker. Default (0) is unlimited days.
   @Input() maxRange: number = 0;
 
   // Whether or not the datepicker is disabled.
@@ -58,6 +58,9 @@ export class NgdsCalendarManager implements OnInit {
 
   // Whether or not to allow rangepickers to have disabled dates within the ranges they select.
   @Input() allowDisabledInRange: boolean = false;
+
+  // Whether or not to show just one calendar in the rangepicker
+  @Input() hideSecondCalendar: boolean = false;
 
   // Emits when a selected date is changed.
   @Output() dateChange = new EventEmitter;
@@ -70,7 +73,7 @@ export class NgdsCalendarManager implements OnInit {
 
   protected startCalendar = new BehaviorSubject<CalendarConfig>({ index: 1 });
   protected endCalendar = new BehaviorSubject<CalendarConfig>({ index: 2 });
-  protected displayDepth = new BehaviorSubject<number>(0); // date, 1 = month, 2 = year 
+  protected displayDepth = new BehaviorSubject<number>(0); // date, 1 = month, 2 = year
 
   ngOnInit() {
     // set the current display depth to the minimum allowable amount.
@@ -111,7 +114,7 @@ export class NgdsCalendarManager implements OnInit {
   }
 
   /**
-   * Changes the displayed calendar by the set number of units. 
+   * Changes the displayed calendar by the set number of units.
    * If the display depth is 0, the months are changed by the number of units.
    * If the display depth is 1, the years are changed by the number of units.
    * If the display depth is 2, the years are changed by 12x the number of units.
@@ -276,7 +279,7 @@ export class NgdsCalendarManager implements OnInit {
   }
 
   /**
-   * Changes the display depth of the calendar. 
+   * Changes the display depth of the calendar.
    * @param index the display depth to enable
    */
   toggleDepth(index) {

@@ -2,7 +2,7 @@ import { Component, TemplateRef, ViewChildren } from '@angular/core';
 import { snippets } from './rangepicker-snippets';
 import { SidebarService } from 'src/app/home/sidebar/sidebar.service';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -18,6 +18,7 @@ export class RangepickersComponent {
   public isDisabled = false;
   public isLoading = false;
   public now = new BehaviorSubject(null);
+  public duration = Duration.fromObject({days: 6})
 
   @ViewChildren('section') entries: TemplateRef<any>;
 
@@ -43,6 +44,8 @@ export class RangepickersComponent {
       timezoneKiritimati: new UntypedFormControl(null),
       minModeMonth: new UntypedFormControl(null),
       minModeYear: new UntypedFormControl(null),
+      hideSecondCalendar: new UntypedFormControl(null),
+      fixedRangeSize: new UntypedFormControl(null),
     })
 
     setInterval(()=>{
@@ -76,7 +79,7 @@ export class RangepickersComponent {
   }
 
   customDisabledDatesCallback(date: DateTime): boolean {
-    // Disable the 15th day of each month. 
+    // Disable the 15th day of each month.
     if (date.day === 15) {
       return true;
     }

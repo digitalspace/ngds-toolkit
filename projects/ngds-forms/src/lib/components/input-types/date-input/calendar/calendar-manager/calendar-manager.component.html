@@ -9,7 +9,7 @@
       (changeYear)="setYearToValue($event, startCalendar)" (changeHoverDate)="updateHoverDate($event)"
       (changeDisplay)="changeDisplayByValue($event)" (clearDates)="clearDates.emit()"></ngds-calendar>
   </div>
-  <div *ngIf="dateRange" class="col-auto overflow-auto">
+  <div *ngIf="dateRange && !hideSecondCalendar" class="col-auto overflow-auto">
     <!-- Render 2 calendars for rangepicker -->
     <ngds-calendar [calendarConfig]="endCalendar" [disabledDatesFn]="disabledDatesFn" [dateRange]="dateRange"
       [displayDepth]="displayDepth.value" [selectedDate]="selectedDate" [hoverDate]="hoverDate"

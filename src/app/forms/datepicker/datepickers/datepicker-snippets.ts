@@ -105,11 +105,11 @@ export const snippets = {
             this.form.controls[control].enable();
           }
         }
-      
+
         disabledSwitch() {
           this.isDisabled = !this.isDisabled;
         }
-      
+
         loadingSwitch() {
           this.isLoading = !this.isLoading;
       }
@@ -119,7 +119,7 @@ export const snippets = {
     html: `
     <ngds-date-input
       [control]="form?.controls?.['minDatePicker']"
-      [label]="'MinDate'" 
+      [label]="'MinDate'"
       [resetButton]="true"
       [minDate]="getToday()">
     </ngds-date-input>`,
@@ -149,7 +149,7 @@ export const snippets = {
     html: `
     <ngds-date-input
       [control]="form?.controls?.['maxDatepicker']"
-      [label]="'MaxDate'" 
+      [label]="'MaxDate'"
       [resetButton]="true"
       [maxDate]="getToday()">
     </ngds-date-input>`,
@@ -467,6 +467,31 @@ export const snippets = {
       [minMode]="2"
       [dateDisplayFormat]="'yyyy'"
       [label]="'Year (minMode 2)'">
+    </ngds-date-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'minmode-year-datepicker'
+      export class MinModeYearDatepicker implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            minModeYear: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
+  hideSecondCalendar: {
+    html: `
+    <ngds-date-input
+      [control]="form?.controls?.['minModeYear']"
+      [resetButton]="true"
+      [hideSecondCalendar]="true"
+    >
     </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';

@@ -113,7 +113,7 @@ export const snippets = {
         disabledSwitch() {
           this.isDisabled = !this.isDisabled;
         }
-      
+
         loadingSwitch() {
           this.isLoading = !this.isLoading;
         }
@@ -170,7 +170,7 @@ export const snippets = {
         }
 
         customDisabledDatesCallback(date: DateTime): boolean {
-          // Disable the 15th day of each month. 
+          // Disable the 15th day of each month.
           if (date.day === 15) {
             return true;
           }
@@ -205,7 +205,7 @@ export const snippets = {
         }
 
         customDisabledDatesCallback(date: DateTime): boolean {
-          // Disable the 15th day of each month. 
+          // Disable the 15th day of each month.
           if (date.day === 15) {
             return true;
           }
@@ -467,6 +467,56 @@ export const snippets = {
         ngOnInit(): void {
           this.form = new UntypedFormGroup({
             minModeYear: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
+  hideSecondCalendar: {
+    html: `
+    <ngds-date-input
+      [control]="form?.controls?.['minModeYear']"
+      [resetButton]="true"
+      [hideSecondCalendar]="true">
+  </ngds-date-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'hide-second-calendar-rangepicker'
+      export class HideSecondCalendar implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            hideSecondCalendar: new UntypedFormControl(null),
+          })
+        }
+      }
+    })`
+  },
+  fixedRangeSize: {
+    html: `
+    <ngds-date-input
+      [control]="form?.controls?.['minModeYear']"
+      [resetButton]="true"
+      [fixedRangeSize]="duration">
+  </ngds-date-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+    import { Duration } from 'luxon';
+
+    @Component({
+      selector: 'fixed-range-rangepicker'
+      export class FixedRangepicker implements OnInit {
+        public form;
+        public duration = Duration.fromObject({days: 6})
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            fixedRangeSize: new UntypedFormControl(null),
           })
         }
       }

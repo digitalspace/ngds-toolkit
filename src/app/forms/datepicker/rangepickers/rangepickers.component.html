@@ -137,7 +137,7 @@
 <section #section id="invalidRangepicker" class="mb-5 mt-3">
   <h3>Invalid rangepicker</h3>
   <p>
-    If you need to allow the user to select dates but reflect the validity of that date, leveraging control validation works similarly to other input types. In the example below, the selected range is invalid if it includes the 15th of any month. 
+    If you need to allow the user to select dates but reflect the validity of that date, leveraging control validation works similarly to other input types. In the example below, the selected range is invalid if it includes the 15th of any month.
   </p>
   <demonstrator [htmlFile]="snippets?.invalidRangepicker?.html" [tsFile]="snippets?.invalidRangepicker?.ts"
     [control]="form?.controls?.['invalidRangepicker']">
@@ -216,6 +216,34 @@
     [control]="form?.controls?.['minModeYear']">
     <ngds-date-input [control]="form?.controls?.['minModeYear']" [resetButton]="true" [minMode]="2"
       [dateDisplayFormat]="'yyyy'" [label]="'Year (minMode 2)'" [dateRange]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="hideSecondCalendar" class="mb-5 mt-3">
+  <h3>Show only 1 calendar</h3>
+  <p>
+    To hide the second rangepicker calendar, set <code>[hideSecondCalendar]="true"</code>.
+  </p>
+  <demonstrator [htmlFile]="snippets?.hideSecondCalendar?.html" [tsFile]="snippets?.hideSecondCalendar?.ts"
+    [control]="form?.controls?.['hideSecondCalendar']">
+    <ngds-date-input [control]="form?.controls?.['hideSecondCalendar']" [dateRange]="true" [resetButton]="true" [hideSecondCalendar]="true">
+    </ngds-date-input>
+  </demonstrator>
+</section>
+
+<section #section id="fixedRangeSize" class="mb-5 mt-3">
+  <h3>Autoselect range by start date</h3>
+  <p>
+    You can enforce an exact range to be selected with<code>[fixedRangeSize]="duration"</code>, where <code>duration</code> is a <code>luxon</code> Duration. When a date selection is made, the date is assumed to be the start of the range and the end date is automatically picked based on the provided Duration. Note that the Duration is added to the selected date down to the millisecond, so a Duration of 7 days will likely include 8 days (7 plus the start date) and will show as such in the calendar display.
+  </p>
+  <p>The provided example automatically selects a 7 day range starting with the date selected.</p>
+  <p>
+    See the <code>luxon</code>&nbsp;<a href="https://moment.github.io/luxon/api-docs/index.html#duration">Duration</a> documetation for more information.
+  </p>
+  <demonstrator [htmlFile]="snippets?.fixedRangeSize?.html" [tsFile]="snippets?.fixedRangeSize?.ts"
+    [control]="form?.controls?.['fixedRangeSize']">
+    <ngds-date-input [control]="form?.controls?.['fixedRangeSize']" [dateRange]="true" [resetButton]="true" [fixedRangeSize]="duration">
     </ngds-date-input>
   </demonstrator>
 </section>
