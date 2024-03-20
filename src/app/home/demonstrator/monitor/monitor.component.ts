@@ -34,7 +34,7 @@ export class MonitorComponent {
     if (this.control?.value === '' || this.control?.value?.length === 0) {
       return 'text-primary';
     }
-    if (this.control?.value === null || this.control?.value === undefined || this.control?.value === false || isNaN(this.control?.value)) {
+    if (this.control?.value === null || this.control?.value === undefined || this.control?.value === false || (isNaN(this.control?.value) && typeof this.control?.value === 'number')) {
       return 'text-danger';
     }
     if (this.control?.value === true) {

@@ -31,12 +31,12 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     private renderer: Renderer2
   ) {
     super();
-    // Listen for click events that happen outside of the input. The typeahead text entry should close when the input loses focus, but unfortunately the blur event occurs before any changes are captured, so when selecting from the dropdown, the select is missed if the input closes itself first. 
+    // Listen for click events that happen outside of the input. The typeahead text entry should close when the input loses focus, but unfortunately the blur event occurs before any changes are captured, so when selecting from the dropdown, the select is missed if the input closes itself first.
     this.renderer.listen('window', 'mousedown', (e: Event) => {
       if (!this.inputElement.nativeElement.contains(e.target)) {
         this.preBlurEvent();
       }
-    })
+    });
     if (!this.optionsLimit) {
       this.optionsLimit = this.selectionListItems.length || 20;
     }
@@ -53,9 +53,23 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
         }
         this.matchInputToControl();
       }
-    }))
+    }));
     this.isOpen.next(false);
+    this.detectDisplayDuplicates();
     this.cd.detectChanges();
+  }
+
+  detectDisplayDuplicates() {
+    let flag = false;
+    let items = [...this.selectionListItems];
+    while (!flag && items.length) {
+      const item = items.shift();
+      const match = items.find((e) => e.display === item.display);
+      if (match) {
+        console.warn(`Two or more options in this typeahead share the same display value, which may cause problems when selecting between them. Ensure all options have unique display values.\nDuplicate: ${JSON.stringify(match)}`);
+        return;
+      }
+    }
   }
 
   // Fires when user clicks outside the input, or when they pick something from the dropdown
@@ -100,13 +114,9 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     this.editByModel = true;
     let matchList = [];
     for (const item of this.selectionListItems) {
-      matchList.push({ value: item?.value || item, matcher: item?.display || item?.value || item })
+      matchList.push({ value: item?.value || item, matcher: item?.display || item?.value || item });
     }
-    let match = matchList.find((e) => {
-      if (this.currentDisplay?.indexOf(e.matcher) > -1) {
-        return e;
-      }
-    });
+    let match = matchList.find((e) => this.currentDisplay === e.matcher);
     if (match) {
       this.updateValue(match.value);
       this.control.markAsDirty();
@@ -138,7 +148,7 @@ export class NgdsTypeaheadInput extends NgdsInput implements AfterViewInit {
     let display = item.value;
     if (display.toLocaleLowerCase().indexOf(query) > -1) {
       const left_str = display.substring(0, display.toLocaleLowerCase().indexOf(query));
-      const highlight_str = display.substring(display.toLocaleLowerCase().indexOf(query), display.toLocaleLowerCase().indexOf(query) + query.length)
+      const highlight_str = display.substring(display.toLocaleLowerCase().indexOf(query), display.toLocaleLowerCase().indexOf(query) + query.length);
       const right_str = display.substring(display.toLocaleLowerCase().indexOf(query) + query.length);
       return '<div>' + left_str + `<strong>` + highlight_str + '</strong>' + right_str + '</div>';
     }
