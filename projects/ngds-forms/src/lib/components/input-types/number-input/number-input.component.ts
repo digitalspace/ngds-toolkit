@@ -218,7 +218,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
 
   // Check whether or not a (String) value has an identical number representation
   checkNumberRepresentation(value: string, mustBeNumber = false) {
-    const num = Number(value) ?? null;
+    const num = isNaN(Number(value)) ? null : Number(value);
     // Check safe integers
     if (num && (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER)) {
       return false;
