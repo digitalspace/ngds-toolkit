@@ -14,6 +14,12 @@ export class TextInputComponent implements OnInit, AfterViewInit {
   public isDisabled = false;
   public isLoading = false;
   public snippets = snippets;
+  public invalidConfig = {
+    showMessage: true,
+    messages: {
+      required: `This is a custom error message. This field is empty so the field is invalid.`
+    }
+  }
 
   @ViewChildren('section') entries: TemplateRef<any>;
 
@@ -35,7 +41,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
       multilineMinInput: new UntypedFormControl(null, Validators.minLength(10)),
       requiredInput: new UntypedFormControl(null, Validators.required),
       hideInvalidState: new UntypedFormControl(null, Validators.required),
-      customValidator: new UntypedFormControl(null, [this.customValidator()]),
+      customValidator: new UntypedFormControl(null, [Validators.required, this.customValidator()]),
       inline: new UntypedFormControl(null),
       justify: new UntypedFormControl(null),
     })
@@ -67,9 +73,6 @@ export class TextInputComponent implements OnInit, AfterViewInit {
   customValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      if (!value) {
-        return { emptyField: 'Field cannot be empty!'};
-      }
       if (value === 'invalid') {
         return { customValidator: 'The value of this input cannot be "invalid"' }
       }

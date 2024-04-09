@@ -3,7 +3,7 @@
   <h3>Basic text entry</h3>
   <p>
     At a minimum, you must provide every NGDS input with an Angular <code>AbstractControl</code> or derivative. All
-    other attributes are optional. Provide <code>[label]</code>, <code>[subLabel]</code>, and <code>[placeholder]</code> attributes for input labelling. 
+    other attributes are optional. Provide <code>[label]</code>, <code>[subLabel]</code>, and <code>[placeholder]</code> attributes for input labelling.
   </p>
   <p>
     If you wish to use your own input, you can use <code>&lt;ngds-input-header&gt;</code> to match the label styling of NGDS forms.
@@ -92,7 +92,7 @@
 <section #section id="multilineInput" class="mb-5 mt-3">
   <h3>Multiline text (textarea)</h3>
   <p>
-    Use <code>[multiline]="true"</code> to change the underlying HTML element from <code>input</code> to <code>textarea</code>. This enables multiline text entry. Set <code>[showCharacterCount]="true"</code> to see a character tally. 
+    Use <code>[multiline]="true"</code> to change the underlying HTML element from <code>input</code> to <code>textarea</code>. This enables multiline text entry. Set <code>[showCharacterCount]="true"</code> to see a character tally.
   </p>
   <p>
     Multiline text elements are compatible with Angular's providided <code>minLength</code> and <code>maxLength</code> validators.
@@ -118,7 +118,7 @@
   </p>
   <demonstrator [htmlFile]="snippets?.requiredInput?.html" [tsFile]="snippets?.requiredInput?.ts"
     [control]="form?.controls?.['requiredInput']" >
-    <ngds-text-input [control]="form?.controls?.['requiredInput']"> 
+    <ngds-text-input [control]="form?.controls?.['requiredInput']">
     </ngds-text-input>
   </demonstrator>
 </section>
@@ -128,9 +128,12 @@
   <p>
     Set <code>[hideInvalidState]="true"</code> if you do not want to display a red border or error messages when the control is invalid. The field below is required, but no invalidation message shows.
   </p>
+  <p>
+    You can also hide only the invalidation message but keep the red border and icon styling by using <code>[invalidConfig]</code> as explained in the <a href="/forms/text#customValidator">next</a> example.
+  </p>
   <demonstrator [htmlFile]="snippets?.hideInvalidState?.html" [tsFile]="snippets?.hideInvalidState?.ts"
     [control]="form?.controls?.['hideInvalidState']">
-    <ngds-text-input [control]="form?.controls?.['hideInvalidState']" [hideInvalidState]="true" > 
+    <ngds-text-input [control]="form?.controls?.['hideInvalidState']" [hideInvalidState]="true" >
     </ngds-text-input>
   </demonstrator>
 </section>
@@ -139,11 +142,12 @@
   <h3>Custom validation</h3>
   <p>
     NGDS forms support custom validators. You can design your own custom validators using Angular's
-    <code>ValidationFn</code> in your components. This control will be invalid if its value is 'invalid'.
+    <code>ValidationFn</code> in your components. This control will be invalid if its value is empty or 'invalid' is typed in.
   </p>
+  <p>You can customize the error message by using the <code>[invalidConfig]</code> directive.</p>
   <demonstrator [htmlFile]="snippets?.customValidator?.html" [tsFile]="snippets?.customValidator?.ts"
     [control]="form?.controls?.['customValidator']">
-    <ngds-text-input [control]="form?.controls?.['customValidator']">
+    <ngds-text-input [control]="form?.controls?.['customValidator']" [invalidConfig]="invalidConfig">
     </ngds-text-input>
   </demonstrator>
 </section>

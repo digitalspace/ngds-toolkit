@@ -108,7 +108,7 @@ export const snippets = {
       [multiline]="true"
       [showCharacterCount]="true">
     </ngds-text-input>
-    
+
     <ngds-text-input
       [label]="'With maxLength validator'"
       [subLabel]="'maxLength is 20'"
@@ -217,7 +217,7 @@ export const snippets = {
   customValidator: {
     html: `
     <ngds-text-input
-      [control]="form?.controls?.['customValidator']">
+      [control]="form?.controls?.['customValidator']" [invalidConfig]="invalidConfig">
     </ngds-text-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
@@ -227,13 +227,19 @@ export const snippets = {
       selector: 'custom-validator-input'
       export class customValidatorInput implements OnInit {
         public form;
+        public invalidConfig = {
+          showMessages: true,
+          messages: {
+            required: 'This is a custom error message. This field is empty so the field is invalid.'
+          }
+        }
 
         ngOnInit(): void {
           this.form = new UntypedFormGroup({
-            customValidator: new UntypedFormControl(null, [this.customValidator()]),
+            customValidator: new UntypedFormControl(null, [Validators.required, this.customValidator()]),
           })
         }
-        
+
         customValidator(): ValidatorFn {
           return (control: AbstractControl): ValidationErrors | null => {
             const value = control.value;
@@ -265,7 +271,7 @@ export const snippets = {
           this.form = new UntypedFormGroup({
             justify: new UntypedFormControl(null),
           })
-        }       
+        }
       }
     })`
   },
@@ -277,7 +283,7 @@ export const snippets = {
       <button ngdsInputAppend class="btn btn-warning">Button 3</button>
       <button ngdsInputAppend class="btn btn-danger">Button 4</button>
     </ngds-text-input>
-  
+
     <ngds-text-input [control]="form?.controls?.['inline']" [resetButton]="true">
       <i ngdsInputPrepend class="mx-2 align-items-center bi bi-info-circle"></i>
       <i ngdsInputPrepend class="mx-2 bi bi-image-fill"></i>
@@ -310,7 +316,7 @@ export const snippets = {
       background-color: aquamarine;
       color: purple;
     }
-    
+
     .custom-append {
       background-color: purple;
       color: aquamarine;

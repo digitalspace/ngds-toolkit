@@ -3,14 +3,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export interface invalidConfig {
   showMessage?: boolean,
   messages?: {
-    default?: string
+    default?: string,
     required?: string,
     requiredTrue?: string,
     min?: string,
     max?: string,
     minlength?: string,
-    maxlength?: string
-  }
+    maxlength?: string,
+    [key: string]: string
+  };
 }
 
 @Component({
@@ -34,10 +35,10 @@ export class NgdsInputFooter implements OnInit {
       minlength: 'This field is too short.',
       maxlength: 'This field is too long.'
     }
-  }
+  };
 
   ngOnInit(): void {
-    this.config = {...this.defaultConfig, ...this.config};
+    this.config = { ...this.defaultConfig, ...this.config };
   }
 
   getInvalidMsg() {
@@ -45,7 +46,7 @@ export class NgdsInputFooter implements OnInit {
     if (this.control?.errors && this.config.showMessage) {
       let firstErrorKey = Object.keys(this.control.errors)[0];
       let message = this.control.errors[firstErrorKey];
-      if (!message || Object.keys(message).length > 0) {
+      if (!message || typeof message !== 'string') {
         message = this.config.messages[firstErrorKey] || this.config.messages.default;
       }
       return message;
