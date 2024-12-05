@@ -156,6 +156,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
         }
       }
     }
+    this.control.markAsDirty();
   }
 
   // Check for allowable key combinations

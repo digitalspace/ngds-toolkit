@@ -27,7 +27,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
     // success example
     const formattedDateTime1 = now.toFormat(reversableTokenString); // expect valid 'YYYY-MM-DD' format
     const parsedDateTime1 = formattedDateTime1.fromFormat(reversableTokenString); // expect valid DateTime
-    
+
     // failure example
     const formattedDateTime2 = now.toFormat(irreversableTokenString); // expect valid Unix timestamp
     const parsedDateTime2 = formattedDateTime2.fromFormat(irreversableTokenString); // fails => 'Invalid DateTime';
@@ -42,7 +42,7 @@ export class DatepickersComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
       basicDatepicker: new UntypedFormControl(null),
-      programmaticDatepicker: new UntypedFormControl(DateTime.now().toFormat('yyyy-LL-dd'), { nonNullable: true }),
+      programmaticDatepicker: new UntypedFormControl(DateTime.now().toUTC().toFormat('yyyy-LL-dd'), { nonNullable: true }),
       disabledLoadingDatepicker: new UntypedFormControl(null),
       inlineDatepicker: new UntypedFormControl(null),
       minDatepicker: new UntypedFormControl(null),
