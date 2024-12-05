@@ -27,9 +27,10 @@ export class RangepickersComponent {
   ) { }
 
   ngOnInit(): void {
+    let now = DateTime.now().toUTC();
     this.form = new UntypedFormGroup({
       basicRangepicker: new UntypedFormControl(null),
-      programmaticRangepicker: new UntypedFormControl([DateTime.now().toFormat('yyyy-LL-dd'), DateTime.now().plus({ days: 1 }).toFormat('yyyy-LL-dd')], { nonNullable: true }),
+      programmaticRangepicker: new UntypedFormControl([now.toFormat('yyyy-LL-dd'), now.plus({ days: 1 }).toFormat('yyyy-LL-dd')], { nonNullable: true }),
       inlineRangepicker: new UntypedFormControl(null),
       disabledRangepicker: new UntypedFormControl(null),
       maxRangeRangepicker: new UntypedFormControl(null),
