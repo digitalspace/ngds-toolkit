@@ -181,6 +181,15 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // If no control is provided, throw an error.
+    if (!this.control) {
+      let errorMessage = 'An NGDS-Form element is missing a defined form control. Please provide a control to bind to [control].';
+      if (this.label) {
+        errorMessage += ` Control label: '${this.label}'`;
+      }
+      throw new Error(errorMessage);
+    };
+
     // attach unique control id
     this.control['id'] = this.controlId;
 
