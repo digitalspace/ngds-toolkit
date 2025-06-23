@@ -302,5 +302,44 @@ export const snippets = {
         }
       }
     })`
+  },
+  autoCloseBehaviour: {
+    html: `
+    <ngds-picklist-input [control]="form?.controls?.['changeSelectList']" [selectionListItems]="currentChangeSelectList"
+    [placeholder]="'Make a selection'">
+  </ngds-picklist-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'change-picklist'
+      export class ChangingPicklist implements OnInit {
+        public form;
+
+        public changeSelectList1 = ['this option is only in list 1', 'this option is in both lists'];
+        public changeSelectList2 = ['this option is only in list 2', 'this option is in both lists'];
+        public currentChangeSelectList;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            changeSelectList: new UntypedFormControl(null),
+          })
+
+          this.currentChangeSelectList = this.changeSelectList1;
+          this.changeTimer(this.changeSelectList1);
+          setTimeout(() => {
+            this.currentChangeSelectList = this.changeSelectList2;
+            this.changeTimer(this.changeSelectList2);
+          }, 2500);
+        }
+
+        changeTimer(nextSelectList) { 
+          setInterval(() => {
+            this.currentChangeSelectList = nextSelectList;
+          }, 5000);
+        }
+      }
+    })`
   }
 }

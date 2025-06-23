@@ -47,7 +47,7 @@
           <td *ngFor="let day of weekdays; index as j" class="px-0">
             <button [disabled]="checkDisabledDate(week[j])" [ngClass]="getDateClasses(week[j])"
               (click)="updateDateOnClick(week[j])" (mouseenter)="updateHoverDate(week[j])"
-              (focus)="updateHoverDate(week[j])">
+              (focus)="updateHoverDate(week[j])" value="{{ week[j].day }}">
               {{ week[j].day }}
             </button>
           </td>

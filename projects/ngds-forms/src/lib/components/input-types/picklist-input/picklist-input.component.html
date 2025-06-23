@@ -1,59 +1,137 @@
 <!-- Header -->
-<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+<ngds-input-header
+  #inputHeader
+  [label]="label"
+  [subLabel]="subLabel"
+  [control]="control"
+></ngds-input-header>
 
 <!-- Picklist Input -->
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
-  <div class="dropdown input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
+  <div
+    #dropdownElement
+    class="input-group border rounded-3 position-relative"
+    [ngClass]="getWrapperClasses()"
+  >
 
     <!-- Prepended content -->
-    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+    <ng-content
+      #inputPrepend
+      select="[ngdsInputPrepend]"
+    ></ng-content>
 
     <!-- Input -->
-    <button #inputElement data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-height: 2.25rem; margin-left: 1px;" class="form-select border-0 text-start rounded-3" [ngClass]="getInputClasses()" [disabled]="isDisabled"
-      [value]="control?.value">
+    <button
+      #inputElement
+      type="button"
+      role="select"
+      style="min-height: 2.25rem; margin-left: 1px;"
+      class="form-select border-0 text-start rounded-3"
+      [ngClass]="getInputClasses()"
+      [disabled]="isDisabled"
+      [value]="control?.value"
+      (focus)="dropdownFocus()"
+    >
       <!-- Input display current value -->
       <!-- Multiselect display items -->
-      <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
-        <ngds-multiselect-item class="col-auto p-0 my-0 me-1" *ngFor="let item of control?.value"
-          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled" >
+      <div
+        *ngIf="multiselect && control?.value?.length"
+        class="m-0 d-flex justify-content-left row"
+      >
+        <ngds-multiselect-item
+          class="col-auto p-0 my-0 me-1"
+          *ngFor="let item of control?.value"
+          [option]="getOptionByValue(item)"
+          (remove)="removeValue($event)"
+          [disabled]="isDisabled"
+        >
         </ngds-multiselect-item>
       </div>
       <!-- Display current value as string -->
-      <div *ngIf="!showSelectedTemplate()" [ngClass]="{'text-muted': !control?.value}">{{ getActiveDisplay() }}</div>
+      <div
+        *ngIf="!showSelectedTemplate()"
+        [ngClass]="{'text-muted': !control?.value}"
+      >{{ getActiveDisplay() }}</div>
       <!-- Display current value as template -->
       <div *ngIf="showSelectedTemplate()">
         <ng-container *ngTemplateOutlet="selectionListTemplate"></ng-container>
       </div>
       <!-- Dropdown menu -->
-      <ul class="dropdown-menu" role="menu">
-        <li *ngFor="let option of selectionListItems" (click)="onValueChange(option?.value || option)" role="menuitem" class="option-item">
+      <ul
+        #dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+      >
+        <li
+          *ngFor="let option of selectionListItems"
+          (click)="onValueChange(option?.value || option, true)"
+          role="menuitem"
+          class="option-item"
+          href="#"
+        >
           <!-- Display current menu item as template -->
-          <ng-container *ngIf="showTemplate()" [ngTemplateOutlet]="selectionListTemplate"
-            [ngTemplateOutletContext]="{data: option}"></ng-container>
+          <button *ngIf="showTemplate()" class="m-0 p-0 btn btn-link text-reset text-decoration-none w-100">
+            <ng-container
+              [ngTemplateOutlet]="selectionListTemplate"
+              [ngTemplateOutletContext]="{data: option}"
+            ></ng-container>
+          </button>
           <!-- Display current menu item as string -->
-          <div *ngIf="!showTemplate()" class="dropdown-item">
+          <button
+            *ngIf="!showTemplate()"
+            class="dropdown-item"
+            (click)="onValueChange(option?.value || option, true)"
+            value="{{ option?.value || option }}"
+          >
             {{ getDisplayByValue( option?.value || option) }}
-          </div>
+          </button>
       </ul>
     </button>
 
     <!-- Select all button -->
-    <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0 focus-highlight"
-    [disabled]="isDisabled" (click)="multiselectAll()"><i class="bi bi-list-check"></i></button>
+    <button
+      *ngIf="multiselect && selectAllButton"
+      type="button"
+      aria-label="select all"
+      class="btn btn-inline border-0 focus-highlight"
+      [disabled]="isDisabled"
+      (click)="multiselectAll()"
+    ><i class="bi bi-list-check"></i></button>
 
     <!-- Clear control button -->
-    <button *ngIf="showResetButton()" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
-      [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
+    <button
+      *ngIf="showResetButton()"
+      type="button"
+      aria-label="reset input"
+      class="btn btn-inline border-0 focus-highlight"
+      [disabled]="isDisabled"
+      (click)="control.reset()"
+    ><i class="bi bi-x-lg"></i></button>
 
-      <!-- Appended content -->
-    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+    <!-- Appended content -->
+    <ng-content
+      #inputAppend
+      select="[ngdsInputAppend]"
+    ></ng-content>
 
   </div>
 
   <!-- Overlay content -->
-  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+  <ngds-input-overlay
+    #inputOverlay
+    [loading]="isLoading"
+  ></ngds-input-overlay>
 </div>
 
 <!-- Footer -->
-<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>
+<ngds-input-footer
+  #inputFooter
+  [control]="control"
+  [invalid]="isInvalid && !hideInvalidState"
+  [config]="invalidConfig"
+></ngds-input-footer>
+
+<ng-template>
+
+</ng-template>

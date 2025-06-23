@@ -7,8 +7,6 @@ import { NgdsPicklistInput } from './components/input-types/picklist-input/pickl
 import { NgdsInputHeader } from './components/input-addons/ngds-input-header/ngds-input-header.component';
 import { NgdsInputFooter } from './components/input-addons/ngds-input-footer/ngds-input-footer.component';
 import { NgdsInputOverlayComponent } from './components/input-addons/ngds-input-overlay/ngds-input-overlay.component';
-import { BsDropdownDirective, BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgdsTypeaheadInput } from './components/input-types/typeahead-input/typeahead-input.component';
 import { NgdsMultiselectItem } from './components/input-addons/multiselect-item/multiselect-item.component';
@@ -17,12 +15,14 @@ import { NgdsCalendar } from './components/input-types/date-input/calendar/calen
 import { NgdsCalendarManager } from './components/input-types/date-input/calendar/calendar-manager/calendar-manager.component';
 import { NgdsToggleInput } from './components/input-types/toggle-input/toggle-input.component';
 import { NgdsNumberInput } from './components/input-types/number-input/number-input.component';
+import { NgdsDropdown } from './components/input-types/ngds-dropdown.component';
 
-export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput, NgdsToggleInput, NgdsNumberInput};
+export { NgdsInput, NgdsDropdown, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsInputHeader, NgdsInputFooter, NgdsDateInput, NgdsToggleInput, NgdsNumberInput};
 
 @NgModule({
   declarations: [
     NgdsInput,
+    NgdsDropdown,
     NgdsTextInput,
     NgdsPicklistInput,
     NgdsInputHeader,
@@ -40,15 +40,13 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDropdownModule.forRoot(),
-    TypeaheadModule.forRoot()
   ],
   providers: [
-    BsDropdownDirective,
     provideAnimations()
   ],
   exports: [
     NgdsInput,
+    NgdsDropdown,
     NgdsInputHeader,
     NgdsInputFooter,
     NgdsTextInput,
@@ -56,7 +54,7 @@ export { NgdsInput, NgdsTextInput, NgdsPicklistInput, NgdsTypeaheadInput, NgdsIn
     NgdsTypeaheadInput,
     NgdsDateInput,
     NgdsToggleInput,
-    NgdsNumberInput
+    NgdsNumberInput,
   ],
 })
 export class NgdsForms { }

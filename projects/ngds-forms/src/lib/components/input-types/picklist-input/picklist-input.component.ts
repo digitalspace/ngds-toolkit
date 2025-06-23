@@ -1,16 +1,22 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { NgdsInput } from '../ngds-input.component';
+import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
+import { NgdsDropdown } from '../ngds-dropdown.component';
 
 @Component({
   selector: 'ngds-picklist-input',
   templateUrl: './picklist-input.component.html',
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
-export class NgdsPicklistInput extends NgdsInput implements AfterViewInit {
+export class NgdsPicklistInput extends NgdsDropdown {
 
-  ngAfterViewInit(): void {
-    this.inputElement.nativeElement.addEventListener('hide.bs.dropdown', () => this.onBlur());
-    this.inputElement.nativeElement.addEventListener('show.bs.dropdown', () => this.onFocus());
+  constructor(
+    private picklistCd: ChangeDetectorRef,
+    private picklistRenderer: Renderer2,
+  ) {
+    super(
+      picklistCd,
+      picklistRenderer,
+    );
+    this.dropdownInputType = 'picklist';
   }
 
   showSelectedTemplate(): boolean {
@@ -31,11 +37,15 @@ export class NgdsPicklistInput extends NgdsInput implements AfterViewInit {
     return false;
   }
 
-  onValueChange(value) {
+  onValueChange(value, byClick = false) {
+    if (byClick) {
+      this.lastChangedBySelect = true;
+    }
     this.updateValue(value);
     this.control.markAsDirty();
     this.control.markAsTouched();
     this.control.updateValueAndValidity();
+    this.lastChangedBySelect = false;
   }
 
   onOpenChange(e) {

@@ -1,67 +1,145 @@
 <!-- Header -->
-<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+<ngds-input-header
+  #inputHeader
+  [label]="label"
+  [subLabel]="subLabel"
+  [control]="control"
+></ngds-input-header>
 
-<!-- Typeahead input -->
-<div class="d-flex position-relative">
-  <!-- Input wrapper -->
-  <div class="input-group border rounded-3 d-flex align-items-center" [ngClass]="getWrapperClasses()">
+<!-- Input wrapper -->
+<div
+  #dropdownElement
+  class="input-group border rounded-3 position-relative"
+  [ngClass]="getWrapperClasses()"
+>
 
-    <!-- Prepended content -->
-    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+  <!-- Prepended content -->
+  <ng-content
+    #inputPrepend
+    select="[ngdsInputPrepend]"
+  ></ng-content>
 
-    <!-- Input -->
-    <button #inputElement class="form-select border-0 rounded-3" style="min-height: 2.25rem;"
-      [ngClass]="getInputClasses()" [disabled]="isDisabled"
-      (click)="openDropdown()">
-      <div class="text-muted" style="overflow: hidden; white-space: nowrap;">
-        {{ placeholderDisplay() }}
-      </div>
-      <!-- Input display current value -->
+  <!-- Input -->
+  <div
+    class="form-input border-0 rounded-5 d-flex w-100"
+    style="min-height: 2.25rem"
+    [ngClass]="getInputClasses()"
+  >
+    <!-- Align multiselect when input is toggled/untoggled -->
+    <div
+      class="w-100"
+      [ngClass]="{'d-flex': isInputHidden()}"
+      #inputElement
+    >
       <!-- Multiselect display items -->
-      <div *ngIf="multiselect && control?.value?.length" class="m-0 d-flex justify-content-left row">
-        <ngds-multiselect-item class="col-auto p-0 my-0 me-1" *ngFor="let item of control?.value"
-          [option]="getOptionByValue(item)" (remove)="removeValue($event)" [disabled]="isDisabled">
+      <div
+        *ngIf="multiselect && control?.value?.length"
+        class="mx-1 mt-1 d-flex justify-content-left row w-100"
+        #typeaheadInput
+        role="select"
+      >
+        <ngds-multiselect-item
+          class="col-auto p-0 mb-1 me-1"
+          *ngFor="let item of control?.value"
+          [option]="getOptionByValue(item)"
+          (remove)="removeValue($event)"
+          [disabled]="isDisabled"
+          role="menuitem"
+        >
         </ngds-multiselect-item>
       </div>
       <!-- Text input for typeahead -->
-      <input #typeaheadInput autocomplete="off" [hidden]="!isOpen.value" [(ngModel)]="currentDisplay" [placeholder]="placeholder ? placeholder : ''"
-        (ngModelChange)="matchControlToInput()" [typeahead]="selectionListItems" (typeaheadOnSelect)="selected()"
-        typeaheadOptionField="display" [optionsListTemplate]="getTemplate()" [typeaheadMinLength]="typeaheadMinLength" [typeaheadOptionsLimit]="selectionListItems?.length || 20"
-        [adaptivePosition]="adaptivePosition" [disabled]="isDisabled" class="w-100 h-100 rounded border-0 multiselect-input"
-        [ngClass]="{'is-invalid': isInvalid, 'shrink-input': !isOpen.value}" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
-        <!-- Placeholder -->
-        <div class="text-muted text-start" *ngIf="multiselect && placeholder && !control.value && !isFocused">
-          {{ placeholder }}
-        </div>
-    </button>
+        <input
+          #typeaheadInput
+          (focus)="dropdownFocus()"
+          autocomplete="off"
+          [attr.id]="'typeahead-' + controlId"
+          [(ngModel)]="currentDisplay"
+          [placeholder]="placeholder && !isInputHidden() ? placeholder : ''"
+          (ngModelChange)="typeaheadChange($event)"
+          [disabled]="isDisabled"
+          class="rounded border-0 form-select position-relative"
+          [ngClass]="{'is-invalid': isInvalid, 'w-100': !isInputHidden(), 'closed-multiselect-input': isInputHidden()}"
+        >
+      <!-- Dropdown Items-->
+      <ul
+        #dropdownMenu
+        role="menu"
+        class="dropdown-menu"
+        style="max-height: 250px; overflow-y: auto; min-width: 400px"
+      >
+        <ng-content
+          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: selectionListItems, query: currentDisplay }"
+        ></ng-content>
+      </ul>
+    </div>
 
-    <!-- Select all button -->
-    <button *ngIf="multiselect && selectAllButton" type="button" aria-label="select all" class="btn btn-inline border-0 focus-highlight"
-      [disabled]="isDisabled" (click)="selectAll()"><i class="bi bi-list-check"></i></button>
+    <div class="d-flex justify-content-right">
+      <!-- Select all button -->
+      <button
+        *ngIf="multiselect && selectAllButton"
+        type="button"
+        aria-label="select all"
+        class="btn btn-inline border-0 focus-highlight"
+        [disabled]="isDisabled"
+        (click)="selectAll()"
+      ><i class="bi bi-list-check"></i></button>
 
-    <!-- Clear control button -->
-    <button *ngIf="showResetButton()" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
-      [disabled]="isDisabled" (click)="resetClicked()"><i class="bi bi-x-lg"></i></button>
+      <!-- Clear control button -->
+      <button
+        *ngIf="showResetButton()"
+        type="button"
+        aria-label="reset input"
+        class="btn btn-inline border-0 focus-highlight"
+        [disabled]="isDisabled"
+        (click)="resetClicked()"
+      ><i class="bi bi-x-lg"></i></button>
 
-    <!-- Appended content -->
-    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+      <!-- Appended content -->
+      <ng-content
+        #inputAppend
+        select="[ngdsInputAppend]"
+      ></ng-content>
+    </div>
   </div>
 
   <!-- Overlay content -->
-  <ngds-input-overlay #inputOverlay [loading]="isLoading"></ngds-input-overlay>
+  <ngds-input-overlay
+    #inputOverlay
+    [loading]="isLoading"
+  ></ngds-input-overlay>
 </div>
 
 <!-- Footer -->
-<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>
+<ngds-input-footer
+  #inputFooter
+  [control]="control"
+  [invalid]="isInvalid && !hideInvalidState"
+  [config]="invalidConfig"
+></ngds-input-footer>
 
-<!-- Default dropdown picklist template -->
-<ng-template #defaultListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
-  <ul class="default-list-group">
-    <li class="default-list-group-item" *ngFor="let match of matches"
-      [class.active]="typeaheadTemplateMethods.isActive(match)"
-      (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
-      (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
-      <span [innerHtml]="getHighlightedMatch(match, query)"></span>
-    </li>
-  </ul>
-</ng-template>
+<!-- Dropdown List Template-->
+<ng-template
+  #defaultListTemplate
+  let-matches="matches"
+  let-control="control"
+>
+  <div
+    *ngIf="!matches || matches?.length === 0"
+    class="py-1 px-3 text-muted"
+  >
+    {{ noResultsText }}
+  </div>
+  <button
+    *ngFor="let match of matches"
+    class="dropdown-item"
+    [class.focused]="checkFocusIndex(match)"
+    (mouseenter)="setFocusIndex(matches.indexOf(match))"
+    (click)="selected(match)"
+    [ngClass]="{'active': match.value === control?.value}"
+    type="menuitem"
+    value="{{ match?.value || match}}"
+  >
+    <div [innerHtml]="match?.innerHtml"></div>
+  </button>
+  <ng-template>
