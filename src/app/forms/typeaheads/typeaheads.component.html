@@ -11,11 +11,11 @@
   <p>
     In the example below, search for a Canadian province or territory.
   </p>
-  <demonstrator 
+  <demonstrator
     [htmlFile]="snippets?.basicTypeahead?.html" [tsFile]="snippets?.basicTypeahead?.ts"
     [control]="form?.controls?.['basicTypeahead']">
     <ngds-typeahead-input [control]="form?.controls?.['basicTypeahead']" [selectionListItems]="simpleProvinceList"
-      [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'">
+      [label]="'My typeahead label'" [subLabel]="'My typeahead sub-label'" [placeholder]="'My placeholder'" [resetButton]="true">
     </ngds-typeahead-input>
   </demonstrator>
 </section>
@@ -37,7 +37,7 @@
   </p>
   <demonstrator [htmlFile]="snippets?.minLength?.html" [tsFile]="snippets?.minLength?.ts"
     [control]="form?.controls?.['minLength']">
-    <ngds-typeahead-input [control]="form?.controls?.['minLength']" [selectionListItems]="displayProvinceList" [typeaheadMinLength]="3">
+    <ngds-typeahead-input [control]="form?.controls?.['minLength']" [selectionListItems]="displayProvinceList" [typeaheadMinLength]="3" [label]="'Minimum of 3 characters before suggestions appear'" [placeholder]="'Type at least 3 characters...'" [adaptivePosition]="false" [resetButton]="true">
     </ngds-typeahead-input>
   </demonstrator>
 </section>
@@ -59,7 +59,7 @@
   </demonstrator>
 </section>
 
-<section #section id="customTemplateTypeahead" class="mb-5 mt-3">
+<!-- <section #section id="customTemplateTypeahead" class="mb-5 mt-3">
   <h3>Typeahead with custom option template</h3>
   <p>
     You can provide a template for your dropdown options using the <code>[selectionListTemplate]</code> attribute with
@@ -77,23 +77,20 @@
       [placeholder]="'Start typing...'" [resetButton]="true" [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
   </demonstrator>
-</section>
+</section> -->
 
-<ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+<!-- <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
   <ul class="custom-list-group">
     <li class="custom-list-group-item" *ngFor="let match of matches"
       [class.active]="typeaheadTemplateMethods.isActive(match)"
       (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
       (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
-      <!-- Before highlight -->
       <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[0]"></span>
-      <!-- Highlight -->
       <span class="custom-highlight" [innerHtml]="getHighlightedMatch(match, query)[1]"></span>
-      <!-- After highlight -->
       <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[2]"></span>
     </li>
   </ul>
-</ng-template>
+</ng-template> -->
 
 <section #section id="disableTypeahead" class="mb-5 mt-3">
   <h3>Disabled and loading typeaheads</h3>

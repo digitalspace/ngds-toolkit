@@ -6,7 +6,7 @@ $focus-outline-color: #000;
 $dropdown-bg-color: #fff;
 $dropdown-hover-bg-color: #e9ecef;
 $calendar-hover-bg-color: #e0e5e7;
-$calendar-in-range-hover-bg-color:#e6eaee;
+$calendar-in-range-hover-bg-color: #e6eaee;
 $calendar-active-bg-color: #c5c5c5;
 $calendar-inactive-text-color: #c4c4c4;
 $calendar-out-of-range-color: #707070;
@@ -21,55 +21,66 @@ $active-invalid-outline: red;
   background-color: var(--bs-gray-200);
 }
 
-.calendar-cell{
+.calendar-cell {
   min-width: 44px;
 }
 
-.calendar-month{
+.calendar-month {
   cursor: pointer;
   border: none;
   background-color: transparent;
   border-radius: 2rem;
+
   &:hover {
     background-color: var(--bs-gray-300);
   }
+
   &:focus {
     background-color: var(--bs-gray-400);
   }
+
   &.selected {
     background-color: var(--bs-gray-400);
   }
 }
 
-.calendar-date{
+.calendar-date {
   border: none;
   background-color: transparent;
   min-width: 44px;
   color: var(--bs-gray-400);
+
   &.valid-date {
     cursor: pointer;
     color: black;
+
     &:hover {
       background-color: var(--bs-gray-300) !important;
-      &:not(.in-range){
+
+      &:not(.in-range) {
         border-radius: 2rem;
       }
     }
-    &.first-date{
+
+    &.first-date {
       border-top-left-radius: 2rem;
       border-bottom-left-radius: 2rem;
     }
+
     &.last-date {
       border-top-right-radius: 2rem;
       border-bottom-right-radius: 2rem;
     }
-    &.selected{
+
+    &.selected {
       font-weight: bold;
       background-color: var(--bs-gray-500) !important;
+
       &:hover {
         background-color: var(--bs-gray-400) !important;
       }
     }
+
     &.in-range {
       background-color: var(--bs-gray-200);
       font-weight: bold;
@@ -101,6 +112,37 @@ $active-invalid-outline: red;
   background-color: var(--bs-white);
 }
 
+.ngds-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.3rem 0.75rem;
+  // padding: var(--#{$prefix}dropdown-item-padding-y) var(--#{$prefix}dropdown-item-padding-x);
+  clear: both;
+  // color: var(--#{$prefix}dropdown-link-color);
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+
+  &.focused,
+  &:focus {
+    background-color: $dropdown-hover-bg-color;
+  }
+
+  &.active,
+  &:active {
+    background-color: $dropdown-active-bg-color;
+    color: $dropdown-active-text-color;
+  }
+
+  // &.disabled,
+  // &:disabled {
+  //   // color: var(--#{$prefix}dropdown-link-disabled-color);
+  //   pointer-events: none;
+  //   background-color: transparent;
+  // }
+}
+
 .focus-highlight {
   &:focus {
     outline: 2px solid black;
@@ -117,16 +159,17 @@ $active-invalid-outline: red;
   }
 }
 
-.increment-button{
+.increment-button {
   font-size: 0.75rem;
 }
 
 .is-focused {
-  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
-  border-color: rgba(var(--bs-primary-rgb),0.75) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), .25);
+  border-color: rgba(var(--bs-primary-rgb), 0.75) !important;
+
   &.is-invalid {
-    box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb),.25);
-    border-color:rgba(var(--bs-danger-rgb),0.75) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), .25);
+    border-color: rgba(var(--bs-danger-rgb), 0.75) !important;
   }
 }
 
@@ -138,3 +181,6 @@ $active-invalid-outline: red;
   box-shadow: none !important;
 }
 
+.closed-multiselect-input {
+  width: 1%;
+}

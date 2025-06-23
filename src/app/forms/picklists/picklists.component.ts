@@ -59,7 +59,8 @@ export class PicklistsComponent implements OnInit, AfterViewInit {
         disabledPicklist: new UntypedFormControl(null),
         invalidPicklist: new UntypedFormControl(null, [this.customValidator()]),
         inlinePicklist: new UntypedFormControl(null),
-        changeSelectList: new UntypedFormControl(null)
+        changeSelectList: new UntypedFormControl(null),
+        autoCloseBehaviour: new UntypedFormControl(null),
       }
     )
     for (const control of Object.keys(this.form.controls)) {

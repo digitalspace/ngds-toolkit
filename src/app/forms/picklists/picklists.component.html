@@ -1,50 +1,89 @@
 <h2>Picklists</h2>
-<section #section id="basicPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="basicPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Basic Picklist</h3>
   <p>
     Provide the list of selection options as an array in <code>[selectionListItems]</code>.
   </p>
-  <demonstrator [headerText]="'Basic picklist'"
+  <demonstrator
+    [headerText]="'Basic picklist'"
     [description]="'Provide the list of selection options as an array in [selectionListItems].'"
-    [htmlFile]="snippets?.basicPicklist?.html" [tsFile]="snippets?.basicPicklist?.ts"
-    [control]="form?.controls?.['basicPicklist']">
-    <ngds-picklist-input [control]="form?.controls?.['basicPicklist']" [selectionListItems]="basicSelectionItems"
-      [label]="'My picklist label'" [subLabel]="'My picklist sub-label'" [placeholder]="'My placeholder'">
+    [htmlFile]="snippets?.basicPicklist?.html"
+    [tsFile]="snippets?.basicPicklist?.ts"
+    [control]="form?.controls?.['basicPicklist']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['basicPicklist']"
+      [selectionListItems]="basicSelectionItems"
+      [label]="'My picklist label'"
+      [subLabel]="'My picklist sub-label'"
+      [placeholder]="'My placeholder'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="programmaticPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="programmaticPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Set picklist value programmatically</h3>
   <p>
     NGDS Forms are set up to bind to the value of your control. Changing the value of the control programmatically will
     trigger a change in the UI. When the user interacts with the UI, it will change the control value.
   </p>
-  <demonstrator [htmlFile]="snippets?.programmaticPicklist?.html" [tsFile]="snippets?.programmaticPicklist?.ts"
-    [control]="form?.controls?.['programmaticPicklist']">
-    <button class="btn btn-primary mb-2" (click)="setValue()">Set value</button>
-    <ngds-picklist-input [control]="form?.controls?.['programmaticPicklist']" [selectionListItems]="basicSelectionItems"
-      [placeholder]="'Make a selection'">
+  <demonstrator
+    [htmlFile]="snippets?.programmaticPicklist?.html"
+    [tsFile]="snippets?.programmaticPicklist?.ts"
+    [control]="form?.controls?.['programmaticPicklist']"
+  >
+    <button
+      class="btn btn-primary mb-2"
+      (click)="setValue()"
+    >Set value</button>
+    <ngds-picklist-input
+      [control]="form?.controls?.['programmaticPicklist']"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="displayPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="displayPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Picklist with custom option text</h3>
   <p>
     If you want your options to have displays that differ from their values, provide your
     <code>[selectionListItems]</code> array as an array of the following type:
   </p>
   <pre><code [highlight]="'items: [{value: any, display: string}]'" [languages]="['typescript']"></code></pre>
-  <demonstrator [htmlFile]="snippets?.displayPicklist?.html" [tsFile]="snippets?.displayPicklist?.ts"
-    [control]="form?.controls?.['displayPicklist']">
-    <ngds-picklist-input [control]="form?.controls?.['displayPicklist']" [selectionListItems]="displaySelectionItems"
-      [placeholder]="'Make a selection'">
+  <demonstrator
+    [htmlFile]="snippets?.displayPicklist?.html"
+    [tsFile]="snippets?.displayPicklist?.ts"
+    [control]="form?.controls?.['displayPicklist']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['displayPicklist']"
+      [selectionListItems]="displaySelectionItems"
+      [placeholder]="'Make a selection'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="customPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="customPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Picklist with custom option template</h3>
   <p>
     You can provide a template for your dropdown options using the <code>[selectionListTemplate]</code> attribute with
@@ -53,16 +92,30 @@
     show the <code>display</code> when the option is selected, otherwise the <code>template</code> will be
     shown.
   </p>
-  <demonstrator [htmlFile]="snippets?.customPicklist?.html" [tsFile]="snippets?.customPicklist?.ts" [cssFile]="snippets?.customPicklist?.css" 
-    [cssFile]="snippets?.customPicklist?.css" [control]="form?.controls?.['customPicklist']">
-    <ngds-picklist-input [control]="form?.controls?.['customPicklist']" [selectionListItems]="customSelectionItems"
-      [placeholder]="'Make a selection'" [selectionListTemplate]="customOptionTemplate">
+  <demonstrator
+    [htmlFile]="snippets?.customPicklist?.html"
+    [tsFile]="snippets?.customPicklist?.ts"
+    [cssFile]="snippets?.customPicklist?.css"
+    [cssFile]="snippets?.customPicklist?.css"
+    [control]="form?.controls?.['customPicklist']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['customPicklist']"
+      [selectionListItems]="customSelectionItems"
+      [placeholder]="'Make a selection'"
+      [selectionListTemplate]="customOptionTemplate"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<ng-template #customOptionTemplate let-data="data">
-  <div class="m-2 p-2 template-example">
+<ng-template
+  #customOptionTemplate
+  let-data="data"
+>
+  <div
+    class="m-2 template-example"
+  >
     <div><strong>Value:</strong> {{data?.value || data}}</div>
     <div><strong>Display:</strong> {{data?.display || '&lt;no display&gt;'}}</div>
     <span *ngIf="data?.display">This option will have a value of "<code>{{data?.value || data}}</code>" when picked.
@@ -71,86 +124,192 @@
   </div>
 </ng-template>
 
-<section #section id="disabledPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="disabledPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Disabled and loading picklists</h3>
   <p>
     Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
     respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
   </p>
-  <demonstrator [htmlFile]="snippets?.disabledPicklist?.html" [tsFile]="snippets?.disabledPicklist?.ts"
-    [control]="form?.controls?.['disabledPicklist']">
-    <ngds-picklist-input [control]="form?.controls?.['disabledPicklist']" [selectionListItems]="disabledSelectionItems"
-      [placeholder]="'Make a selection'" [disabled]="isDisabled" [loadWhile]="isLoading" [resetButton]="true">
+  <demonstrator
+    [htmlFile]="snippets?.disabledPicklist?.html"
+    [tsFile]="snippets?.disabledPicklist?.ts"
+    [control]="form?.controls?.['disabledPicklist']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['disabledPicklist']"
+      [selectionListItems]="disabledSelectionItems"
+      [placeholder]="'Make a selection'"
+      [disabled]="isDisabled"
+      [loadWhile]="isLoading"
+      [resetButton]="true"
+    >
     </ngds-picklist-input>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
-      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchDisabled"
+        (click)="disabledSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchDisabled"
+      >Toggle disabled</label>
     </div>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
-      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchLoading"
+        (click)="loadingSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchLoading"
+      >Toggle loading</label>
     </div>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
-        [checked]="form?.controls?.['disabledPicklist'].disabled" (click)="disableProgrammatically('disabledPicklist')">
-      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchProgram"
+        [checked]="form?.controls?.['disabledPicklist'].disabled"
+        (click)="disableProgrammatically('disabledPicklist')"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchProgram"
+      >Toggle disable programmatically</label>
     </div>
   </demonstrator>
 </section>
 
-<section #section id="invalidPicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="invalidPicklist"
+  class="mb-5 mt-3"
+>
   <h3>Picklist validation</h3>
   <p>
     NGDS picklists use Angular's prebuilt <code>Validation</code> capacities. You can use a prebuilt Validator or create
     a custom one.
   </p>
-  <demonstrator [htmlFile]="snippets?.invalidPicklist?.html" [tsFile]="snippets?.invalidPicklist?.ts"
-    [control]="form?.controls?.['invalidPicklist']">
-    <ngds-picklist-input [control]="form?.controls?.['invalidPicklist']" [selectionListItems]="invalidSelectionItems"
-      [placeholder]="'Make a selection'">
+  <demonstrator
+    [htmlFile]="snippets?.invalidPicklist?.html"
+    [tsFile]="snippets?.invalidPicklist?.ts"
+    [control]="form?.controls?.['invalidPicklist']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['invalidPicklist']"
+      [selectionListItems]="invalidSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
     </ngds-picklist-input>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
-        [checked]="form?.controls?.['invalidPicklist'].disabled" (click)="disableProgrammatically('invalidPicklist')">
-      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchProgram"
+        [checked]="form?.controls?.['invalidPicklist'].disabled"
+        (click)="disableProgrammatically('invalidPicklist')"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchProgram"
+      >Toggle disable programmatically</label>
     </div>
   </demonstrator>
 </section>
 
-<section #section id="inlinePicklist" class="mb-5 mt-3">
+<section
+  #section
+  id="inlinePicklist"
+  class="mb-5 mt-3"
+>
   <h3>Picklist inline items</h3>
   <p>
     Valid HTML can be rendered inline using the <code>ngdsInputPrepend</code> and <code>ngdsInputAppend</code>
     directives.
   </p>
-  <demonstrator [htmlFile]="snippets?.inlinePicklist?.html" [tsFile]="snippets?.inlinePicklist?.ts"
-    [cssFile]="snippets?.inlinePicklist?.css" [control]="form?.controls?.['inlinePicklist']">
+  <demonstrator
+    [htmlFile]="snippets?.inlinePicklist?.html"
+    [tsFile]="snippets?.inlinePicklist?.ts"
+    [cssFile]="snippets?.inlinePicklist?.css"
+    [control]="form?.controls?.['inlinePicklist']"
+  >
     <h5>Buttons</h5>
-    <ngds-picklist-input [control]="form?.controls?.['inlinePicklist']" [resetButton]="true"
-      [selectionListItems]="inlineSelectionItems">
-      <button ngdsInputPrepend class="btn btn-primary">Button 1</button>
-      <button ngdsInputPrepend class="btn btn-success">Button 2</button>
-      <button ngdsInputAppend class="btn btn-warning">Button 3</button>
-      <button ngdsInputAppend class="btn btn-danger">Button 4</button>
+    <ngds-picklist-input
+      [control]="form?.controls?.['inlinePicklist']"
+      [resetButton]="true"
+      [selectionListItems]="inlineSelectionItems"
+    >
+      <button
+        ngdsInputPrepend
+        class="btn btn-primary"
+      >Button 1</button>
+      <button
+        ngdsInputPrepend
+        class="btn btn-success"
+      >Button 2</button>
+      <button
+        ngdsInputAppend
+        class="btn btn-warning"
+      >Button 3</button>
+      <button
+        ngdsInputAppend
+        class="btn btn-danger"
+      >Button 4</button>
     </ngds-picklist-input>
     <h5 class="mt-3">Icons</h5>
-    <ngds-picklist-input [control]="form?.controls?.['inlinePicklist']" [resetButton]="true"
-      [selectionListItems]="inlineSelectionItems">
-      <i ngdsInputPrepend class="mx-2 align-items-center bi bi-info-circle"></i>
-      <i ngdsInputPrepend class="mx-2 bi bi-image-fill"></i>
-      <i ngdsInputAppend class="mx-2 bi bi-house"></i>
-      <i ngdsInputAppend class="mx-2 bi bi-link-45deg"></i>
+    <ngds-picklist-input
+      [control]="form?.controls?.['inlinePicklist']"
+      [resetButton]="true"
+      [selectionListItems]="inlineSelectionItems"
+    >
+      <i
+        ngdsInputPrepend
+        class="mx-2 align-items-center bi bi-info-circle"
+      ></i>
+      <i
+        ngdsInputPrepend
+        class="mx-2 bi bi-image-fill"
+      ></i>
+      <i
+        ngdsInputAppend
+        class="mx-2 bi bi-house"
+      ></i>
+      <i
+        ngdsInputAppend
+        class="mx-2 bi bi-link-45deg"
+      ></i>
     </ngds-picklist-input>
     <h5 class="mt-3">Text</h5>
-    <ngds-picklist-input [control]="form?.controls?.['inlinePicklist']" [resetButton]="true"
-      [selectionListItems]="inlineSelectionItems">
-      <div ngdsInputPrepend class="custom-prepend p-2 h-100 rounded-start">Prepended text with custom class</div>
-      <div ngdsInputAppend class="custom-append p-2 h-100 rounded-end">Appended text with custom class</div>
+    <ngds-picklist-input
+      [control]="form?.controls?.['inlinePicklist']"
+      [resetButton]="true"
+      [selectionListItems]="inlineSelectionItems"
+    >
+      <div
+        ngdsInputPrepend
+        class="custom-prepend p-2 h-100 rounded-start"
+      >Prepended text with custom class</div>
+      <div
+        ngdsInputAppend
+        class="custom-append p-2 h-100 rounded-end"
+      >Appended text with custom class</div>
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="changeSelectList" class="mb-5 mt-3">
+<section
+  #section
+  id="changeSelectList"
+  class="mb-5 mt-3"
+>
   <h3>Asynchronous picklist options change</h3>
   <p>
     Having dynamic picklist options can have unwanted behaviour when the options list changes. By default, if an option
@@ -164,15 +323,104 @@
   <p>
     The example below will switch between two different options lists every 2.5 seconds.
   </p>
-  <demonstrator [htmlFile]="snippets?.changeSelectList?.html" [tsFile]="snippets?.changeSelectList?.ts"
-    [control]="form?.controls?.['changeSelectList']">
-    <ngds-picklist-input [control]="form?.controls?.['changeSelectList']" [autoSelectFirstItem]="isAutoSelect"
-      [selectionListItems]="currentChangeSelectList" [placeholder]="'Make a selection'">
+  <demonstrator
+    [htmlFile]="snippets?.changeSelectList?.html"
+    [tsFile]="snippets?.changeSelectList?.ts"
+    [control]="form?.controls?.['changeSelectList']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['changeSelectList']"
+      [autoSelectFirstItem]="isAutoSelect"
+      [selectionListItems]="currentChangeSelectList"
+      [placeholder]="'Make a selection'"
+    >
     </ngds-picklist-input>
     <p class="mt-2"><strong>Current List:</strong> {{ currentChangeSelectList === changeSelectList1 ? '1' : '2'}}</p>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchAutoSelect" (click)="autoSelectSwitch()">
-      <label class="form-check-label" for="flexSwitchAutoSelect">Toggle autoselect first item</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchAutoSelect"
+        (click)="autoSelectSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchAutoSelect"
+      >Toggle autoselect first item</label>
+    </div>
+  </demonstrator>
+</section>
+
+<section
+  #section
+  id="autoCloseBehaviour"
+  class="mb-5 mt-3"
+>
+  <h3>Dropdown auto-close behaviour</h3>
+  <p>
+    Having dynamic picklist options can have unwanted behaviour when the options list changes. By default, if an option
+    is selected and is in the new options list, the value of the input will not change. If the option is not in the new
+    options list, the control will reset.
+  </p>
+  <p>
+    If you want the control to autoselect the first item in the new option list if it doesn't find a match, set
+    <code>[autoSelectFirstItem]="true"</code>.
+  </p>
+  <p>
+    The example below will switch between two different options lists every 2.5 seconds.
+  </p>
+  <demonstrator
+    [htmlFile]="snippets?.autoCloseBehaviour?.html"
+    [tsFile]="snippets?.autoCloseBehaviour?.ts"
+    [control]="form?.controls?.['autoCloseBehaviour']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['autoCloseBehaviour']"
+      [autoCloseBehaviour]="'inside'"
+      [label]="'Inside'"
+      [subLabel]="'Dropdown is not closed if the input is clicked'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <ngds-picklist-input
+      [control]="form?.controls?.['autoCloseBehaviour']"
+      [autoCloseBehaviour]="'outside'"
+      [label]="'Outside'"
+      [subLabel]="'Dropdown is not closed if the input or the dropdown menu are clicked'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <ngds-picklist-input
+      [control]="form?.controls?.['autoCloseBehaviour']"
+      [autoCloseBehaviour]="'false'"
+      [label]="'False'"
+      [subLabel]="'Dropdown is not closed if the menu is clicked'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <ngds-picklist-input
+      [control]="form?.controls?.['autoCloseBehaviour']"
+      [autoCloseBehaviour]="'true'"
+      [label]="'True'"
+      [subLabel]="'Dropdown is always closed on click'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <div class="form-check form-switch mt-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchAutoSelect"
+        (click)="autoSelectSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchAutoSelect"
+      >Toggle autoselect first item</label>
     </div>
   </demonstrator>
 </section>

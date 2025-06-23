@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
-import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component' 
+import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component'
 
 import { SelectionItemSchema } from '../../form-models';
 
@@ -24,10 +24,10 @@ export class NgdsInput implements OnInit, OnDestroy {
   // Input placeholder.
   @Input() placeholder: string;
 
-  // Don't run validation logic while the control is focused. 
+  // Don't run validation logic while the control is focused.
   @Input() noValidationIfFocused: boolean = false;
 
-  // Emit control value on change even if the change is null or undefined. 
+  // Emit control value on change even if the change is null or undefined.
   @Input() emitValueChangeWhenNull: boolean = false;
 
   // Emit control status when it is recalculated. This is the default behaviour of the control.statusChanges observable. If you only want the event to emit when the status changes, leave this false.
@@ -51,11 +51,13 @@ export class NgdsInput implements OnInit, OnDestroy {
   // start, end, or center
   @Input() justify: string = 'start';
 
+  @Input() hideOnSelect: boolean = false;
+
   // Configure invalid messages
   @Input() invalidConfig: invalidConfig;
 
   // The list of available options in a picklist or typeahead. Provide options as either a basic array, or an array of type selectionItemSchema for more custom options.
-  private _selectionListItems = new BehaviorSubject<any>([]);
+  protected _selectionListItems = new BehaviorSubject<any>([]);
   @Input() set selectionListItems(items: any[] | SelectionItemSchema[]) {
     if (items) {
       if (this._isInputInitialized.value) {
@@ -92,13 +94,13 @@ export class NgdsInput implements OnInit, OnDestroy {
     }
   }
 
-  // If true, disables the control and shows a loading spinner. 
+  // If true, disables the control and shows a loading spinner.
   @Input() set loadWhile(isLoading: boolean) {
     this.updateDisabledState(isLoading);
     this._loading.next(isLoading);
   }
 
-  // If true, invalid colouring and invalid messages are not used. 
+  // If true, invalid colouring and invalid messages are not used.
   @Input() hideInvalidState = false;
 
   // OUTPUTS
@@ -118,8 +120,14 @@ export class NgdsInput implements OnInit, OnDestroy {
   // Emits the new selection list when it changes.
   @Output() selectionListUpdated = new EventEmitter<any>();
 
-  // Emits when the input has been initialized. 
+  // Emits when the input has been initialized.
   @Output() inputIsInitialized = new EventEmitter<any>();
+
+  // Emits when the control is destroyed.
+  @Output() controlDestroyed = new EventEmitter<any>();
+
+  // Emits when the control is reset.
+  @Output() controlReset = new EventEmitter<any>();
 
   // CHILDREN
   @ViewChild('inputElement') inputElement: ElementRef<any>;
@@ -149,7 +157,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   public get isFocused(): boolean {
     return this._isFocused.value;
   }
-  private _isFocused = new BehaviorSubject<boolean>(false);
+  protected _isFocused = new BehaviorSubject<boolean>(false);
 
   // Last updated control state, for comparison when state changes.
   private lastControlState;
@@ -168,7 +176,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   ) {
     // Generate 'unique' id for control so label/inputs/etc can talk to one another.
     // Basic angular controls aren't constructed with a unique identifier.
-    // This is only to satisfy ARIA - open to better solutions. 
+    // This is only to satisfy ARIA - open to better solutions.
     this.controlId = NgdsInput.idCounter++;
   }
 
@@ -221,7 +229,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     } else if (this.autoSelectFirstItem) {
       this.control?.setValue(this.selectionListItems[0]);
     } else {
-      this.control?.reset();
+      this.resetControl();
     }
   }
 
@@ -308,27 +316,28 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   onBlur() {
-    this.control.markAsTouched();
+    this.control.markAsTouched({emitEvent: false});
     this._isFocused.next(false);
     this.blur.emit();
   }
 
   // For updating the control value during multiselection
-  updateValue(value) {
+  updateValue(value, args = {}) {
     if (this.multiselect) {
       if (value !== null) {
         if (this.control.value?.length) {
           if (this.control.value.indexOf(value) === -1) {
-            this.control.setValue([...this.control.value, value]);
+            this.control.setValue([...this.control.value, value], args);
           }
         } else {
-          this.control.setValue([value]);
+          this.control.setValue([value], args);
         }
       }
     } else {
-      this.control.setValue(value);
+      this.control.setValue(value, args);
     }
-    this.control.updateValueAndValidity();
+    this.control.markAsDirty();
+    this.control.markAsTouched();
   }
 
   multiselectAll() {
@@ -347,6 +356,15 @@ export class NgdsInput implements OnInit, OnDestroy {
       newValue.splice(newValue.indexOf(value), 1);
       this.control.setValue(newValue);
     }
+  }
+
+  // Resets the control.
+  resetControl() {
+    this.control.reset();
+    this.control.markAsPristine();
+    this.control.markAsUntouched();
+    this.control.updateValueAndValidity();
+    this.controlReset.emit();
   }
 
   // Get active selection option by current control value.
@@ -387,6 +405,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   // unsubscribe from all subscriptions when component is destroyed.
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.controlDestroyed.emit();
   }
 
 }

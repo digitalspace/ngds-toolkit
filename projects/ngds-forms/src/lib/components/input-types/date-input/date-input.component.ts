@@ -1,15 +1,16 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { NgdsInput } from '../ngds-input.component';
 import { DateTime, Duration } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 import { ValidationErrors, ValidatorFn } from '@angular/forms';
+import { NgdsDropdown } from '../ngds-dropdown.component';
 
 @Component({
   selector: 'ngds-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
-export class NgdsDateInput extends NgdsInput implements AfterViewInit {
+export class NgdsDateInput extends NgdsDropdown {
   // Whether or not the datepicker will be used to pick a single date or a range of values.
   @Input() dateRange: boolean = false;
 
@@ -45,9 +46,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // Whether or not to allow range selections to include disabled dates.
   @Input() allowDisabledInRange: boolean = false;
 
-  // Hide the datepicker once a date is picked
-  @Input() hideOnSelect: boolean = true;
-
   // A function that takes a DateTime as an argument and returns a boolean.
   // If the function returns true, the date associated with the supplied DateTime will be disabled.
   // If the function returns false, the date associated with the supplied DateTime will be available to select.
@@ -62,41 +60,41 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
   // Emits when the display changes.
   @Output() displayChange = new EventEmitter;
 
-  // The element that contains the dropdown trigger and the date selection calendars.
-  @ViewChild('dropdown') dropdown: ElementRef;
-  // The template that contains the datepicker/rangepicker calendar(s).
-  @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
-
   protected currentDisplay;
   protected selectedDate = new BehaviorSubject<any>(null);
   protected selectedEndDate = new BehaviorSubject<any>(null);
 
   constructor(
-    private cd: ChangeDetectorRef
+    private datepickerCd: ChangeDetectorRef,
+    private datepickerRenderer: Renderer2,
   ) {
-    super();
+    super(
+      datepickerCd,
+      datepickerRenderer
+    );
+    this.dropdownInputType = 'datepicker';
+    this.subscriptions.add(this.afterDropdownInit.subscribe(() => {
+      this.afterDropdownInitFn();
+    }));
   }
 
-  ngAfterViewInit(): void {
-    // Subscribe to the datepicker closing
-    this.dropdown.nativeElement.addEventListener('hide.bs.dropdown', () => this.hideCalendar());
-    this.dropdown.nativeElement.addEventListener('show.bs.dropdown', () => this.showCalendar());
-    // Set dateDisplayFormat to dateFormat if not provided
+  afterDropdownInitFn(): void {
+   
     if (!this.dateDisplayFormat) {
       this.dateDisplayFormat = this.dateFormat;
     }
     // Add control validator that triggers when luxon encounters an 'Invalid DateTime'
-    this.control.addValidators([this.invalidDateValidator()])
+    this.control.addValidators([this.invalidDateValidator()]);
     // Subscribe to changes in the control value
     this.subscriptions.add(this.control.valueChanges.subscribe((e) => {
-      this.updateSelectedDates(e)
+      this.updateSelectedDates(e);
       this.matchDisplayToControl();
     }));
     if (this.control?.value) {
       this.updateSelectedDates(this.control.value);
     }
     this.matchDisplayToControl();
-    this.cd.detectChanges();
+    this.datepickerCd.detectChanges();
   }
 
   /**
@@ -108,8 +106,8 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
       if (this.currentDisplay === 'Invalid DateTime') {
         return { invalidDateTime: ' ' };
       }
-      return null
-    }
+      return null;
+    };
   }
 
   /**
@@ -203,9 +201,6 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
       } else {
         this.control.setValue(e);
       }
-      if (this.hideOnSelect) {
-        this.hideCalendar();
-      }
     }
   }
 
@@ -247,7 +242,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
         this.currentDisplay = this.convertValueToFormat(date);
       }
       if (this.currentDisplay === 'Invalid DateTime') {
-        throw 'Invalid DateTime'
+        throw 'Invalid DateTime';
       }
     } catch (err) {
       this.currentDisplay = this.control.value;
@@ -320,7 +315,7 @@ export class NgdsDateInput extends NgdsInput implements AfterViewInit {
     if (this.dateFormat) {
       dt = this.convertFormatToDateTime(value);
     }
-    return dt.toFormat(this.dateDisplayFormat)
+    return dt.toFormat(this.dateDisplayFormat);
   }
 
   /**
