@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { snippets } from './picklist-snippets';
@@ -57,7 +57,7 @@ export class PicklistsComponent implements OnInit, AfterViewInit {
         displayPicklist: new UntypedFormControl(null),
         customPicklist: new UntypedFormControl(null),
         disabledPicklist: new UntypedFormControl(null),
-        invalidPicklist: new UntypedFormControl(null, [this.customValidator()]),
+        invalidPicklist: new UntypedFormControl(null, [Validators.required, this.customValidator()]),
         inlinePicklist: new UntypedFormControl(null),
         changeSelectList: new UntypedFormControl(null),
         autoCloseBehaviour: new UntypedFormControl(null),

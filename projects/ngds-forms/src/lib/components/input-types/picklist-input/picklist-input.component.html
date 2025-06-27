@@ -11,7 +11,7 @@
   <!-- Input wrapper -->
   <div
     #dropdownElement
-    class="input-group border rounded-3 position-relative"
+    class="input-group border rounded-3 position-relative overflow-hidden"
     [ngClass]="getWrapperClasses()"
   >
 
@@ -27,7 +27,7 @@
       type="button"
       role="select"
       style="min-height: 2.25rem; margin-left: 1px;"
-      class="form-select border-0 text-start rounded-3"
+      class="form-select border-0 text-start rounded-3 oveflow-hidden"
       [ngClass]="getInputClasses()"
       [disabled]="isDisabled"
       [value]="control?.value"
@@ -37,10 +37,10 @@
       <!-- Multiselect display items -->
       <div
         *ngIf="multiselect && control?.value?.length"
-        class="m-0 d-flex justify-content-left row"
+        class="m-0 d-flex justify-content-left row oveflow-hidden"
       >
         <ngds-multiselect-item
-          class="col-auto p-0 my-0 me-1"
+          class="col-auto p-0 my-0 me-1 oveflow-hidden"
           *ngFor="let item of control?.value"
           [option]="getOptionByValue(item)"
           (remove)="removeValue($event)"
