@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { NgdsDropdown } from '../ngds-dropdown.component';
 
 @Component({
@@ -7,6 +7,8 @@ import { NgdsDropdown } from '../ngds-dropdown.component';
   styleUrls: ['../../../../../assets/styles/styles.scss']
 })
 export class NgdsPicklistInput extends NgdsDropdown {
+
+  @ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
 
   constructor(
     private picklistCd: ChangeDetectorRef,

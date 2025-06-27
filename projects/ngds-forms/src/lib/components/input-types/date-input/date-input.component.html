@@ -10,7 +10,7 @@
 <div class="d-flex position-relative">
   <!-- Input wrapper -->
   <div
-    class="input-group border rounded-3 d-flex align-items-center dropdown overflow-hidden"
+    class="input-group border rounded-3 d-flex align-items-center dropdown"
     [ngClass]="getWrapperClasses()"
     #dropdownElement
   >
@@ -24,7 +24,7 @@
     <!-- Input display control value-->
     <button
       #inputElement
-      class="form-control border-0 text-start rounded-3"
+      class="form-control border-0 text-start rounded-3 overflow-hidden"
       style="margin-left: 1px"
       type="button"
       [ngClass]="getInputClasses()"

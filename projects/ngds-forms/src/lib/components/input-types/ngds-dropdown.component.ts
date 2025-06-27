@@ -3,6 +3,7 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.esm.min.js';
 
 import { NgdsInput } from './ngds-input.component';
 import { BehaviorSubject, last } from 'rxjs';
+import { popper } from '@popperjs/core';
 
 @Directive({
   selector: 'ngds-input',
@@ -193,6 +194,13 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     }
   }
 
+  closeDropdown() {
+    if (this.isOpen) {
+      this._isOpen.next(false);
+      this.bsDropdown.hide();
+    }
+  }
+
   toggleDropdown() {
     if (this.isOpen) {
       this.closeDropdown();
@@ -235,12 +243,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     }
   }
 
-  closeDropdown() {
-    if (this.isOpen) {
-      this._isOpen.next(false);
-      this.bsDropdown.hide();
-    }
-  }
+
 
   handleClick(event) {
     // If the dropdown is open...

@@ -11,7 +11,7 @@
   <!-- Input wrapper -->
   <div
     #dropdownElement
-    class="input-group border rounded-3 position-relative overflow-hidden"
+    class="input-group border rounded-3 position-relative"
     [ngClass]="getWrapperClasses()"
   >
 
@@ -27,7 +27,7 @@
       type="button"
       role="select"
       style="min-height: 2.25rem; margin-left: 1px;"
-      class="form-select border-0 text-start rounded-3 oveflow-hidden"
+      class="form-select border-0 text-start rounded-3 overflow-hidden"
       [ngClass]="getInputClasses()"
       [disabled]="isDisabled"
       [value]="control?.value"
@@ -37,10 +37,10 @@
       <!-- Multiselect display items -->
       <div
         *ngIf="multiselect && control?.value?.length"
-        class="m-0 d-flex justify-content-left row oveflow-hidden"
+        class="m-0 d-flex justify-content-left row"
       >
         <ngds-multiselect-item
-          class="col-auto p-0 my-0 me-1 oveflow-hidden"
+          class="col-auto p-0 my-0 me-1"
           *ngFor="let item of control?.value"
           [option]="getOptionByValue(item)"
           (remove)="removeValue($event)"
@@ -53,41 +53,11 @@
         *ngIf="!showSelectedTemplate()"
         [ngClass]="{'text-muted': !control?.value}"
       >{{ getActiveDisplay() }}</div>
-      <!-- Display current value as template -->
-      <div *ngIf="showSelectedTemplate()">
-        <ng-container *ngTemplateOutlet="selectionListTemplate"></ng-container>
-      </div>
-      <!-- Dropdown menu -->
-      <ul
-        #dropdownMenu
-        class="dropdown-menu"
-        role="menu"
-      >
-        <li
-          *ngFor="let option of selectionListItems"
-          (click)="onValueChange(option?.value || option, true)"
-          role="menuitem"
-          class="option-item"
-          href="#"
-        >
-          <!-- Display current menu item as template -->
-          <button *ngIf="showTemplate()" class="m-0 p-0 btn btn-link text-reset text-decoration-none w-100">
-            <ng-container
-              [ngTemplateOutlet]="selectionListTemplate"
-              [ngTemplateOutletContext]="{data: option}"
-            ></ng-container>
-          </button>
-          <!-- Display current menu item as string -->
-          <button
-            *ngIf="!showTemplate()"
-            class="dropdown-item"
-            (click)="onValueChange(option?.value || option, true)"
-            value="{{ option?.value || option }}"
-          >
-            {{ getDisplayByValue( option?.value || option) }}
-          </button>
-      </ul>
+
     </button>
+
+    <!-- Display current value as template -->
+    <ng-container *ngTemplateOutlet="defaultListTemplate"></ng-container>
 
     <!-- Select all button -->
     <button
@@ -132,6 +102,38 @@
   [config]="invalidConfig"
 ></ngds-input-footer>
 
-<ng-template>
-
+<ng-template #defaultListTemplate>
+  <!-- Dropdown menu -->
+  <ul
+    #dropdownMenu
+    class="dropdown-menu"
+    role="menu"
+  >
+    <li
+      *ngFor="let option of selectionListItems"
+      (click)="onValueChange(option?.value || option, true)"
+      role="menuitem"
+      class="option-item"
+      href="#"
+    >
+      <!-- Display current menu item as template -->
+      <button
+        *ngIf="showTemplate()"
+        class="m-0 p-0 btn btn-link text-reset text-decoration-none w-100"
+      >
+        <ng-container
+          [ngTemplateOutlet]="selectionListTemplate"
+          [ngTemplateOutletContext]="{data: option}"
+        ></ng-container>
+      </button>
+      <!-- Display current menu item as string -->
+      <button
+        *ngIf="!showTemplate()"
+        class="dropdown-item"
+        (click)="onValueChange(option?.value || option, true)"
+        value="{{ option?.value || option }}"
+      >
+        {{ getDisplayByValue( option?.value || option) }}
+      </button>
+  </ul>
 </ng-template>
