@@ -11,7 +11,7 @@
   <!-- Input wrapper -->
   <div
     #dropdownElement
-    class="input-group border rounded-3 position-relative"
+    class="input-group border rounded-3 d-flex align-items-center position-relative"
     [ngClass]="getWrapperClasses()"
   >
 
@@ -27,7 +27,7 @@
       type="button"
       role="select"
       style="min-height: 2.25rem; margin-left: 1px;"
-      class="form-select border-0 text-start rounded-3 overflow-hidden"
+      class="form-select px-2 py-0 border-0 text-start rounded-3 overflow-hidden"
       [ngClass]="getInputClasses()"
       [disabled]="isDisabled"
       [value]="control?.value"
@@ -37,10 +37,10 @@
       <!-- Multiselect display items -->
       <div
         *ngIf="multiselect && control?.value?.length"
-        class="m-0 d-flex justify-content-left row"
+        class="m-0 p-0 d-flex justify-content-left row"
       >
         <ngds-multiselect-item
-          class="col-auto p-0 my-0 me-1"
+          class="col-auto p-0 m-1"
           *ngFor="let item of control?.value"
           [option]="getOptionByValue(item)"
           (remove)="removeValue($event)"
@@ -110,8 +110,13 @@
     role="menu"
   >
     <li
-      *ngFor="let option of selectionListItems"
-      (click)="onValueChange(option?.value || option, true)"
+      *ngIf="displayedSelectionListItems?.length === 0"
+      class="dropdown-item text-muted"
+    >
+      {{ noResultsText }}
+    </li>
+    <li
+      *ngFor="let option of displayedSelectionListItems;"
       role="menuitem"
       class="option-item"
       href="#"
@@ -130,10 +135,12 @@
       <button
         *ngIf="!showTemplate()"
         class="dropdown-item"
-        (click)="onValueChange(option?.value || option, true)"
+        (click)="onValueChange(option, true)"
         value="{{ option?.value || option }}"
+        [disabled]="option?.disabled || false"
       >
         {{ getDisplayByValue( option?.value || option) }}
       </button>
+    </li>
   </ul>
 </ng-template>

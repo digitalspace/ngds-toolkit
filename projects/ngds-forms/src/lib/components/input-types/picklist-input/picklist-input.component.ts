@@ -8,8 +8,6 @@ import { NgdsDropdown } from '../ngds-dropdown.component';
 })
 export class NgdsPicklistInput extends NgdsDropdown {
 
-  @ViewChild('defaultTemplate') defaultTemplate: TemplateRef<any>;
-
   constructor(
     private picklistCd: ChangeDetectorRef,
     private picklistRenderer: Renderer2,
@@ -39,11 +37,14 @@ export class NgdsPicklistInput extends NgdsDropdown {
     return false;
   }
 
-  onValueChange(value, byClick = false) {
+  onValueChange(option, byClick = false) {
+    if (option?.disabled) {
+      return;
+    }
     if (byClick) {
       this.lastChangedBySelect = true;
     }
-    this.updateValue(value);
+    this.updateValue(option?.value || option);
     this.control.markAsDirty();
     this.control.markAsTouched();
     this.control.updateValueAndValidity();

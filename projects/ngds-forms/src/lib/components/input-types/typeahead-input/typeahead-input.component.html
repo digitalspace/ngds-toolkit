@@ -21,7 +21,7 @@
 
   <!-- Input -->
   <div
-    class="form-input border-0 rounded-5 d-flex w-100 overflow-hidden"
+    class="form-input border-0 d-flex w-100 overflow-hidden"
     style="min-height: 2.25rem"
     [ngClass]="getInputClasses()"
   >
@@ -69,7 +69,7 @@
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
         <ng-content
-          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: selectionListItems, query: currentDisplay }"
+          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: displayedSelectionListItems, query: currentDisplay }"
         ></ng-content>
       </ul>
     </div>
@@ -139,6 +139,7 @@
     [ngClass]="{'active': match.value === control?.value}"
     type="menuitem"
     value="{{ match?.value || match}}"
+    [disabled]="match?.disabled"
   >
     <div [innerHtml]="match?.innerHtml"></div>
   </button>

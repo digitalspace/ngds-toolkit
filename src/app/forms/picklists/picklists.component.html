@@ -113,9 +113,7 @@
   #customOptionTemplate
   let-data="data"
 >
-  <div
-    class="m-2 template-example"
-  >
+  <div class="m-2 template-example">
     <div><strong>Value:</strong> {{data?.value || data}}</div>
     <div><strong>Display:</strong> {{data?.display || '&lt;no display&gt;'}}</div>
     <span *ngIf="data?.display">This option will have a value of "<code>{{data?.value || data}}</code>" when picked.
@@ -358,16 +356,25 @@
 >
   <h3>Dropdown auto-close behaviour</h3>
   <p>
-    Having dynamic picklist options can have unwanted behaviour when the options list changes. By default, if an option
-    is selected and is in the new options list, the value of the input will not change. If the option is not in the new
-    options list, the control will reset.
+    Depending on where the user clicks, the dropdown can be tuned to respond differently using
+    <code>[autoCloseBehaviour]</code>. There are four options:
   </p>
+  <ul>
+    <li>
+      <strong>Inside</strong>: The dropdown is not closed if the input is clicked.
+    </li>
+    <li>
+      <strong>Outside</strong>: The dropdown is not closed if the input or the dropdown menu are clicked.
+    </li>
+    <li>
+      <strong>False</strong>: The dropdown is not closed if the menu is clicked.
+    </li>
+    <li>
+      <strong>True</strong>: The dropdown is always closed on click.
+    </li>
+  </ul>
   <p>
-    If you want the control to autoselect the first item in the new option list if it doesn't find a match, set
-    <code>[autoSelectFirstItem]="true"</code>.
-  </p>
-  <p>
-    The example below will switch between two different options lists every 2.5 seconds.
+    The default behaviour is <strong>inside</strong>.
   </p>
   <demonstrator
     [htmlFile]="snippets?.autoCloseBehaviour?.html"
@@ -410,17 +417,63 @@
       [placeholder]="'Make a selection'"
     >
     </ngds-picklist-input>
-    <div class="form-check form-switch mt-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="flexSwitchAutoSelect"
-        (click)="autoSelectSwitch()"
-      >
-      <label
-        class="form-check-label"
-        for="flexSwitchAutoSelect"
-      >Toggle autoselect first item</label>
-    </div>
+  </demonstrator>
+</section>
+
+<section
+  #section
+  id="displaySelectionItems"
+  class="mb-5 mt-3"
+>
+  <h3>Selection list display behaviour</h3>
+  <p>
+    The display of the selection list can be controlled using <code>[displaySelectionItems]</code>. There are three
+    options:
+  </p>
+  <ul>
+    <li>
+      <strong>true</strong>: The selection list will always display all options.
+    </li>
+    <li>
+      <strong>false</strong>: The selection list will only display options that the user has not already selected.
+    </li>
+    <li>
+      <strong>disabled</strong>: The selection list will display all options, but the user will not be able to select
+      ones that are already selected.
+    </li>
+  </ul>
+  <demonstrator
+    [htmlFile]="snippets?.displaySelectionItems?.html"
+    [tsFile]="snippets?.displaySelectionItems?.ts"
+    [control]="form?.controls?.['displaySelectionItems']"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['displaySelectionItems']"
+      [displaySelectionItems]="'true'"
+      [label]="'True'"
+      [subLabel]="'The selection list will always display all options.'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <ngds-picklist-input
+      [control]="form?.controls?.['displaySelectionItems']"
+      [displaySelectionItems]="'false'"
+      [label]="'False'"
+      [subLabel]="'The selection list will only display options that the user has not already selected.'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
+    <ngds-picklist-input
+      [control]="form?.controls?.['displaySelectionItems']"
+      [displaySelectionItems]="'disabled'"
+      [label]="'Disabled'"
+      [subLabel]="'The selection list will display all options, but the user will not be able to select
+      ones that are already selected.'"
+      [selectionListItems]="basicSelectionItems"
+      [placeholder]="'Make a selection'"
+    >
+    </ngds-picklist-input>
   </demonstrator>
 </section>
