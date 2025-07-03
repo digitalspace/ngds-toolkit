@@ -16,8 +16,6 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
   @Input() optionsLimit: number = -1;
   // Controls whether or not to use case sensitive matching in the dropdown.
   @Input() caseSensitiveMatching: boolean = false;
-  // The no results text to display when there are no matches.
-  @Input() noResultsText: string = 'No matching results';
 
   // protected bsUtils = new bootstrap;
 
@@ -55,7 +53,7 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       }
     }));
     // // watch selectionlistitems for changes
-    this.subscriptions.add(this._selectionListItems.subscribe(() => {
+    this.subscriptions.add(this._displayedSelectionListItems.subscribe(() => {
       this.onSelectionListItemsChange();
     }));
     // Watch for changes to focus/blur
@@ -74,10 +72,11 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
 
   onSelectionListItemsChange() {
     // update matchlist
-    this.matchList = this.selectionListItems.map((item) => {
+    this.matchList = this.displayedSelectionListItems.map((item) => {
       const matchItem = {
         value: item?.value || item,
         display: item?.display || item?.value || item,
+        disabled: item?.disabled || false,
       };
       let matcher = item?.display || item?.value || item;
       if (!this.caseSensitiveMatching) {
@@ -107,6 +106,9 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
 
   // Fires when item is clicked in the dropdown
   selected(item) {
+    if (item?.disabled) {
+      return;
+    }
     this.lastChangedBySelect = true;
     if (this.multiselect) {
       this.typeaheadChange(null, false);
@@ -170,7 +172,8 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
         return {
           value: item.value,
           innerHtml: this.getHighlightedMatch(item, value),
-          display: item.display
+          display: item.display,
+          disabled: item.disabled || false,
         };
       });
       // focus the first item in the list
@@ -226,14 +229,6 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       return this.placeholder;
     }
     return '';
-  }
-
-  // Get the dropdown list template
-  getTemplate() {
-    if (this.selectionListTemplate) {
-      return this.selectionListTemplate;
-    }
-    return this.defaultListTemplate;
   }
 
   // Highlight the portion of the option that has been typed in

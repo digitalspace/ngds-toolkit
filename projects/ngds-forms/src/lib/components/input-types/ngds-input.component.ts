@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
-import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component'
+import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component';
 
 import { SelectionItemSchema } from '../../form-models';
 
@@ -40,7 +40,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   @Input() resetButton: boolean = false;
 
   // Display a 'select all' option within the input for certain input types that allow multiselect.
-  @Input() selectAllButton: boolean
+  @Input() selectAllButton: boolean;
 
   // Globally available classes to apply to the input. Provide classes as array of string class names.
   @Input() inputClasses: any[];
@@ -70,13 +70,20 @@ export class NgdsInput implements OnInit, OnDestroy {
             isReady.next(true);
             isReady.complete();
           }
-        })
+        });
       }
     }
   };
 
   get selectionListItems() {
     return this._selectionListItems.value;
+  }
+
+  // The actual items that are displayed in the selection list. This is a filtered version of the selectionListItems based on user input or other criteria.
+  protected _displayedSelectionListItems = new BehaviorSubject<any>([]);
+
+  get displayedSelectionListItems() {
+    return this._displayedSelectionListItems.value;
   }
 
   // An HTML template to show for each selection list item in the dropdown.
@@ -102,6 +109,8 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // If true, invalid colouring and invalid messages are not used.
   @Input() hideInvalidState = false;
+
+  @Input() displaySelectionItems: String | 'true' | 'false' | 'disabled' = 'true';
 
   // OUTPUTS
 
@@ -196,6 +205,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     // add subscriptions to emit status and value changes
     this.subscriptions.add(this.control.valueChanges.subscribe((res) => {
       this.onControlValueChanges(res);
+      this.updateDisplayedSelectionListItems();
       if (this.emitValueChangeWhenNull) {
         // Emit status change only if the value isn't null or undefined
         this.valueChange.emit(res);
@@ -204,6 +214,7 @@ export class NgdsInput implements OnInit, OnDestroy {
       }
     }));
     this.subscriptions.add(this.control.statusChanges.subscribe((res) => {
+      this.updateDisplayedSelectionListItems();
       if (this.emitStatusWhenRecalculated) {
         // Emit status change only if the status actually changes.
         this.statusChange.emit(res);
@@ -232,13 +243,56 @@ export class NgdsInput implements OnInit, OnDestroy {
       } else {
         return e === controlValue;
       }
-    })
+    });
     if (found) {
       this.control?.setValue(controlValue);
     } else if (this.autoSelectFirstItem) {
       this.control?.setValue(this.selectionListItems[0]);
     } else {
       this.resetControl();
+    }
+  }
+
+  updateDisplayedSelectionListItems() {
+    if (this._selectionListItems.value.length === 0) {
+      return;
+    }
+    // Format the selection list items to match the expected structure
+    const formattedSelectionListItems = this._selectionListItems.value.map((item) => {
+      return {
+        value: item?.value || item,
+        display: item?.display || item?.value || item,
+        disabled: item?.disabled || false,
+      };
+    });
+    if (this.displaySelectionItems === 'true') {
+      this._displayedSelectionListItems.next(formattedSelectionListItems);
+    } else {
+      // Get the active selection(s)
+      let activeSelection = this.getActiveOption();
+      if (!Array.isArray(activeSelection)) {
+        activeSelection = [activeSelection];
+      }
+      console.log('activeSelection:', activeSelection);
+      const activeSelectionValues = activeSelection.map((item) => item?.value || item);
+      console.log('activeSelectionValues:', activeSelectionValues);
+      if (this.displaySelectionItems === 'disabled') {
+        this._displayedSelectionListItems.next(formattedSelectionListItems.map((item) => {
+          if (activeSelectionValues.indexOf(item.value) > -1) {
+            return {
+              ...item,
+              disabled: true // Disable the active selection
+            };
+          }
+          return item;
+        }));
+        console.log('this.displayedSelectionListItems:', this.displayedSelectionListItems);
+      } else if (this.displaySelectionItems === 'false') {
+        // If displaySelectionItems is 'false', we don't want to show any selection items.
+        this._displayedSelectionListItems.next(formattedSelectionListItems.filter((item) =>
+          activeSelectionValues.indexOf(item.value) === -1
+        ));
+      }
     }
   }
 
@@ -314,9 +368,9 @@ export class NgdsInput implements OnInit, OnDestroy {
       return false;
     }
     if (this.control.hasValidator(Validators.required)) {
-      return this.resetButton && this.control.dirty
+      return this.resetButton && this.control.dirty;
     }
-    return true
+    return true;
   }
 
   onFocus() {
@@ -325,7 +379,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   onBlur() {
-    this.control.markAsTouched({emitEvent: false});
+    this.control.markAsTouched({ emitEvent: false });
     this._isFocused.next(false);
     this.blur.emit();
   }
@@ -378,11 +432,16 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // Get active selection option by current control value.
   getActiveOption() {
+    if (this.multiselect) {
+      return this.selectionListItems?.filter((i) => {
+        return this.control.value?.indexOf(i?.value) > -1;
+      });
+    }
     return this.selectionListItems?.find((i) => {
       if (i.value) {
-        return i.value === this.control.value
+        return i.value === this.control.value;
       }
-      return i === this.control.value
+      return i === this.control.value;
     });
   }
 

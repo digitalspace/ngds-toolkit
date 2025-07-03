@@ -369,7 +369,7 @@ export const snippets = {
       [resetButton]="true"
       [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
-    
+
     <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
       <ul class="custom-list-group">
         <li class="custom-list-group-item" *ngFor="let match of matches"
@@ -393,7 +393,7 @@ export const snippets = {
       selector: 'custom-template-typeahead'
       export class CustomTemplateTypeahead implements OnInit {
         public form;
-        
+
         @ViewChild('customTemplate') customTemplate: TemplateRef<any>;
 
         displayProvinceList = [
@@ -491,24 +491,24 @@ export const snippets = {
       overflow-y: scroll;
       background-color: aquamarine;
     }
-    
+
     .custom-list-group-item {
       padding: 0.5rem;
       background-color: purple;
       border: 1px solid lightgrey;
       border-radius: 5px;
       margin: 0.5rem;
-    
+
       &:hover {
         background-color: rgb(2, 83, 56);
       }
     }
-    
+
     .custom-highlight {
       font-weight: bold;
       color: goldenrod;
     }
-    
+
     .custom-no-highlight {
       color: skyblue;
     }
@@ -523,7 +523,7 @@ export const snippets = {
       [resetButton]="true"
       [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
-    
+
     <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
       <ul class="custom-list-group">
         <li class="custom-list-group-item" *ngFor="let match of matches"
@@ -547,7 +547,7 @@ export const snippets = {
       selector: 'custom-template-typeahead'
       export class CustomTemplateTypeahead implements OnInit {
         public form;
-        
+
         @ViewChild('customTemplate') customTemplate: TemplateRef<any>;
 
         displayProvinceList = [
@@ -650,7 +650,7 @@ export const snippets = {
       selector: 'invalid-typeahead'
       export class InvalidTypeahead implements OnInit {
         public form;
-        
+
         displayProvinceList = [
           {
             value: '0001',
@@ -723,6 +723,86 @@ export const snippets = {
           }
         }
 
+`
+  },
+  displaySelectedTypeahead: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['displaySelectedTypeahead']"
+      [selectionListItems]="displayProvinceList"
+      [displaySelectionItems]="'false'"
+      [placeholder]="'Start typing...'"
+      [resetButton]="true">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'display-selected-typeahead'
+      export class DisplaySelectedTypeahead implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            displaySelectedTypeahead: new UntypedFormControl(null),
+          })
+        }
 `
   }
 }

@@ -69,7 +69,7 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
       value: '0013',
       display: 'Nunavut'
     },
-  ]
+  ];
   @ViewChildren('section') entries: TemplateRef<any>;
 
   constructor(
@@ -80,9 +80,11 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
     this.form = new UntypedFormGroup({
       basicTypeaheadMulti: new UntypedFormControl(null),
       programmaticTypeaheadMulti: new UntypedFormControl(null),
+      displayOptionsTypeaheadMulti: new UntypedFormControl(null),
       basicPicklistMulti: new UntypedFormControl(null),
       programmaticPicklistMulti: new UntypedFormControl(null),
-    })
+      displayOptionsPicklistMulti: new UntypedFormControl(null),
+    });
     for (const control of Object.keys(this.form.controls)) {
       this.fields[control] = this.form.controls[control];
     }
@@ -97,7 +99,7 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
         list.push({
           href: item?.nativeElement?.id,
           title: titleIndex.innerText
-        })
+        });
       }
     }
     this.sidebarService.updateList(list);
@@ -125,7 +127,7 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
       if (value?.length > 3) {
         return { customValidator: "You can pick a max of 3 items." };
       }
-      return null
-    }
+      return null;
+    };
   }
 }

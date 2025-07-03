@@ -113,6 +113,7 @@ export class TypeaheadsComponent implements OnInit {
         minLength: new UntypedFormControl(''),
         disableTypeahead: new UntypedFormControl(''),
         invalidTypeahead: new UntypedFormControl('', [this.customValidator()]),
+        displaySelectedTypeahead: new UntypedFormControl(''),
       }
     )
     for (const control of Object.keys(this.form.controls)) {

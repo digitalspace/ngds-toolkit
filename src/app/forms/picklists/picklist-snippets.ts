@@ -84,13 +84,13 @@ export const snippets = {
   },
   customPicklist: {
     html: `
-    <ngds-picklist-input 
+    <ngds-picklist-input
       [control]="form?.controls?.['customPicklist']"
       [selectionListItems]="customSelectionItems"
       [placeholder]="'Make a selection'"
       [selectionListTemplate]="customOptionTemplate">
     </ngds-picklist-input>
-    
+
     <ng-template #customOptionTemplate let-data="data">
       <div class="mx-2 p-2 template-example">
         <h5>Custom HTML Option</h5>
@@ -116,7 +116,7 @@ export const snippets = {
           'value 1',
           { value: 'value 2', display: 'Item without template' },
           { value: 'value 3'},
-          { value: 'value 4', display: 'Item with custom template and display option'} 
+          { value: 'value 4', display: 'Item with custom template and display option'}
         ]
 
         ngOnInit(): void {
@@ -215,7 +215,7 @@ export const snippets = {
         <button ngdsInputAppend class="btn btn-warning">Button 3</button>
         <button ngdsInputAppend class="btn btn-danger">Button 4</button>
     </ngds-picklist-input>
-  
+
     <ngds-picklist-input
       [control]="form?.controls?.['inlinePicklist']"
       [resetButton]="true"
@@ -257,7 +257,7 @@ export const snippets = {
       background-color: aquamarine;
       color: purple;
     }
-    
+
     .custom-append {
       background-color: purple;
       color: aquamarine;
@@ -295,7 +295,7 @@ export const snippets = {
           }, 2500);
         }
 
-        changeTimer(nextSelectList) { 
+        changeTimer(nextSelectList) {
           setInterval(() => {
             this.currentChangeSelectList = nextSelectList;
           }, 5000);
@@ -305,39 +305,69 @@ export const snippets = {
   },
   autoCloseBehaviour: {
     html: `
-    <ngds-picklist-input [control]="form?.controls?.['changeSelectList']" [selectionListItems]="currentChangeSelectList"
-    [placeholder]="'Make a selection'">
+    <ngds-picklist-input
+      [control]="form?.controls?.['autoCloseBehaviour']"
+      [selectionListItems]="basicSelectionItems"
+      [autoCloseBehaviour]="'inside"
+      [placeholder]="'Make a selection'">
   </ngds-picklist-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';
     import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 
     @Component({
-      selector: 'change-picklist'
-      export class ChangingPicklist implements OnInit {
+      selector: 'autoclose-dropdown'
+      export class AutoCloseDropdown implements OnInit {
         public form;
-
-        public changeSelectList1 = ['this option is only in list 1', 'this option is in both lists'];
-        public changeSelectList2 = ['this option is only in list 2', 'this option is in both lists'];
-        public currentChangeSelectList;
 
         ngOnInit(): void {
           this.form = new UntypedFormGroup({
-            changeSelectList: new UntypedFormControl(null),
+            autoCloseBehaviour: new UntypedFormControl(null),
           })
-
-          this.currentChangeSelectList = this.changeSelectList1;
-          this.changeTimer(this.changeSelectList1);
-          setTimeout(() => {
-            this.currentChangeSelectList = this.changeSelectList2;
-            this.changeTimer(this.changeSelectList2);
-          }, 2500);
         }
+      }
+    })`
+  },
+  displaySelectionItems: {
+    html: `
+    <ngds-picklist-input>
+      [control]="form?.controls?.['displaySelectionItems']"
+      [selectionListItems]="basicSelectionItems"
+      [displaySelectionItems]="'true'"
+      [label]="'True'"
+      [placeholder]="'Make a selection'">
+    </ngds-picklist-input>
 
-        changeTimer(nextSelectList) { 
-          setInterval(() => {
-            this.currentChangeSelectList = nextSelectList;
-          }, 5000);
+    <ngds-picklist-input>
+      [control]="form?.controls?.['displaySelectionItems']"
+      [selectionListItems]="basicSelectionItems"
+      [displaySelectionItems]="'false'"
+      [label]="'False'"
+      [placeholder]="'Make a selection'">
+    </ngds-picklist-input>
+
+    <ngds-picklist-input>
+      [control]="form?.controls?.['displaySelectionItems']"
+      [selectionListItems]="basicSelectionItems"
+      [displaySelectionItems]="'disabled'"
+      [label]="'Disabled'"
+      [placeholder]="'Make a selection'">
+    </ngds-picklist-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'display-selection-picklist'
+      export class ChangingPicklist implements OnInit {
+         public form;
+
+        public basicSelectionItems = ['value 1', 'value 2', 'value 3'];
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            basicPicklist: new UntypedFormControl(null),
+          })
         }
       }
     })`

@@ -163,6 +163,89 @@ export const snippets = {
       }
     })`
   },
+  displayOptionsPicklistMulti: {
+    html: `
+    <ngds-picklist-input
+      [control]="form?.controls?.['displayOptionsPicklistMulti']"
+      [selectionListItems]="displayProvinceList"
+      [displaySelectionItems]="disabled"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'">
+    </ngds-picklist-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'display-options-picklist-multiselect'
+      export class DisplayOptionsPicklistMulti implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            displayOptionsPicklistMulti: new UntypedFormControl([]), // best to make your default an empty array for multiselects
+          })
+        }
+      }
+    })`
+  },
     basicTypeaheadMulti: {
     html: `
     <ngds-picklist-input
@@ -240,6 +323,89 @@ export const snippets = {
         ngOnInit(): void {
           this.form = new UntypedFormGroup({
             basicTypeaheadMulti: new UntypedFormControl([]), // best to make your default an empty array for multiselects
+          })
+        }
+      }
+    })`
+  },
+  displayOptionsTypeaheadMulti: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['displayOptionsTypeaheadMulti']"
+      [selectionListItems]="displayProvinceList"
+      [displaySelectionItems]="'disabled'"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'display-options-typeahead-multiselect'
+      export class DisplayOptionsTypeaheadMultiselect implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            displayOptionsTypeaheadMulti: new UntypedFormControl([]), // best to make your default an empty array for multiselects
           })
         }
       }

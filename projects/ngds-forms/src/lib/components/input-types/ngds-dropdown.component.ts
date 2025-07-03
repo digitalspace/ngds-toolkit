@@ -12,6 +12,9 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   @Input() autoCloseBehaviour: String | 'inside' | 'outside' | 'true' | 'false' = 'inside';
 
+  // The no results text to display when there are no matches.
+  @Input() noResultsText: string = 'No matching results';
+
   @Output() onDropdownHide = new EventEmitter<void>();
   @Output() onDropdownShow = new EventEmitter<void>();
 
@@ -28,6 +31,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   protected dropdownInputType;
 
   protected bsDropdown: any = null;
+
 
   // The status of the dropdown. If true, the dropdown is open. If false, the dropdown is closed.
   protected _isOpen = new BehaviorSubject<boolean>(false);
@@ -287,6 +291,13 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   isClickInsideMenu(event) {
     return this.dropdownMenu.nativeElement.contains(event.target);
+  }
+
+  getTemplate() {
+    if (this.selectionListTemplate) {
+      return this.selectionListTemplate;
+    }
+    return this.defaultListTemplate;
   }
 
 

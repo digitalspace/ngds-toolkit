@@ -24,6 +24,24 @@
   </demonstrator>
 </section>
 
+<section #section id="displayOptionsPicklistMulti" class="mb-5 mt-3">
+  <h3>Hide or disable selected items</h3>
+  <p>Use <code>[displaySelectionItems]</code> to hide or disable options that have already been selected.</p>
+  <demonstrator
+    [control]="form?.controls?.['displayOptionsPicklistMulti']" [htmlFile]="snippets?.displayOptionsPicklistMulti?.html"  [tsFile]="snippets?.displayOptionsPicklistMulti?.ts">
+    <ngds-picklist-input [control]="form?.controls?.['displayOptionsPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [displaySelectionItems]="'false'"
+    [label]="'Hide selected options'"
+    [placeholder]="'Select multiple'">
+    </ngds-picklist-input>
+    <ngds-picklist-input [control]="form?.controls?.['displayOptionsPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [displaySelectionItems]="'disabled'"
+    [label]="'Disable selected options'"
+    [placeholder]="'Select multiple'">
+    </ngds-picklist-input>
+  </demonstrator>
+</section>
+
 <section #section id="basicTypeaheadMulti" class="mb-5 mt-3">
   <h3>Basic typeahead multiselect</h3>
   <p>
@@ -44,6 +62,24 @@
     [control]="form?.controls?.['programmaticTypeaheadMulti']" [htmlFile]="snippets?.programmaticTypeaheadMulti?.html"  [tsFile]="snippets?.programmaticTypeaheadMulti?.ts">
     <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
     <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [placeholder]="'Select multiple'">
+    </ngds-typeahead-input>
+  </demonstrator>
+</section>
+
+<section #section id="displayOptionsTypeaheadMulti" class="mb-5 mt-3">
+  <h3>Hide or disable selected items</h3>
+  <p>Use <code>[displaySelectionItems]</code> to hide or disable options that have already been selected.</p>
+  <demonstrator
+    [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [htmlFile]="snippets?.displayOptionsTypeaheadMulti?.html"  [tsFile]="snippets?.displayOptionsTypeaheadMulti?.ts">
+    <ngds-typeahead-input [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [displaySelectionItems]="'false'"
+    [label]="'Hide selected options'"
+    [placeholder]="'Select multiple'">
+    </ngds-typeahead-input>
+    <ngds-typeahead-input [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
+    [displaySelectionItems]="'disabled'"
+    [label]="'Disable selected options'"
     [placeholder]="'Select multiple'">
     </ngds-typeahead-input>
   </demonstrator>
