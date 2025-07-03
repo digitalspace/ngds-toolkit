@@ -103,7 +103,7 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // If true, disables the control and shows a loading spinner.
   @Input() set loadWhile(isLoading: boolean) {
-    this.updateDisabledState(isLoading);
+    this.updateDisabledState(isLoading, true);
     this._loading.next(isLoading);
   }
 
@@ -273,9 +273,7 @@ export class NgdsInput implements OnInit, OnDestroy {
       if (!Array.isArray(activeSelection)) {
         activeSelection = [activeSelection];
       }
-      console.log('activeSelection:', activeSelection);
       const activeSelectionValues = activeSelection.map((item) => item?.value || item);
-      console.log('activeSelectionValues:', activeSelectionValues);
       if (this.displaySelectionItems === 'disabled') {
         this._displayedSelectionListItems.next(formattedSelectionListItems.map((item) => {
           if (activeSelectionValues.indexOf(item.value) > -1) {
@@ -286,7 +284,6 @@ export class NgdsInput implements OnInit, OnDestroy {
           }
           return item;
         }));
-        console.log('this.displayedSelectionListItems:', this.displayedSelectionListItems);
       } else if (this.displaySelectionItems === 'false') {
         // If displaySelectionItems is 'false', we don't want to show any selection items.
         this._displayedSelectionListItems.next(formattedSelectionListItems.filter((item) =>
@@ -296,7 +293,11 @@ export class NgdsInput implements OnInit, OnDestroy {
     }
   }
 
-  updateDisabledState(state) {
+  updateDisabledState(state, checkStateFirst = false) {
+    if (!state && checkStateFirst && this.isDisabled === true) {
+      return; // If enabling from loadWhile but the disabled state is active, do nothing.
+    }
+    // If state is true, disable the control, otherwise enable it.
     if (state === true) {
       setTimeout(() => {
         this.control?.disable();
