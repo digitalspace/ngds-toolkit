@@ -1,86 +1,184 @@
 <h2>Multiselects</h2>
-<section #section id="basicPicklistMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="basicPicklistMulti"
+  class="mb-5 mt-3"
+>
   <h3>Basic multiselect picklist</h3>
   <p>
     Provide the list of selection options as an array in <code>[selectionListItems]</code>.
   </p>
   <demonstrator
-    [control]="form?.controls?.['basicPicklistMulti']" [htmlFile]="snippets?.basicPicklistMulti?.html"  [tsFile]="snippets?.basicPicklistMulti?.ts">
-    <ngds-picklist-input [control]="form?.controls?.['basicPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Select multiple'">
+    [control]="form?.controls?.['basicPicklistMulti']"
+    [htmlFile]="snippets?.basicPicklistMulti?.html"
+    [tsFile]="snippets?.basicPicklistMulti?.ts"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['basicPicklistMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="programmaticPicklistMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="programmaticPicklistMulti"
+  class="mb-5 mt-3"
+>
   <h3>Programmatically set picklist multiselect</h3>
   <p>The example below selects only territories when you click the button.</p>
   <demonstrator
-    [control]="form?.controls?.['programmaticPicklistMulti']" [htmlFile]="snippets?.programmaticPicklistMulti?.html"  [tsFile]="snippets?.programmaticPicklistMulti?.ts">
-    <button class="btn btn-primary my-2" (click)="programSetPicklist()">Set value</button>
-    <ngds-picklist-input [control]="form?.controls?.['programmaticPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Select multiple'">
+    [control]="form?.controls?.['programmaticPicklistMulti']"
+    [htmlFile]="snippets?.programmaticPicklistMulti?.html"
+    [tsFile]="snippets?.programmaticPicklistMulti?.ts"
+  >
+    <button
+      class="btn btn-primary my-2"
+      (click)="programSetPicklist()"
+    >Set value</button>
+    <ngds-picklist-input
+      [control]="form?.controls?.['programmaticPicklistMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="displayOptionsPicklistMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="displayOptionsPicklistMulti"
+  class="mb-5 mt-3"
+>
   <h3>Hide or disable selected items</h3>
   <p>Use <code>[displaySelectionItems]</code> to hide or disable options that have already been selected.</p>
   <demonstrator
-    [control]="form?.controls?.['displayOptionsPicklistMulti']" [htmlFile]="snippets?.displayOptionsPicklistMulti?.html"  [tsFile]="snippets?.displayOptionsPicklistMulti?.ts">
-    <ngds-picklist-input [control]="form?.controls?.['displayOptionsPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [displaySelectionItems]="'false'"
-    [label]="'Hide selected options'"
-    [placeholder]="'Select multiple'">
+    [control]="form?.controls?.['displayOptionsPicklistMulti']"
+    [htmlFile]="snippets?.displayOptionsPicklistMulti?.html"
+    [tsFile]="snippets?.displayOptionsPicklistMulti?.ts"
+  >
+    <ngds-picklist-input
+      [control]="form?.controls?.['displayOptionsPicklistMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [displaySelectionItems]="'false'"
+      [label]="'Hide selected options'"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-picklist-input>
-    <ngds-picklist-input [control]="form?.controls?.['displayOptionsPicklistMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [displaySelectionItems]="'disabled'"
-    [label]="'Disable selected options'"
-    [placeholder]="'Select multiple'">
+    <ngds-picklist-input
+      [control]="form?.controls?.['displayOptionsPicklistMulti2']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [displaySelectionItems]="'disabled'"
+      [label]="'Disable selected options'"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-picklist-input>
   </demonstrator>
 </section>
 
-<section #section id="basicTypeaheadMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="basicTypeaheadMulti"
+  class="mb-5 mt-3"
+>
   <h3>Basic typeahead multiselect</h3>
   <p>
     Provide the list of selection options as an array in <code>[selectionListItems]</code>.
   </p>
-  <demonstrator #basicTypeaheadMulti
-    [control]="form?.controls?.['basicTypeaheadMulti']" [htmlFile]="snippets?.basicTypeaheadMulti?.html"  [tsFile]="snippets?.basicTypeaheadMulti?.ts">
-    <ngds-typeahead-input [control]="form?.controls?.['basicTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Select multiple'">
+  <demonstrator
+    #basicTypeaheadMulti
+    [control]="form?.controls?.['basicTypeaheadMulti']"
+    [htmlFile]="snippets?.basicTypeaheadMulti?.html"
+    [tsFile]="snippets?.basicTypeaheadMulti?.ts"
+  >
+    <ngds-typeahead-input
+      [control]="form?.controls?.['basicTypeaheadMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-typeahead-input>
   </demonstrator>
 </section>
 
-<section #section id="programmaticTypeaheadMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="programmaticTypeaheadMulti"
+  class="mb-5 mt-3"
+>
   <h3>Programmatically set typeahead multiselect</h3>
   <p>The example below selects only territories when you click the button.</p>
-  <demonstrator #programmaticTypeaheadMulti
-    [control]="form?.controls?.['programmaticTypeaheadMulti']" [htmlFile]="snippets?.programmaticTypeaheadMulti?.html"  [tsFile]="snippets?.programmaticTypeaheadMulti?.ts">
-    <button class="btn btn-primary my-2" (click)="programSet()">Set value</button>
-    <ngds-typeahead-input [control]="form?.controls?.['programmaticTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [placeholder]="'Select multiple'">
+  <demonstrator
+    #programmaticTypeaheadMulti
+    [control]="form?.controls?.['programmaticTypeaheadMulti']"
+    [htmlFile]="snippets?.programmaticTypeaheadMulti?.html"
+    [tsFile]="snippets?.programmaticTypeaheadMulti?.ts"
+  >
+    <button
+      class="btn btn-primary my-2"
+      (click)="programSet()"
+    >Set value</button>
+    <ngds-typeahead-input
+      [control]="form?.controls?.['programmaticTypeaheadMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-typeahead-input>
   </demonstrator>
 </section>
 
-<section #section id="displayOptionsTypeaheadMulti" class="mb-5 mt-3">
+<section
+  #section
+  id="displayOptionsTypeaheadMulti"
+  class="mb-5 mt-3"
+>
   <h3>Hide or disable selected items</h3>
   <p>Use <code>[displaySelectionItems]</code> to hide or disable options that have already been selected.</p>
   <demonstrator
-    [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [htmlFile]="snippets?.displayOptionsTypeaheadMulti?.html"  [tsFile]="snippets?.displayOptionsTypeaheadMulti?.ts">
-    <ngds-typeahead-input [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [displaySelectionItems]="'false'"
-    [label]="'Hide selected options'"
-    [placeholder]="'Select multiple'">
+    [control]="form?.controls?.['displayOptionsTypeaheadMulti']"
+    [htmlFile]="snippets?.displayOptionsTypeaheadMulti?.html"
+    [tsFile]="snippets?.displayOptionsTypeaheadMulti?.ts"
+  >
+    <ngds-typeahead-input
+      [control]="form?.controls?.['displayOptionsTypeaheadMulti']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [displaySelectionItems]="'false'"
+      [label]="'Hide selected options'"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-typeahead-input>
-    <ngds-typeahead-input [control]="form?.controls?.['displayOptionsTypeaheadMulti']" [selectionListItems]="displayProvinceList" [multiselect]="true" [resetButton]="true" [selectAllButton]="true"
-    [displaySelectionItems]="'disabled'"
-    [label]="'Disable selected options'"
-    [placeholder]="'Select multiple'">
+    <ngds-typeahead-input
+      [control]="form?.controls?.['displayOptionsTypeaheadMulti2']"
+      [selectionListItems]="displayProvinceList"
+      [multiselect]="true"
+      [resetButton]="true"
+      [selectAllButton]="true"
+      [displaySelectionItems]="'disabled'"
+      [label]="'Disable selected options'"
+      [placeholder]="'Select multiple'"
+    >
     </ngds-typeahead-input>
   </demonstrator>
 </section>
