@@ -69,7 +69,7 @@
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
         <ng-content
-          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: displayedSelectionListItems, query: currentDisplay }"
+          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: displayedSelectionListItems, query: currentDisplay, control: control }"
         ></ng-content>
       </ul>
     </div>
@@ -136,9 +136,11 @@
     [class.focused]="checkFocusIndex(match)"
     (mouseenter)="setFocusIndex(matches.indexOf(match))"
     (click)="selected(match)"
-    [ngClass]="{'active': match.value === control?.value}"
+    [class.active]="match?.value === control?.value"
+    aria-current="match?.value === control?.value"
+    href="#"
     type="menuitem"
-    value="{{ match?.value || match}}"
+    [value]="match?.value || match"
     [disabled]="match?.disabled"
   >
     <div [innerHtml]="match?.innerHtml"></div>

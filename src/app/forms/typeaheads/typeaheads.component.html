@@ -241,6 +241,37 @@
   </demonstrator>
 </section>
 
+<section
+  #section
+  id="selectFirstItemTypeahead"
+  class="mb-5 mt-3"
+>
+  <h3>Select first item on enter pressed</h3>
+  <p>
+    By default, if the typeahead or picklist dropdown is open and the user has not already tabbed to a particular
+    option, the typeahead will select the first item in the list when the user presses enter. If the user has started
+    typing, the first item that matches the typeahead query will be selected. This behaviour can be
+    disabled by setting <code>[selectFirstItemOnEnter]="false"</code> on the input.
+  </p>
+  <p>
+    In the example below, the behaviour is disabled, so pressing enter will not select the first item in the list.
+  </p>
+  <demonstrator
+    [htmlFile]="snippets?.selectFirstOnEnterTypeahead?.html"
+    [tsFile]="snippets?.selectFirstOnEnterTypeahead?.ts"
+    [control]="form?.controls?.['selectFirstOnEnterTypeahead']"
+  >
+    <ngds-typeahead-input
+      [control]="form?.controls?.['selectFirstOnEnterTypeahead']"
+      [selectionListItems]="displayProvinceList"
+      [selectFirstItemOnEnter]="false"
+      [placeholder]="'Start typing...'"
+      [resetButton]="true"
+    >
+    </ngds-typeahead-input>
+  </demonstrator>
+</section>
+
 <!-- <section
   #section
   id="displaySelectedTypeahead"

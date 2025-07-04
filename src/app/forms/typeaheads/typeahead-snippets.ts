@@ -804,5 +804,85 @@ export const snippets = {
           })
         }
 `
+  },
+  selectFirstOnEnterTypeahead: {
+    html: `
+    <ngds-typeahead-input
+      [control]="form?.controls?.['selectFirstOnEnterTypeahead']"
+      [selectionListItems]="displayProvinceList"
+      [placeholder]="'Start typing...'"
+      [selectFirstItemOnEnter]="false"
+      [resetButton]="true">
+    </ngds-typeahead-input>`,
+    ts: `
+    import { Component } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'select-first-typeahead'
+      export class SelectFirstTypeahead implements OnInit {
+        public form;
+
+        displayProvinceList = [
+          {
+            value: '0001',
+            display: 'British Columbia'
+          },
+          {
+            value: '0002',
+            display: 'Alberta'
+          },
+          {
+            value: '0003',
+            display: 'Saskatchewan'
+          },
+          {
+            value: '0004',
+            display: 'Manitoba'
+          },
+          {
+            value: '0005',
+            display: 'Ontario'
+          },
+          {
+            value: '0006',
+            display: 'Quebec'
+          },
+          {
+            value: '0007',
+            display: 'Nova Scotia'
+          },
+          {
+            value: '0008',
+            display: 'Newfoundland and Labrador'
+          },
+          {
+            value: '0009',
+            display: 'New Brunswick'
+          },
+          {
+            value: '0010',
+            display: 'Prince Edward Island'
+          },
+          {
+            value: '0011',
+            display: 'Yukon'
+          },
+          {
+            value: '0012',
+            display: 'Northwest Territories'
+          },
+          {
+            value: '0013',
+            display: 'Nunavut'
+          },
+        ]
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+            selectFirstOnEnterTypeahead: new UntypedFormControl(null),
+          })
+        }
+`
   }
 }

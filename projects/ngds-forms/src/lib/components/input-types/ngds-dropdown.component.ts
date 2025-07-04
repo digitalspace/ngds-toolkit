@@ -15,6 +15,9 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   // The no results text to display when there are no matches.
   @Input() noResultsText: string = 'No matching results';
 
+  // Disable first item selection on enter key press
+  @Input() selectFirstItemOnEnter: boolean = true;
+
   @Output() onDropdownHide = new EventEmitter<void>();
   @Output() onDropdownShow = new EventEmitter<void>();
 
@@ -71,11 +74,35 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
       //   this.setFocusIndex(this.focusIndex, 1);
       // }
     }
-    // If the user presses the enter key, select the item that is currently focused
+    // If the user presses the enter key, highlight the item that is currently focused
     if (this.isOpen && (event.key === 'Enter')) {
-      // event.stopPropagation();
-      // event.preventDefault();
-      // this.getFocusedItem().dispatchEvent(new Event('click'));
+      event.stopPropagation();
+      event.preventDefault();
+      let option = this.getOptionOnEnterPressed();
+      let focusedItem = this.getElementByValue(option?.value || option);
+      if (focusedItem) {
+        focusedItem.classList.add('active');
+      }
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  handleKeyUpEvent(event: KeyboardEvent) {
+    // If the user releases the enter key, select the item that is currently focused
+    if (this.isOpen && (event.key === 'Enter')) {
+      event.stopPropagation();
+      event.preventDefault();
+      let option = this.getOptionOnEnterPressed();
+      if (option) {
+        this.lastChangedBySelect = false;
+        this.updateValue(option?.value || option || null);
+        if (this.autoCloseBehaviour === 'inside' || this.autoCloseBehaviour === 'true') {
+          this.dropdownBlur();
+        }
+        this.control.markAsDirty();
+        this.control.markAsTouched();
+        this.cd.detectChanges();
+      }
     }
   }
 
@@ -224,13 +251,44 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     }
   }
 
+  getElementByValue(value) {
+    if (this.dropdownMenu && this.dropdownMenu.nativeElement) {
+      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[type="menuitem"]');
+      for (let i = 0; i < menuElements.length; i++) {
+        let element = menuElements[i];
+        if (element?.attributes?.value?.value === value || element?.innerText === value) {
+          return element;
+        }
+      }
+    }
+    return null;
+  }
+
+  getOptionOnEnterPressed() {
+    let option = this.getFocusedItemValue();
+    if (option) {
+      return option;
+    } else if (this.selectFirstItemOnEnter) {
+      return this.getFirstAvailableOption();
+    }
+    return null;
+  }
+
   getFocusedItem() {
-    return document.activeElement;
+    const menu = this.dropdownMenu.nativeElement;
+    if (menu) {
+      const focusedItem = menu?.querySelector(':focus');
+      return focusedItem;
+    }
+    return null;
   }
 
   getFocusedItemValue() {
     let focusedItem = this.getFocusedItem();
-    let value = focusedItem.getAttribute('value') || null;
+    let value = focusedItem?.getAttribute('value') || null;
+    if (value === 'null' || value === 'undefined' || value === 'false') {
+      value = null;
+    }
     return value;
   }
 
@@ -246,8 +304,6 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
       }
     }
   }
-
-
 
   handleClick(event) {
     // If the dropdown is open...
@@ -300,6 +356,17 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     return this.defaultListTemplate;
   }
 
+  getFirstAvailableOption() {
+    if (this.displayedSelectionListItems && this.displayedSelectionListItems.length > 0) {
+      for (const item of this.displayedSelectionListItems) {
+        if (!item?.disabled) {
+          return item?.value || item || null;
+        }
+      }
+    }
+    // If no items are available, return null
+    return null;
+  }
 
   doesDropdownCloseOnValueChange() {
     if (this.lastChangedBySelect) {
