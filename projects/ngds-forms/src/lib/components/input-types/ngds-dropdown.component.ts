@@ -74,7 +74,21 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
       //   this.setFocusIndex(this.focusIndex, 1);
       // }
     }
-    // If the user presses the enter key, select the item that is currently focused
+    // If the user presses the enter key, highlight the item that is currently focused
+    if (this.isOpen && (event.key === 'Enter')) {
+      event.stopPropagation();
+      event.preventDefault();
+      let option = this.getOptionOnEnterPressed();
+      let focusedItem = this.getElementByValue(option?.value || option);
+      if (focusedItem) {
+        focusedItem.classList.add('active');
+      }
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  handleKeyUpEvent(event: KeyboardEvent) {
+    // If the user releases the enter key, select the item that is currently focused
     if (this.isOpen && (event.key === 'Enter')) {
       event.stopPropagation();
       event.preventDefault();
@@ -237,6 +251,19 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     }
   }
 
+  getElementByValue(value) {
+    if (this.dropdownMenu && this.dropdownMenu.nativeElement) {
+      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[type="menuitem"]');
+      for (let i = 0; i < menuElements.length; i++) {
+        let element = menuElements[i];
+        if (element?.attributes?.value?.value === value || element?.innerText === value) {
+          return element;
+        }
+      }
+    }
+    return null;
+  }
+
   getOptionOnEnterPressed() {
     let option = this.getFocusedItemValue();
     if (option) {
@@ -251,7 +278,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     const menu = this.dropdownMenu.nativeElement;
     if (menu) {
       const focusedItem = menu?.querySelector(':focus');
-      return focusedItem
+      return focusedItem;
     }
     return null;
   }
