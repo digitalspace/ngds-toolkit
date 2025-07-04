@@ -357,6 +357,13 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   }
 
   getFirstAvailableOption() {
+    if (this.refinedListItems && this.refinedListItems.length > 0 && this.refinedListItems.length < this.displayedSelectionListItems.length) {
+      for (const item of this.refinedListItems) {
+        if (!item?.disabled) {
+          return item?.value || item || null;
+        }
+      }
+    } else
     if (this.displayedSelectionListItems && this.displayedSelectionListItems.length > 0) {
       for (const item of this.displayedSelectionListItems) {
         if (!item?.disabled) {

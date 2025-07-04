@@ -81,9 +81,11 @@ export class MultiselectsComponent implements OnInit, AfterViewInit {
       basicTypeaheadMulti: new UntypedFormControl(null),
       programmaticTypeaheadMulti: new UntypedFormControl(null),
       displayOptionsTypeaheadMulti: new UntypedFormControl(null),
+      displayOptionsTypeaheadMulti2: new UntypedFormControl(null),
       basicPicklistMulti: new UntypedFormControl(null),
       programmaticPicklistMulti: new UntypedFormControl(null),
       displayOptionsPicklistMulti: new UntypedFormControl(null),
+      displayOptionsPicklistMulti2: new UntypedFormControl(null),
     });
     for (const control of Object.keys(this.form.controls)) {
       this.fields[control] = this.form.controls[control];
