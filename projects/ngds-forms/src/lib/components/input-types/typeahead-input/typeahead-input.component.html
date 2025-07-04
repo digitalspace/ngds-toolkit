@@ -59,6 +59,7 @@
           (ngModelChange)="typeaheadChange($event)"
           [disabled]="isDisabled"
           class="rounded border-0 form-select position-relative"
+          [ngClass]="getInputClasses()"
           [ngClass]="{'is-invalid': isInvalid, 'w-100': !isInputHidden(), 'closed-multiselect-input': isInputHidden()}"
         >
       <!-- Dropdown Items-->
