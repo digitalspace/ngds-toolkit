@@ -189,3 +189,7 @@ $active-invalid-outline: red;
 .closed-multiselect-input {
   width: 1%;
 }
+
+.active {
+  background-color: var(--bs-gray-500);
+}

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, Renderer2 } from '@angular/core';
 import { NgdsDropdown } from '../ngds-dropdown.component';
 
 @Component({
