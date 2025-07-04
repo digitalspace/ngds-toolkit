@@ -55,7 +55,7 @@ $active-invalid-outline: red;
     color: black;
 
     &:hover {
-      background-color: var(--bs-gray-300) !important;
+      background-color: var(--bs-gray-400) !important;
 
       &:not(.in-range) {
         border-radius: 2rem;
@@ -77,13 +77,18 @@ $active-invalid-outline: red;
       background-color: var(--bs-gray-500) !important;
 
       &:hover {
-        background-color: var(--bs-gray-400) !important;
+        background-color: var(--bs-gray-500) !important;
       }
     }
 
     &.in-range {
       background-color: var(--bs-gray-200);
       font-weight: bold;
+
+      &.invalid-range {
+        color: var(--bs-gray-500);
+        background-color: var(--bs-gray-300) !important;
+      }
     }
   }
 }

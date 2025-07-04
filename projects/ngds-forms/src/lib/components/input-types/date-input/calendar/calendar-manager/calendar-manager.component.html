@@ -1,22 +1,49 @@
 <div class="d-flex row">
   <div class="col-auto overflow-auto">
     <!-- Render 1 calendar for datepicker -->
-    <ngds-calendar [calendarConfig]="startCalendar" [disabledDatesFn]="disabledDatesFn" [dateRange]="dateRange"
-      [displayDepth]="displayDepth.value" [selectedDate]="selectedDate" [hoverDate]="hoverDate"
-      [selectedEndDate]="selectedEndDate" [disabled]="disabled" [allowDisabledInRange]="allowDisabledInRange"
-      (changeDate)="updateCalendarConfig($event, startCalendar)" [minDisplayDepth]="minDisplayDepth"
-      (changeMonth)="setMonthToValue($event, startCalendar)" (changeDepth)="toggleDepth($event)"
-      (changeYear)="setYearToValue($event, startCalendar)" (changeHoverDate)="updateHoverDate($event)"
-      (changeDisplay)="changeDisplayByValue($event)" (clearDates)="clearDates.emit()"></ngds-calendar>
+    <ngds-calendar
+      [calendarConfig]="startCalendar"
+      [disabledDatesFn]="disabledDatesFn"
+      [dateRange]="dateRange"
+      [displayDepth]="displayDepth.value"
+      [selectedDate]="selectedDate"
+      [hoverDate]="hoverDate"
+      [selectedEndDate]="selectedEndDate"
+      [disabled]="disabled"
+      [allowDisabledInRange]="allowDisabledInRange"
+      (changeDate)="updateCalendarConfig($event, startCalendar)"
+      [minDisplayDepth]="minDisplayDepth"
+      (changeMonth)="setMonthToValue($event, startCalendar)"
+      (changeDepth)="toggleDepth($event)"
+      (changeYear)="setYearToValue($event, startCalendar)"
+      (changeHoverDate)="updateHoverDate($event)"
+      (changeDisplay)="changeDisplayByValue($event)"
+      (clearDates)="clearDates.emit()"
+    ></ngds-calendar>
   </div>
-  <div *ngIf="dateRange && !hideSecondCalendar" class="col-auto overflow-auto">
+  <div
+    *ngIf="dateRange && !hideSecondCalendar"
+    class="col-auto overflow-auto"
+  >
     <!-- Render 2 calendars for rangepicker -->
-    <ngds-calendar [calendarConfig]="endCalendar" [disabledDatesFn]="disabledDatesFn" [dateRange]="dateRange"
-      [displayDepth]="displayDepth.value" [selectedDate]="selectedDate" [hoverDate]="hoverDate"
-      [minDisplayDepth]="minDisplayDepth" [selectedEndDate]="selectedEndDate" [disabled]="disabled"
-      [allowDisabledInRange]="allowDisabledInRange" (changeDate)="updateCalendarConfig($event, endCalendar)"
-      (changeMonth)="setMonthToValue($event, endCalendar)" (changeDepth)="toggleDepth($event)"
-      (changeYear)="setYearToValue($event, endCalendar)" (changeHoverDate)="updateHoverDate($event)"
-      (changeDisplay)="changeDisplayByValue($event)" (clearDates)="clearDates.emit()"></ngds-calendar>
+    <ngds-calendar
+      [calendarConfig]="endCalendar"
+      [disabledDatesFn]="disabledDatesFn"
+      [dateRange]="dateRange"
+      [displayDepth]="displayDepth.value"
+      [selectedDate]="selectedDate"
+      [hoverDate]="hoverDate"
+      [minDisplayDepth]="minDisplayDepth"
+      [selectedEndDate]="selectedEndDate"
+      [disabled]="disabled"
+      [allowDisabledInRange]="allowDisabledInRange"
+      (changeDate)="updateCalendarConfig($event, endCalendar)"
+      (changeMonth)="setMonthToValue($event, endCalendar)"
+      (changeDepth)="toggleDepth($event)"
+      (changeYear)="setYearToValue($event, endCalendar)"
+      (changeHoverDate)="updateHoverDate($event)"
+      (changeDisplay)="changeDisplayByValue($event)"
+      (clearDates)="clearDates.emit()"
+    ></ngds-calendar>
   </div>
 </div>

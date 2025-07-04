@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
-import { NgdsInput } from '../ngds-input.component';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { DateTime, Duration } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
 import { ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -36,6 +35,9 @@ export class NgdsDateInput extends NgdsDropdown {
 
   // The maximum allowable length of a selected range. No limit if set to 0.
   @Input() maxRange: number = 0;
+
+  // The minimum allowable length of a selected range. No limit if set to 0.
+  @Input() minRange: number = 0;
 
   // The string used in the input display to separate the start and end display strings of a range.
   @Input() rangeSeparator: string = 'to';
@@ -79,7 +81,6 @@ export class NgdsDateInput extends NgdsDropdown {
   }
 
   afterDropdownInitFn(): void {
-   
     if (!this.dateDisplayFormat) {
       this.dateDisplayFormat = this.dateFormat;
     }

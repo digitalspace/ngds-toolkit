@@ -2,7 +2,9 @@
 </h2>
 <section>
   <p>
-    NGDS Forms Rangepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a> and <a href="https://popper.js.org/">popper.js</a>.
+    NGDS Forms Rangepicker leverages <a href="https://moment.github.io/luxon/#/">luxon</a> and <a
+      href="https://popper.js.org/"
+    >popper.js</a>.
   </p>
   <pre class="border rounded px-3 py-1"><code class="p-0" [highlight]="luxonCode"></code></pre>
   <p>
@@ -17,7 +19,11 @@
 </pre>
 
 
-<section #section id="basicRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="basicRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Basic Rangepicker</h3>
   <p>
     Rangepicker functionality is very similar to NGDS Datepicker. To turn a datepicker into a rangepicker, add the
@@ -34,146 +40,329 @@
       Datepicker</a> is recommended.
   </p>
   <p>
-    If the second date selected in the rangepicker is chronologically before the first, the rangepicker will reorient the selections such that the chronologically earlier date always comes first - you cannot select a negative range.
+    If the second date selected in the rangepicker is chronologically before the first, the rangepicker will reorient
+    the selections such that the chronologically earlier date always comes first - you cannot select a negative range.
   </p>
-  <demonstrator [headerText]="'Basic datepicker'" [htmlFile]="snippets?.basicRangepicker?.html"
-    [tsFile]="snippets?.basicRangepicker?.ts" [control]="form?.controls?.['basicRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['basicRangepicker']" [label]="'My rangepicker label'"
-      [subLabel]="'My rangepicker sub-label'" [placeholder]="'My placeholder'" [dateRange]="true">
+  <demonstrator
+    [headerText]="'Basic datepicker'"
+    [htmlFile]="snippets?.basicRangepicker?.html"
+    [tsFile]="snippets?.basicRangepicker?.ts"
+    [control]="form?.controls?.['basicRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['basicRangepicker']"
+      [label]="'My rangepicker label'"
+      [subLabel]="'My rangepicker sub-label'"
+      [placeholder]="'My placeholder'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="programmaticRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="programmaticRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Programmatic rangepicker</h3>
   <p>
     The example below selects the range between <code>today</code> and <code>tomorrow</code> (UTC) by default. When you
     reset the input, it will again select the same range.
   </p>
-  <demonstrator [htmlFile]="snippets?.programmaticRangepicker?.html" [tsFile]="snippets?.programmaticRangepicker?.ts"
-    [control]="form?.controls?.['programmaticRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['programmaticRangepicker']" [dateRange]="true" [resetButton]="true">
+  <demonstrator
+    [htmlFile]="snippets?.programmaticRangepicker?.html"
+    [tsFile]="snippets?.programmaticRangepicker?.ts"
+    [control]="form?.controls?.['programmaticRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['programmaticRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="inlineRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="inlineRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Inline rangepicker</h3>
   <p>
     The rangepicker calendars are dropdown by default. You can display the rangepicker inline by passing
     <code>[inline]="true"</code>
   </p>
-  <demonstrator [htmlFile]="snippets?.inlineRangepicker?.html" [tsFile]="snippets?.inlineRangepicker?.ts"
-    [control]="form?.controls?.['inlineRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['inlineRangepicker']" [dateRange]="true" [resetButton]="true"
-      [inline]="true">
+  <demonstrator
+    [htmlFile]="snippets?.inlineRangepicker?.html"
+    [tsFile]="snippets?.inlineRangepicker?.ts"
+    [control]="form?.controls?.['inlineRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['inlineRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [inline]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="disabledRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="disabledRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Disabled rangepicker</h3>
   <p>
     Disabled and loading state can be controlled with <code>[disabled]</code> and <code>[loadWhile]</code> attributes,
     respectively. You can also disable the control programmatically by calling <code>control.disable()</code>.
   </p>
-  <demonstrator [htmlFile]="snippets?.disabledRangepicker.html" [tsFile]="snippets?.disabledRangepicker.ts"
-    [control]="form?.controls?.['disabledRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['disabledRangepicker']" [dateRange]="true" [resetButton]="true" [inline]="true" [disabled]="isDisabled" [loadWhile]="isLoading">
+  <demonstrator
+    [htmlFile]="snippets?.disabledRangepicker.html"
+    [tsFile]="snippets?.disabledRangepicker.ts"
+    [control]="form?.controls?.['disabledRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['disabledRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [inline]="true"
+      [disabled]="isDisabled"
+      [loadWhile]="isLoading"
+    >
     </ngds-date-input>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchDisabled" (click)="disabledSwitch()">
-      <label class="form-check-label" for="flexSwitchDisabled">Toggle disabled</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchDisabled"
+        (click)="disabledSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchDisabled"
+      >Toggle disabled</label>
     </div>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchLoading" (click)="loadingSwitch()">
-      <label class="form-check-label" for="flexSwitchLoading">Toggle loading</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchLoading"
+        (click)="loadingSwitch()"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchLoading"
+      >Toggle loading</label>
     </div>
     <div class="form-check form-switch mt-2">
-      <input class="form-check-input" type="checkbox" id="flexSwitchProgram"
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchProgram"
         [checked]="form?.controls?.['disabledRangepicker'].disabled"
-        (click)="disableProgrammatically('disabledRangepicker')">
-      <label class="form-check-label" for="flexSwitchProgram">Toggle disable programmatically</label>
+        (click)="disableProgrammatically('disabledRangepicker')"
+      >
+      <label
+        class="form-check-label"
+        for="flexSwitchProgram"
+      >Toggle disable programmatically</label>
     </div>
   </demonstrator>
 </section>
 
-<section #section id="maxRangeRangepicker" class="mb-5 mt-3">
-  <h3>Maximum range rangepicker</h3>
+<section
+  #section
+  id="maxRangeRangepicker"
+  class="mb-5 mt-3"
+>
+  <h3>Maximum and minimum range rangepicker</h3>
   <p>
-    The maximum range of dates can be limited by using <code>[maxRange]</code>. In the example below, a maximum range of 5 days can be selected.
+    The allowable range of dates can be limited by using <code>[minRange]</code> and <code>[maxRange]</code>. The values
+    given for <code>[minRange]</code> and <code>[maxRange]</code> should be the number of days NOT including the start
+    date that are permissible in the date range. For example, if <code>[minRange]</code> is 3, there will be 4 days in
+    the range - the start date, plus three days. A <code>[minRange]</code> or <code>[maxRange]</code> of 0 will allow
+    you to select the same day for the start and end dates.
   </p>
-  <demonstrator [htmlFile]="snippets?.maxRangeRangepicker?.html" [tsFile]="snippets?.maxRangeRangepicker?.ts"
-    [control]="form?.controls?.['maxRangeRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['maxRangeRangepicker']" [dateRange]="true" [resetButton]="true" [maxRange]="5">
+  <p>
+    Another way to think about this is that the <code>[minRange]</code> and <code>[maxRange]</code> values are the
+    number of nights in the range.
+  </p>
+  <p>
+    Selecting outside the permissible range will reset your first date selection.
+  </p>
+  <demonstrator
+    [htmlFile]="snippets?.maxRangeRangepicker?.html"
+    [tsFile]="snippets?.maxRangeRangepicker?.ts"
+    [control]="form?.controls?.['maxRangeRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['maxRangeRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [label]="'Maximum range'"
+      [subLabel]="'This field allows a maximum of 5 days in the range (maxRange 4)'"
+      [maxRange]="4"
+    >
     </ngds-date-input>
+    <ngds-date-input
+      [control]="form?.controls?.['minRangeRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [label]="'Minimum range'"
+      [subLabel]="'This field allows a minimum of 5 days in the range (minRange 4)'"
+      [minRange]="4"
+    >
+    </ngds-date-input>
+
   </demonstrator>
 </section>
 
-<section #section id="disabledDatesRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="disabledDatesRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Custom disabled dates</h3>
   <p>
-    Disabled date functionality works analogously to NGDS Datepicker's <a href="forms/datepicker#customDisabledDatepicker">disabled dates</a>. NGDS Rangepicker has access to <code>[minDate]</code>, <code>[maxDate]</code>, and <code>[customDisableDatesCallback]</code> properties.
+    Disabled date functionality works analogously to NGDS Datepicker's <a
+      href="forms/datepicker#customDisabledDatepicker"
+    >disabled dates</a>. NGDS Rangepicker has access to <code>[minDate]</code>, <code>[maxDate]</code>, and
+    <code>[customDisableDatesCallback]</code> properties.
   </p>
   <p>
-    By default, you cannot select a range that includes a disabled date. If you need to allow disabled dates to be included in a selected range, use <code>[allowDisabledInRange]="true"</code>.
+    By default, you cannot select a range that includes a disabled date. If you need to allow disabled dates to be
+    included in a selected range, use <code>[allowDisabledInRange]="true"</code>.
   </p>
   <p>
     In the example below, the 15th day of each month is disabled.
   </p>
-  <demonstrator [htmlFile]="snippets?.disabledDatesRangepicker?.html" [tsFile]="snippets?.disabledDatesRangepicker?.ts"
-    [control]="form?.controls?.['disabledDatesRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['disabledDatesRangepicker']" [label]="'Disabled dates disallowed'" [dateRange]="true" [resetButton]="true" [customDisabledDatesCallback]="customDisabledDatesCallback">
+  <demonstrator
+    [htmlFile]="snippets?.disabledDatesRangepicker?.html"
+    [tsFile]="snippets?.disabledDatesRangepicker?.ts"
+    [control]="form?.controls?.['disabledDatesRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['disabledDatesRangepicker']"
+      [label]="'Disabled dates disallowed'"
+      [dateRange]="true"
+      [resetButton]="true"
+      [customDisabledDatesCallback]="customDisabledDatesCallback"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.allowDisabledDatesRangepicker?.html" [tsFile]="snippets?.allowDisabledDatesRangepicker?.ts"
-    [control]="form?.controls?.['allowDisabledDatesRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['allowDisabledDatesRangepicker']" [label]="'Disabled dates allowed'" [dateRange]="true" [resetButton]="true" [customDisabledDatesCallback]="customDisabledDatesCallback" [allowDisabledInRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.allowDisabledDatesRangepicker?.html"
+    [tsFile]="snippets?.allowDisabledDatesRangepicker?.ts"
+    [control]="form?.controls?.['allowDisabledDatesRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['allowDisabledDatesRangepicker']"
+      [label]="'Disabled dates allowed'"
+      [dateRange]="true"
+      [resetButton]="true"
+      [customDisabledDatesCallback]="customDisabledDatesCallback"
+      [allowDisabledInRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="invalidRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="invalidRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Invalid rangepicker</h3>
   <p>
-    If you need to allow the user to select dates but reflect the validity of that date, leveraging control validation works similarly to other input types. In the example below, the selected range is invalid if it includes the 15th of any month.
+    If you need to allow the user to select dates but reflect the validity of that date, leveraging control validation
+    works similarly to other input types. In the example below, the selected range is invalid if it includes the 15th of
+    any month.
   </p>
-  <demonstrator [htmlFile]="snippets?.invalidRangepicker?.html" [tsFile]="snippets?.invalidRangepicker?.ts"
-    [control]="form?.controls?.['invalidRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['invalidRangepicker']" [dateRange]="true" [resetButton]="true">
+  <demonstrator
+    [htmlFile]="snippets?.invalidRangepicker?.html"
+    [tsFile]="snippets?.invalidRangepicker?.ts"
+    [control]="form?.controls?.['invalidRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['invalidRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="valueFormatRangepicker" class="mb-5 mt-3">
+<section
+  #section
+  id="valueFormatRangepicker"
+  class="mb-5 mt-3"
+>
   <h3>Formatting</h3>
   <p>
-    NGDS's Rangepicker follows the same value/display formatting rules as the <a href="forms/datepicker#valueFormatDatepicker">Datepicker</a>. The default value/display format is YYYY-MM-DD. Refer to the Datepicker documentation for more details.
+    NGDS's Rangepicker follows the same value/display formatting rules as the <a
+      href="forms/datepicker#valueFormatDatepicker"
+    >Datepicker</a>. The default value/display format is YYYY-MM-DD. Refer to the Datepicker documentation for more
+    details.
   </p>
   <p>
-    The display can be customised to change the string that separates the start and end dates by changing <code>[rangeSeparator]</code>. By default, <code>[rangeSeparator]="'to'"</code>.
+    The display can be customised to change the string that separates the start and end dates by changing
+    <code>[rangeSeparator]</code>. By default, <code>[rangeSeparator]="'to'"</code>.
   </p>
-  <demonstrator [htmlFile]="snippets?.valueFormatRangepicker.html" [tsFile]="snippets?.valueFormatRangepicker.ts"
-    [control]="form?.controls?.['valueFormatRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['valueFormatRangepicker']" [dateRange]="true" [resetButton]="true" [dateFormat]="'DD'" [label]="'Formatting control value'">
+  <demonstrator
+    [htmlFile]="snippets?.valueFormatRangepicker.html"
+    [tsFile]="snippets?.valueFormatRangepicker.ts"
+    [control]="form?.controls?.['valueFormatRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['valueFormatRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [dateFormat]="'DD'"
+      [label]="'Formatting control value'"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.displayFormatRangepicker.html" [tsFile]="snippets?.displayFormatRangepicker.ts"
-    [control]="form?.controls?.['displayFormatRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['displayFormatRangepicker']" [dateRange]="true" [resetButton]="true" [dateDisplayFormat]="'DDD'" [label]="'Formatting control display'">
+  <demonstrator
+    [htmlFile]="snippets?.displayFormatRangepicker.html"
+    [tsFile]="snippets?.displayFormatRangepicker.ts"
+    [control]="form?.controls?.['displayFormatRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['displayFormatRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [dateDisplayFormat]="'DDD'"
+      [label]="'Formatting control display'"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.rangeSeparatorRangepicker.html" [tsFile]="snippets?.rangeSeparatorRangepicker.ts"
-    [control]="form?.controls?.['rangeSeparatorRangepicker']">
-    <ngds-date-input [control]="form?.controls?.['rangeSeparatorRangepicker']" [dateRange]="true" [resetButton]="true" [rangeSeparator]="'===>'" [label]="'Formatting rangeSeparator'">
+  <demonstrator
+    [htmlFile]="snippets?.rangeSeparatorRangepicker.html"
+    [tsFile]="snippets?.rangeSeparatorRangepicker.ts"
+    [control]="form?.controls?.['rangeSeparatorRangepicker']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['rangeSeparatorRangepicker']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [rangeSeparator]="'===>'"
+      [label]="'Formatting rangeSeparator'"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="timezones" class="mb-5 mt-3">
+<section
+  #section
+  id="timezones"
+  class="mb-5 mt-3"
+>
   <h3>Timezones</h3>
   <p>
     See the <a href="forms/datepicker#timezones">Datepicker</a> timezone examples for more details.
@@ -181,69 +370,153 @@
   <pre class="border rounded px-3 py-1">
     <code class="p-0">Current browser time: {{now?.value?.toFormat('DDDD TT (z)') }}</code>
   </pre>
-  <demonstrator [htmlFile]="snippets?.timezoneUTC?.html"
-    [tsFile]="snippets?.timezoneUTC?.ts" [control]="form?.controls?.['timezoneUTC']">
-    <ngds-date-input [control]="form?.controls?.['timezoneUTC']" [resetButton]="true" [timezone]="'UTC'" [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'" [label]="'UTC'" [dateRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.timezoneUTC?.html"
+    [tsFile]="snippets?.timezoneUTC?.ts"
+    [control]="form?.controls?.['timezoneUTC']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['timezoneUTC']"
+      [resetButton]="true"
+      [timezone]="'UTC'"
+      [dateDisplayFormat]="'X (z)'"
+      [dateFormat]="'yyyy-LL-dd, TT'"
+      [label]="'UTC'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.timezoneNiue?.html"
-    [tsFile]="snippets?.timezoneNiue?.ts" [control]="form?.controls?.['timezoneNiue']">
-    <ngds-date-input [control]="form?.controls?.['timezoneNiue']" [resetButton]="true" [timezone]="'Pacific/Niue'" [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'" [label]="'Pacific/Niue (UTC-11)'" [dateRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.timezoneNiue?.html"
+    [tsFile]="snippets?.timezoneNiue?.ts"
+    [control]="form?.controls?.['timezoneNiue']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['timezoneNiue']"
+      [resetButton]="true"
+      [timezone]="'Pacific/Niue'"
+      [dateDisplayFormat]="'X (z)'"
+      [dateFormat]="'yyyy-LL-dd, TT'"
+      [label]="'Pacific/Niue (UTC-11)'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.timezoneKiritimati?.html"
-    [tsFile]="snippets?.timezoneKiritimati?.ts" [control]="form?.controls?.['timezoneKiritimati']">
-    <ngds-date-input [control]="form?.controls?.['timezoneKiritimati']" [resetButton]="true"  [timezone]="'Pacific/Kiritimati'" [dateDisplayFormat]="'X (z)'" [dateFormat]="'yyyy-LL-dd, TT'" [label]="'Pacific/Kiritimati (UTC+14)'" [dateRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.timezoneKiritimati?.html"
+    [tsFile]="snippets?.timezoneKiritimati?.ts"
+    [control]="form?.controls?.['timezoneKiritimati']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['timezoneKiritimati']"
+      [resetButton]="true"
+      [timezone]="'Pacific/Kiritimati'"
+      [dateDisplayFormat]="'X (z)'"
+      [dateFormat]="'yyyy-LL-dd, TT'"
+      [label]="'Pacific/Kiritimati (UTC+14)'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="displayDepth" class="mb-5 mt-3">
+<section
+  #section
+  id="displayDepth"
+  class="mb-5 mt-3"
+>
   <h3>Minimum display mode</h3>
   <p>
     See the <a href="forms/datepicker#displayDepth">Datepicker</a> display mode examples for more details.
   </p>
-  <demonstrator [htmlFile]="snippets?.minModeMonth?.html" [tsFile]="snippets?.minModeMonth?.ts"
-    [control]="form?.controls?.['minModeMonth']">
-    <ngds-date-input [control]="form?.controls?.['minModeMonth']" [resetButton]="true" [minMode]="1"
-      [dateDisplayFormat]="'LLLL, yyyy'" [label]="'Month (minMode 1)'" [dateRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.minModeMonth?.html"
+    [tsFile]="snippets?.minModeMonth?.ts"
+    [control]="form?.controls?.['minModeMonth']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['minModeMonth']"
+      [resetButton]="true"
+      [minMode]="1"
+      [dateDisplayFormat]="'LLLL, yyyy'"
+      [label]="'Month (minMode 1)'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
   <div class="mt-2"></div>
-  <demonstrator [htmlFile]="snippets?.minModeYear?.html" [tsFile]="snippets?.minModeYear?.ts"
-    [control]="form?.controls?.['minModeYear']">
-    <ngds-date-input [control]="form?.controls?.['minModeYear']" [resetButton]="true" [minMode]="2"
-      [dateDisplayFormat]="'yyyy'" [label]="'Year (minMode 2)'" [dateRange]="true">
+  <demonstrator
+    [htmlFile]="snippets?.minModeYear?.html"
+    [tsFile]="snippets?.minModeYear?.ts"
+    [control]="form?.controls?.['minModeYear']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['minModeYear']"
+      [resetButton]="true"
+      [minMode]="2"
+      [dateDisplayFormat]="'yyyy'"
+      [label]="'Year (minMode 2)'"
+      [dateRange]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="hideSecondCalendar" class="mb-5 mt-3">
+<section
+  #section
+  id="hideSecondCalendar"
+  class="mb-5 mt-3"
+>
   <h3>Show only 1 calendar</h3>
   <p>
     To hide the second rangepicker calendar, set <code>[hideSecondCalendar]="true"</code>.
   </p>
-  <demonstrator [htmlFile]="snippets?.hideSecondCalendar?.html" [tsFile]="snippets?.hideSecondCalendar?.ts"
-    [control]="form?.controls?.['hideSecondCalendar']">
-    <ngds-date-input [control]="form?.controls?.['hideSecondCalendar']" [dateRange]="true" [resetButton]="true" [hideSecondCalendar]="true">
+  <demonstrator
+    [htmlFile]="snippets?.hideSecondCalendar?.html"
+    [tsFile]="snippets?.hideSecondCalendar?.ts"
+    [control]="form?.controls?.['hideSecondCalendar']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['hideSecondCalendar']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [hideSecondCalendar]="true"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
 
-<section #section id="fixedRangeSize" class="mb-5 mt-3">
+<section
+  #section
+  id="fixedRangeSize"
+  class="mb-5 mt-3"
+>
   <h3>Autoselect range by start date</h3>
   <p>
-    You can enforce an exact range to be selected with<code>[fixedRangeSize]="duration"</code>, where <code>duration</code> is a <code>luxon</code> Duration. When a date selection is made, the date is assumed to be the start of the range and the end date is automatically picked based on the provided Duration. Note that the Duration is added to the selected date down to the millisecond, so a Duration of 7 days will likely include 8 days (7 plus the start date) and will show as such in the calendar display.
+    You can enforce an exact range to be selected with<code>[fixedRangeSize]="duration"</code>, where
+    <code>duration</code> is a <code>luxon</code> Duration. When a date selection is made, the date is assumed to be the
+    start of the range and the end date is automatically picked based on the provided Duration. Note that the Duration
+    is added to the selected date down to the millisecond, so a Duration of 7 days will likely include 8 days (7 plus
+    the start date) and will show as such in the calendar display.
   </p>
   <p>The provided example automatically selects a 7 day range starting with the date selected.</p>
   <p>
-    See the <code>luxon</code>&nbsp;<a href="https://moment.github.io/luxon/api-docs/index.html#duration">Duration</a> documetation for more information.
+    See the <code>luxon</code>&nbsp;<a href="https://moment.github.io/luxon/api-docs/index.html#duration">Duration</a>
+    documetation for more information.
   </p>
-  <demonstrator [htmlFile]="snippets?.fixedRangeSize?.html" [tsFile]="snippets?.fixedRangeSize?.ts"
-    [control]="form?.controls?.['fixedRangeSize']">
-    <ngds-date-input [control]="form?.controls?.['fixedRangeSize']" [dateRange]="true" [resetButton]="true" [fixedRangeSize]="duration">
+  <demonstrator
+    [htmlFile]="snippets?.fixedRangeSize?.html"
+    [tsFile]="snippets?.fixedRangeSize?.ts"
+    [control]="form?.controls?.['fixedRangeSize']"
+  >
+    <ngds-date-input
+      [control]="form?.controls?.['fixedRangeSize']"
+      [dateRange]="true"
+      [resetButton]="true"
+      [fixedRangeSize]="duration"
+    >
     </ngds-date-input>
   </demonstrator>
 </section>
