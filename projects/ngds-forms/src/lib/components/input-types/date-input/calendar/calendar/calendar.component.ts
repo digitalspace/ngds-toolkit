@@ -17,12 +17,12 @@ export class NgdsCalendar implements OnInit {
   @Input() disabledDatesFn;
 
   // The current precision of the datepicker.
-  @Input() displayDepth: number = 0; // date, 1 = month, 2 = year 
+  @Input() displayDepth: number = 0; // date, 1 = month, 2 = year
 
   // The precision of the datepicker. By default (0), dates can be picked.
   // If minDisplayDepth is 1 or 2, only months or years will be displayed and enabled, respectively.
-  // When picking months or years, the datepicker will return the luxon startOf('term'), where 
-  // 'term' is months or years, respectively.  
+  // When picking months or years, the datepicker will return the luxon startOf('term'), where
+  // 'term' is months or years, respectively.
   @Input() minDisplayDepth: number = 0; // date, 1 = month, 2 = year
 
   // The configuration object that drives the calendar render.
@@ -56,7 +56,7 @@ export class NgdsCalendar implements OnInit {
   // Emits when the selected year is changed.
   @Output() changeYear = new EventEmitter;
 
-  // Emits when the precision of the calendar display is changed. 
+  // Emits when the precision of the calendar display is changed.
   @Output() changeDepth = new EventEmitter;
 
   // Emits when the current hover date changes.
@@ -126,7 +126,7 @@ export class NgdsCalendar implements OnInit {
         number: 12
       }
     ],
-  ]
+  ];
 
   ngOnInit(): void {
     // set display to the minimum display depth.
@@ -139,7 +139,7 @@ export class NgdsCalendar implements OnInit {
    * This function is called extremely often; keep it concise.
    * @param date1 `luxon` DateTime
    * @param date2 `luxon` DateTime
-   * @returns boolean - `true` if the dates match. 
+   * @returns boolean - `true` if the dates match.
    */
   checkDateMatch(date1, date2): boolean {
     if (date1?.toISODate() !== date2?.toISODate()) {
@@ -168,13 +168,24 @@ export class NgdsCalendar implements OnInit {
         return rangeClasses;
       }
       rangeClasses.push('in-range');
+      // calculate min/max ranges
+      let minRange = this.calendarConfig.value.minRange;
+      if (minRange) {
+        let datePlusMinRange = rangeStart.plus({ days: minRange });
+        let dateMinusMinRange = rangeStart.minus({ days: minRange });
+        if (date < datePlusMinRange && date > dateMinusMinRange) {
+          rangeClasses.push('invalid-range');
+        }
+      }
       if (this.selectedEndDate) {
         rangeClasses.push('selected');
       }
       if (this.checkDateMatch(date, rangeStart)) {
+        rangeClasses = rangeClasses.filter(c => c !== 'invalid-range');
         rangeClasses.push('first-date');
       }
       if (this.checkDateMatch(date, rangeEnd)) {
+        rangeClasses = rangeClasses.filter(c => c !== 'invalid-range');
         rangeClasses.push('last-date');
       }
       return rangeClasses;
@@ -290,13 +301,13 @@ export class NgdsCalendar implements OnInit {
 
   /**
    * Decides whether or not to emit a date change when a date is selected.
-   * In a rangepicker, if the selected date is outside the permissible range, the click is not propagated. 
-   * @param date `luxon` DateTime 
+   * In a rangepicker, if the selected date is outside the permissible range, the click is not propagated.
+   * @param date `luxon` DateTime
    */
   updateDateOnClick(date) {
     if (this.dateRange && this.selectedDate && !this.selectedEndDate) {
       const limit = this.checkRangeForDisabledDates(date);
-      if (limit !== date) {
+      if (!this.checkDateMatch(date, limit)) {
         this.clearDates.emit();
       }
     }
@@ -317,24 +328,26 @@ export class NgdsCalendar implements OnInit {
       increment = -1;
     }
     let checkDate = this.selectedDate;
-    let rangeLength = 1;
-    while (!this.checkDateMatch(date, checkDate)) {
-      if (this.disabledDatesFn(checkDate.plus({ days: increment }))) {
-        return checkDate;
-      }
-      if (rangeLength === this.calendarConfig.value.maxRange) {
-        return checkDate;
-      }
-      rangeLength++;
-      checkDate = checkDate.plus({ days: increment });
+    let rangeLength = Math.abs(date.diff(this.selectedDate, 'days').days);;
+    let minRange = this.calendarConfig?.value?.minRange || 0;
+    let maxRange = this.calendarConfig?.value?.maxRange || 0;
+
+    if (this.disabledDatesFn(checkDate.plus({ days: increment }))) {
+      return checkDate;
     }
-    return date;
+    if (minRange && rangeLength < minRange) {
+      return checkDate.plus({ days: minRange * increment });
+    }
+    if (maxRange && rangeLength >= maxRange) {
+      return checkDate.plus({ days: maxRange * increment });;
+    }
+    return checkDate.plus({ days: rangeLength * increment });
   }
 
   /**
    * Check if a provided date is disabled in the current calendarConfig.
    * @param date `luxon` DateTime
-   * @returns boolean - true if the date is disabled or if the date falls outside the current calendarConfig. 
+   * @returns boolean - true if the date is disabled or if the date falls outside the current calendarConfig.
    */
   checkDisabledDate(date) {
     if (date.month !== this.calendarConfig.value.date.month) {

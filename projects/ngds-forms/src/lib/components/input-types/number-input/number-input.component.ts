@@ -77,7 +77,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
   }
 
   set displayValue(value) {
-    if (value) {
+    if (!isNaN(value)) {
       // We cannot safely represent all numbers
       if (this.checkNumberRepresentation(value)) {
         let next = String(value).match(this.regex)?.[0];
@@ -330,7 +330,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
       this.displayValue = Number(value).toFixed(this.decimalPlaces);
     }
     else if (alwaysSet) {
-      this.displayValue = value;
+      this.displayValue = Number(value);
     }
     if (this.valueAsString) {
       this.setControlValue(this.displayValue);

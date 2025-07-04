@@ -126,7 +126,8 @@ export const snippets = {
       [control]="form?.controls?.['maxRangeRangepicker']"
       [dateRange]="true"
       [resetButton]="true"
-      [maxRange]="5">
+      [maxRange]="4">
+      <!-- OR [minRange]="4" -->
     </ngds-date-input>`,
     ts: `
     import { Component, OnInit } from '@angular/core';

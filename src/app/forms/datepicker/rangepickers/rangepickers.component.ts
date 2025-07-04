@@ -34,6 +34,7 @@ export class RangepickersComponent {
       inlineRangepicker: new UntypedFormControl(null),
       disabledRangepicker: new UntypedFormControl(null),
       maxRangeRangepicker: new UntypedFormControl(null),
+      minRangeRangepicker: new UntypedFormControl(null),
       disabledDatesRangepicker: new UntypedFormControl(null),
       allowDisabledDatesRangepicker: new UntypedFormControl(null),
       invalidRangepicker: new UntypedFormControl(null, [this.customValidator()]),

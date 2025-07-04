@@ -53,6 +53,9 @@ export class NgdsCalendarManager implements OnInit {
   // The maximum number of days that can be selected in a rangepicker. Default (0) is unlimited days.
   @Input() maxRange: number = 0;
 
+  // The minimum number of days that can be selected in a rangepicker. Default (0) is zero days.
+  @Input() minRange: number = 0;
+
   // Whether or not the datepicker is disabled.
   @Input() disabled: boolean = false;
 
@@ -248,7 +251,8 @@ export class NgdsCalendarManager implements OnInit {
       year: date.year,
       weeks: weeks,
       years: this.getYears(date.year),
-      maxRange: this.maxRange
+      maxRange: this.maxRange,
+      minRange: this.minRange
     });
     this.displayChange.emit();
     if (emitChange) {
