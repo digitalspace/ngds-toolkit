@@ -10,8 +10,7 @@ export class FormsHomeComponent {
   public installCode = `  yarn add @digitalspace/ngds-forms`;
 
   public peerDepCode = `  yarn add bootstrap
-  yarn add bootstrap-icons
-  yarn add ngx-bootstrap`
+  yarn add bootstrap-icons`
 
   public moduleCode = `  import { NgdsFormsModule } from '@digitalspace/ngds-toolkit';
 
