@@ -294,7 +294,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   updateDisabledState(state, checkStateFirst = false) {
-    if (!state && checkStateFirst && this.isDisabled === true) {
+    if (!state && checkStateFirst && this.disabled === true) {
       return; // If enabling from loadWhile but the disabled state is active, do nothing.
     }
     // If state is true, disable the control, otherwise enable it.
