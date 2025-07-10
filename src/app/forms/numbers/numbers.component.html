@@ -47,6 +47,35 @@
 
 <section
   #section
+  id="programmaticNumberEntry"
+  class="mb-5 mt-3"
+>
+  <h3>Programmatic number entry</h3>
+  <p>
+    The value of number fields can be set programmatically using the <code>setValue()</code> method of the Angular
+    <code>FormControl</code>. The value must be a valid number.
+  </p>
+  <p>
+    You can also set the control to have a default value. The default value of the control below is set to 123.456.
+  </p>
+  <demonstrator
+    [htmlFile]="snippets?.programmaticNumber?.html"
+    [tsFile]="snippets?.programmaticNumber?.ts"
+    [control]="form?.controls?.['programmaticNumber']"
+  >
+    <ngds-number-input
+      [control]="form?.controls?.['programmaticNumber']"
+      [resetButton]="true"
+    >
+    </ngds-number-input>
+    <button class="btn btn-primary mt-2" (click)="setProgrammaticValue()">
+      Set value to 654.321 programmatically
+    </button>
+  </demonstrator>
+</section>
+
+<section
+  #section
   id="disabledInput"
   class="mb-5 mt-3"
 >

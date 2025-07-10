@@ -125,6 +125,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     if (this.incrementValue < minimumIncrement) {
       this.incrementValue = minimumIncrement;
     }
+    this.matchDisplayToControl();
   }
 
   @HostListener('keydown', ['$event'])

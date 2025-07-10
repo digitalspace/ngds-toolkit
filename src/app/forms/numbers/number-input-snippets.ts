@@ -25,6 +25,29 @@ export const snippets = {
       }
     })`
   },
+  programmaticNumber: {
+    html: `
+    <ngds-number-input
+      [control]="form?.controls?.['programmaticNumber']"
+      [resetButton]="true">
+    </ngds-number-input>`,
+    ts: `
+    import { Component, OnInit } from '@angular/core';
+    import { UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+
+    @Component({
+      selector: 'programmatic-number-input'
+      export class ProgrammaticNumberInput implements OnInit {
+        public form;
+
+        ngOnInit(): void {
+          this.form = new UntypedFormGroup({
+      programmaticNumber: new UntypedFormControl(123.456, {nonNullable: true}),
+          })
+        }
+      }
+    })`
+  },
   disabledNumber: {
     html: `
     <ngds-number-input
@@ -257,7 +280,7 @@ export const snippets = {
     html: `
     <ngds-number-input
       [control]="form?.controls?.['incrementDecimal']"
-      [showIncrements]="true" 
+      [showIncrements]="true"
       [allowNegative]="false"
       [mouseScrollIncrement]="true"
       [incrementValue]="0.02"
@@ -308,4 +331,4 @@ export const snippets = {
       }
     })`
   }
-}
+};

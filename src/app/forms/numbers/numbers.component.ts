@@ -23,6 +23,7 @@ export class NumbersComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
       basicNumber: new UntypedFormControl(null),
+      programmaticNumber: new UntypedFormControl(123.456, {nonNullable: true}),
       disabledNumber: new UntypedFormControl(null),
       maxNumber: new UntypedFormControl(null, [Validators.max(25)]),
       minNumber: new UntypedFormControl(null, [Validators.min(25)]),
@@ -60,6 +61,10 @@ export class NumbersComponent implements OnInit, AfterViewInit {
       }
       return null
     }
+  }
+
+  setProgrammaticValue() {
+    this.form.controls['programmaticNumber'].setValue(654.321);
   }
 
   disabledSwitch() {
