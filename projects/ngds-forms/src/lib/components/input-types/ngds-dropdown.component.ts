@@ -145,9 +145,10 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   }
 
   override onControlValueChanges(value: any): void {
-    if (this.doesDropdownCloseOnValueChange()) {
+    if (this.doesDropdownCloseOnValueChange() || !this.lastChangedBySelect) {
       if (this.dropdownInputType === 'typeahead') {
         this.closeDropdown();
+        this.dropdownBlur();
       } else {
         this.dropdownBlur();
       }
