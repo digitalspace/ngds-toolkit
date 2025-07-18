@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { Validators } from '@angular/forms';
 import { invalidConfig } from '../input-addons/ngds-input-footer/ngds-input-footer.component';
@@ -8,7 +8,7 @@ import { SelectionItemSchema } from '../../form-models';
 @Directive({
   selector: 'ngds-input',
 })
-export class NgdsInput implements OnInit, OnDestroy {
+export class NgdsInput implements OnInit, OnDestroy, AfterViewInit {
 
   // INPUTS
 
@@ -145,7 +145,8 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   // Current disabled state.
   public get isDisabled(): boolean {
-    return this.getDisabledState();
+    const state = this.getDisabledState();
+    return state;
   }
 
   // Current loading state and subject.
@@ -175,13 +176,14 @@ export class NgdsInput implements OnInit, OnDestroy {
   public get isInputInitialized(): boolean {
     return this._isInputInitialized.value;
   }
-  private _isInputInitialized = new BehaviorSubject<boolean>(false);
+  protected _isInputInitialized = new BehaviorSubject<boolean>(false);
 
   protected subscriptions = new Subscription();
   protected static idCounter: number = 0;
   protected controlId: number = 0;
 
   constructor(
+    protected cdr: ChangeDetectorRef,
   ) {
     // Generate 'unique' id for control so label/inputs/etc can talk to one another.
     // Basic angular controls aren't constructed with a unique identifier.
@@ -223,11 +225,17 @@ export class NgdsInput implements OnInit, OnDestroy {
         this.lastControlState = res;
       }
     }));
+  }
 
-    // declare control initialized
+  ngAfterViewInit(): void {
+    // declare that the input has been initialized
     this._isInputInitialized.next(true);
     this.inputIsInitialized.emit(true);
     this._isInputInitialized.complete();
+    this.control.updateValueAndValidity();
+    this.control.markAsPristine();
+    this.control.markAsUntouched();
+    this.cdr.detectChanges();
   }
 
   updateSelectionListItems(items: any[]) {
@@ -251,6 +259,7 @@ export class NgdsInput implements OnInit, OnDestroy {
     } else {
       this.resetControl();
     }
+    this.cdr.detectChanges();
   }
 
   updateDisplayedSelectionListItems() {
@@ -310,9 +319,9 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   getDisabledState() {
-    if (this.control.disabled ||
-      this._loading.value === true ||
-      this._isInputInitialized.value === false) {
+    if (this.control?.disabled ||
+      this._loading?.value === true ||
+      this._isInputInitialized?.value === false) {
       return true;
     }
     return false;
@@ -427,7 +436,6 @@ export class NgdsInput implements OnInit, OnDestroy {
     this.control.reset();
     this.control.markAsPristine();
     this.control.markAsUntouched();
-    this.control.updateValueAndValidity();
     this.controlReset.emit();
   }
 

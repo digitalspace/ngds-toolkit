@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, Pipe, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Input, } from '@angular/core';
 import { NgdsInput } from '../ngds-input.component';
 import { BehaviorSubject } from 'rxjs';
 
@@ -98,7 +98,20 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
     this.matchControlToDisplay();
   }
 
-  ngAfterViewInit(): void {
+  constructor(
+    protected thisCdr: ChangeDetectorRef,
+  ) {
+    super(
+      thisCdr
+    );
+    this._isInputInitialized.subscribe((initialized) => {
+      if (initialized) {
+        this.afterInitialization();
+      }
+    });
+  }
+
+  afterInitialization(): void {
     // monitor control value changes
     this.subscriptions.add(
       this.control.valueChanges.subscribe((value) => {
@@ -126,6 +139,7 @@ export class NgdsNumberInput extends NgdsInput implements AfterViewInit {
       this.incrementValue = minimumIncrement;
     }
     this.matchDisplayToControl();
+    this.cdr.detectChanges();
   }
 
   @HostListener('keydown', ['$event'])

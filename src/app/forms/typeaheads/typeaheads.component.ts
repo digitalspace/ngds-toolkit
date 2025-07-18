@@ -106,9 +106,9 @@ export class TypeaheadsComponent implements OnInit {
     // create typeahead form
     this.form = new UntypedFormGroup(
       {
-        basicTypeahead: new UntypedFormControl(''),
+        basicTypeahead: new UntypedFormControl(),
         displayTypeahead: new UntypedFormControl(''),
-        programmaticTypeahead: new UntypedFormControl(''),
+        programmaticTypeahead: new UntypedFormControl('0001'),
         customTemplateTypeahead: new UntypedFormControl(''),
         minLength: new UntypedFormControl(''),
         disableTypeahead: new UntypedFormControl(''),

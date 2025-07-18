@@ -101,23 +101,30 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
         }
         this.control.markAsDirty();
         this.control.markAsTouched();
-        this.cd.detectChanges();
+        this.thisCdr.detectChanges();
       }
     }
   }
 
   constructor(
-    private cd: ChangeDetectorRef,
+    private thisCdr: ChangeDetectorRef,
     private renderer: Renderer2,
   ) {
-    super();
+    super(
+      thisCdr,
+    );
     // Listen for click events that happen outside of the input. The typeahead text entry should close when the input loses focus, but unfortunately the blur event occurs before any changes are captured, so when selecting from the dropdown, the select is missed if the input closes itself first.
     this.renderer.listen('window', 'mousedown', (e: Event) => {
       this.handleClick(e);
     });
+    this._isInputInitialized.subscribe((initialized) => {
+      if (initialized) {
+        this.afterInitialization();
+      }
+    });
   }
 
-  ngAfterViewInit(): void {
+  afterInitialization(): void {
     // Initialize the dropdown
     this.bsDropdown = new bootstrap.Dropdown(this.inputElement.nativeElement, {
       autoClose: this.autoCloseBehaviour,
@@ -141,7 +148,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
     }));
     this.afterDropdownInit.emit();
     this.isDropdownInitialized = true;
-    this.cd.detectChanges();
+    this.thisCdr.detectChanges();
   }
 
   override onControlValueChanges(value: any): void {
