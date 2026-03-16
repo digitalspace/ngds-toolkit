@@ -67,6 +67,7 @@
         #dropdownMenu
         role="menu"
         class="dropdown-menu"
+        [class.w-100]="dropdownWidth === 'full'"
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
         <ng-content

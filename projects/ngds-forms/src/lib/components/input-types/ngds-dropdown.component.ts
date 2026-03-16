@@ -1,9 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Host, HostListener, Input, Output, Renderer2, TemplateRef, ViewChild, } from '@angular/core';
-import * as bootstrap from 'bootstrap/dist/js/bootstrap.esm.min.js';
 
 import { NgdsInput } from './ngds-input.component';
 import { BehaviorSubject, last } from 'rxjs';
 import { popper } from '@popperjs/core';
+
+// Use the globally loaded Bootstrap instead of importing a separate instance
+declare const bootstrap: any;
 
 @Directive({
   selector: 'ngds-input',
@@ -17,6 +19,8 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   // Disable first item selection on enter key press
   @Input() selectFirstItemOnEnter: boolean = true;
+
+  @Input() dropdownWidth: 'auto' | 'full' = 'auto';
 
   @Output() onDropdownHide = new EventEmitter<void>();
   @Output() onDropdownShow = new EventEmitter<void>();

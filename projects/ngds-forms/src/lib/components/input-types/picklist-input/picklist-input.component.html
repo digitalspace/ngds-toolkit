@@ -108,6 +108,7 @@
     #dropdownMenu
     class="dropdown-menu"
     role="menu"
+    [class.w-100]="dropdownWidth === 'full'"
   >
     <li
       *ngIf="displayedSelectionListItems?.length === 0"
