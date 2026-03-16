@@ -220,6 +220,8 @@ export const snippets = {
       [control]="form?.controls?.['inlinePicklist']"
       [resetButton]="true"
       [selectionListItems]="inlineSelectionItems">
+      [dropdownClasses]="'w-100'"
+      [dynamicPositioning]="false"
         <i ngdsInputPrepend class="mx-2 align-items-center bi bi-info-circle"></i>
         <i ngdsInputPrepend class="mx-2 bi bi-image-fill"></i>
         <i ngdsInputAppend class="mx-2 bi bi-house"></i>
@@ -372,4 +374,4 @@ export const snippets = {
       }
     })`
   }
-}
+};

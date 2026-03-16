@@ -24,6 +24,7 @@
     class="form-input border-0 d-flex w-100 overflow-hidden"
     style="min-height: 2.25rem"
     [ngClass]="getInputClasses()"
+    [attr.data-bs-display]="!dynamicPositioning ? 'static' : null"
   >
     <!-- Align multiselect when input is toggled/untoggled -->
     <div
@@ -67,7 +68,7 @@
         #dropdownMenu
         role="menu"
         class="dropdown-menu"
-        [class.w-100]="dropdownWidth === 'full'"
+        [ngClass]="getDropdownClasses()"
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
         <ng-content

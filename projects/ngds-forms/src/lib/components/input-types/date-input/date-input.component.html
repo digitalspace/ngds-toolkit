@@ -12,6 +12,7 @@
   <div
     class="input-group border rounded-3 d-flex align-items-center dropdown"
     [ngClass]="getWrapperClasses()"
+    [attr.data-bs-display]="!dynamicPositioning ? 'static' : null"
     #dropdownElement
   >
 

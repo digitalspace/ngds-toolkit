@@ -20,7 +20,11 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   // Disable first item selection on enter key press
   @Input() selectFirstItemOnEnter: boolean = true;
 
-  @Input() dropdownWidth: 'auto' | 'full' = 'auto';
+  //  Custom classes to apply to the dropdown element
+  @Input() dropdownClasses: string
+
+  // Whether to use dynamic positioning for the dropdown menu. If false, the dropdown will always be positioned statically below the input, which can prevent issues with certain parent elements that have overflow hidden or other positioning styles that interfere with Popper's ability to position the dropdown correctly.
+  @Input() dynamicPositioning: boolean = true;
 
   @Output() onDropdownHide = new EventEmitter<void>();
   @Output() onDropdownShow = new EventEmitter<void>();
@@ -400,5 +404,9 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
       }
     }
     return false;
+  }
+
+  getDropdownClasses(type = 'default') {
+    return this.dropdownClasses;
   }
 }

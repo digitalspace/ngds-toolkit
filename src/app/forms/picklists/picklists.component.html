@@ -21,7 +21,6 @@
       [label]="'My picklist label'"
       [subLabel]="'My picklist sub-label'"
       [placeholder]="'My placeholder'"
-      [dropdownWidth]="'full'"
     >
     </ngds-picklist-input>
   </demonstrator>
@@ -268,6 +267,8 @@
       [control]="form?.controls?.['inlinePicklist']"
       [resetButton]="true"
       [selectionListItems]="inlineSelectionItems"
+      [dropdownClasses]="'w-100'"
+      [dynamicPositioning]="false"
     >
       <i
         ngdsInputPrepend
@@ -445,7 +446,7 @@
   </ul>
   <h5 class="mt-3">Selection list width</h5>
   <p>
-    The width of the selection list is `auto` by default, meaning that it will take the width of its content up to a maximum of 100% of the input width. You can set it to <code>[dropdownWidth]="'full'"</code> to make the selection list always match the width of the input.
+    You can add classes to the dropdown menu using the <code>[dropdownClasses]</code> input. To make the dropdown match the width of the input, add the <code>w-100</code> class.
   </p>
   <demonstrator
     [htmlFile]="snippets?.displaySelectionItems?.html"
@@ -486,7 +487,7 @@
       [subLabel]="'The selection list will always match the width of the input.'"
       [selectionListItems]="basicSelectionItems"
       [placeholder]="'Make a selection'"
-      [dropdownWidth]="'full'"
+      [dropdownClasses]="'w-100'"
     >
     </ngds-picklist-input>
   </demonstrator>

@@ -32,6 +32,7 @@
       [disabled]="isDisabled"
       [value]="control?.value"
       (focus)="dropdownFocus()"
+      [attr.data-bs-display]="!dynamicPositioning ? 'static' : null"
     >
       <!-- Input display current value -->
       <!-- Multiselect display items -->
@@ -108,7 +109,7 @@
     #dropdownMenu
     class="dropdown-menu"
     role="menu"
-    [class.w-100]="dropdownWidth === 'full'"
+    [ngClass]="getDropdownClasses()"
   >
     <li
       *ngIf="displayedSelectionListItems?.length === 0"
