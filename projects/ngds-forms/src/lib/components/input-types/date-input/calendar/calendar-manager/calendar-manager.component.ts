@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { DateTime, Interval } from 'luxon';
 import { BehaviorSubject } from 'rxjs';
+import { NgdsCalendar } from '../calendar/calendar.component';
 
 interface CalendarConfig {
   index: number,
@@ -22,7 +23,7 @@ interface WeekConfig {
   templateUrl: './calendar-manager.component.html',
   styleUrls: ['../../../../../../../assets/styles/styles.scss']
 })
-export class NgdsCalendarManager implements OnInit {
+export class NgdsCalendarManager implements OnInit, AfterViewInit {
   // The control object
   @Input() control: UntypedFormControl;
 
@@ -76,12 +77,26 @@ export class NgdsCalendarManager implements OnInit {
 
   protected startCalendar = new BehaviorSubject<CalendarConfig>({ index: 1 });
   protected endCalendar = new BehaviorSubject<CalendarConfig>({ index: 2 });
-  protected displayDepth = new BehaviorSubject<number>(0); // date, 1 = month, 2 = year
+  // The authoritative display depth for the whole picker. This is the single source of
+  // truth: it both drives navigation maths (the end-calendar offset in toggleDepth and the
+  // arrow step unit in changeDisplayByValue) and, via syncDepth(), what grid each calendar
+  // renders. 0 = date, 1 = month, 2 = year.
+  protected displayDepth = new BehaviorSubject<number>(0);
+
+  // The rendered calendars (1 for a datepicker, 2 for a rangepicker), used to push the
+  // display depth into them synchronously when it changes.
+  @ViewChildren(NgdsCalendar) private calendars: QueryList<NgdsCalendar>;
 
   ngOnInit() {
     // set the current display depth to the minimum allowable amount.
-    this.displayDepth.next(this.minDisplayDepth);
+    this.syncDepth(this.minDisplayDepth);
     this.setToday();
+  }
+
+  ngAfterViewInit() {
+    // Seed both calendars with the current depth once they exist, so they start in sync
+    // regardless of their own initial value.
+    this.syncDepth(this.displayDepth.value);
   }
 
   /**
@@ -192,7 +207,7 @@ export class NgdsCalendarManager implements OnInit {
     }
     this.updateCalendarConfig(newDate, calendar, sendDate);
     this.updateCalendarConfig(newDate.plus({ [incrementType]: increment }), otherCalendar, false);
-    this.displayDepth.next(this.minDisplayDepth);
+    this.syncDepth(this.minDisplayDepth);
   }
 
   /**
@@ -217,7 +232,7 @@ export class NgdsCalendarManager implements OnInit {
     }
     this.updateCalendarConfig(newDate, calendar, sendDate);
     this.updateCalendarConfig(newDate.plus({ year: increment }), otherCalendar, false);
-    this.displayDepth.next(this.minDisplayDepth);
+    this.syncDepth(this.minDisplayDepth);
   }
 
   /**
@@ -301,10 +316,23 @@ export class NgdsCalendarManager implements OnInit {
         this.updateCalendarConfig(this.startCalendar.value.date.plus({ months: 1 }), this.endCalendar);
     }
     if (this.displayDepth.value === index || index < this.minDisplayDepth) {
-      this.displayDepth.next(this.minDisplayDepth);
+      this.syncDepth(this.minDisplayDepth);
     } else {
-      this.displayDepth.next(index);
+      this.syncDepth(index);
     }
+  }
+
+  /**
+   * Updates the authoritative display depth and pushes it into both calendars
+   * synchronously, so their views collapse together within the originating click — before
+   * change detection runs. (During init the calendars aren't queryable yet; they seed
+   * their own depth in ngOnInit, and ngAfterViewInit re-pushes once they exist, so the
+   * optional-chained push is a safe no-op then.)
+   * @param depth the display depth to apply (0 = date, 1 = month, 2 = year)
+   */
+  syncDepth(depth: number) {
+    this.displayDepth.next(depth);
+    this.calendars?.forEach(calendar => calendar.setDepth(depth));
   }
 
   /**
