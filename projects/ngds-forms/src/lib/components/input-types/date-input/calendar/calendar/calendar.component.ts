@@ -128,9 +128,33 @@ export class NgdsCalendar implements OnInit {
     ],
   ];
 
+  // Local view depth (0 = date, 1 = month, 2 = year). The calendar owns its own
+  // display state so the view updates from its own click handlers, rather than
+  // round-tripping the value out to the parent's @Input and back.
+  protected depth: number = 0;
+
   ngOnInit(): void {
-    // set display to the minimum display depth.
-    this.displayDepth = this.minDisplayDepth;
+    this.depth = this.minDisplayDepth;
+  }
+
+  // Switch the header between date/month/year views.
+  toggleDepth(index: number): void {
+    this.depth = (this.depth === index || index < this.minDisplayDepth)
+      ? this.minDisplayDepth
+      : index;
+    this.changeDepth.emit(index);
+  }
+
+  // Collapse back to the base view after picking a month, then notify the parent.
+  onMonthSelected(monthNumber: number): void {
+    this.depth = this.minDisplayDepth;
+    this.changeMonth.emit(monthNumber);
+  }
+
+  // Collapse back to the base view after picking a year, then notify the parent.
+  onYearSelected(year: number): void {
+    this.depth = this.minDisplayDepth;
+    this.changeYear.emit(year);
   }
 
   /**
