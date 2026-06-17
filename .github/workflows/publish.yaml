@@ -61,18 +61,24 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           echo "@digitalspace:registry=https://registry.npmjs.org/" >> ~/.npmrc
 
-      ### Publish NGDS-Forms
-      - run: |
+      ### Publish NGDS-Forms (tag: forms-vX.Y.Z)
+      - name: Publish ngds-forms
+        if: startsWith(github.ref_name, 'forms-v')
+        run: |
+          VERSION="${GITHUB_REF_NAME#forms-v}"
           cd $DIST_FOLDER/$PACKAGE_NAME_FORMS
-          npm version ${{ github.ref_name }}
+          npm version "$VERSION" --no-git-tag-version
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      ### Publish NGDS-Common-Components
-      - run: |
+      ### Publish NGDS-Common-Components (tag: common-vX.Y.Z)
+      - name: Publish ngds-common-components
+        if: startsWith(github.ref_name, 'common-v')
+        run: |
+          VERSION="${GITHUB_REF_NAME#common-v}"
           cd $DIST_FOLDER/$PACKAGE_NAME_COMMON
-          npm version ${{ github.ref_name }}
+          npm version "$VERSION" --no-git-tag-version
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
