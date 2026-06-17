@@ -21,7 +21,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   @Input() selectFirstItemOnEnter: boolean = true;
 
   //  Custom classes to apply to the dropdown element
-  @Input() dropdownClasses: string
+  @Input() dropdownClasses: string | string[]
 
   // Whether to use dynamic positioning for the dropdown menu. If false, the dropdown will always be positioned statically below the input, which can prevent issues with certain parent elements that have overflow hidden or other positioning styles that interfere with Popper's ability to position the dropdown correctly.
   @Input() dynamicPositioning: boolean = true;

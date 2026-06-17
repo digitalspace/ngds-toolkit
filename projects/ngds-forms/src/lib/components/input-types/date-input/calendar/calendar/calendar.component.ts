@@ -16,9 +16,6 @@ export class NgdsCalendar implements OnInit {
   // A function that returns a boolean when provided a DateTime. DateTimes that return true are disabled in the calendar.
   @Input() disabledDatesFn;
 
-  // The current precision of the datepicker.
-  @Input() displayDepth: number = 0; // date, 1 = month, 2 = year
-
   // The precision of the datepicker. By default (0), dates can be picked.
   // If minDisplayDepth is 1 or 2, only months or years will be displayed and enabled, respectively.
   // When picking months or years, the datepicker will return the luxon startOf('term'), where
@@ -128,9 +125,43 @@ export class NgdsCalendar implements OnInit {
     ],
   ];
 
+  // Local view depth — which grid this calendar currently shows:
+  //   0 = date grid (days), 1 = month grid, 2 = year grid.
+  // The calendar writes this directly in its own click handlers so its *ngIf collapses
+  // synchronously. NgdsCalendarManager — which owns the authoritative depth — also pushes
+  // the value in via setDepth(), so the two calendars of a rangepicker always show the
+  // same grid. Both writes happen synchronously within the originating click, before
+  // change detection runs.
+  protected depth: number = 0;
+
   ngOnInit(): void {
-    // set display to the minimum display depth.
-    this.displayDepth = this.minDisplayDepth;
+    this.depth = this.minDisplayDepth;
+  }
+
+  // Called by NgdsCalendarManager to keep both calendars' depth in sync. Invoked
+  // synchronously during the originating click, so it lands before change detection runs.
+  setDepth(depth: number): void {
+    this.depth = depth;
+  }
+
+  // Switch the header between date/month/year views.
+  toggleDepth(index: number): void {
+    this.depth = (this.depth === index || index < this.minDisplayDepth)
+      ? this.minDisplayDepth
+      : index;
+    this.changeDepth.emit(index);
+  }
+
+  // Collapse back to the base view after picking a month, then notify the parent.
+  onMonthSelected(monthNumber: number): void {
+    this.depth = this.minDisplayDepth;
+    this.changeMonth.emit(monthNumber);
+  }
+
+  // Collapse back to the base view after picking a year, then notify the parent.
+  onYearSelected(year: number): void {
+    this.depth = this.minDisplayDepth;
+    this.changeYear.emit(year);
   }
 
   /**
