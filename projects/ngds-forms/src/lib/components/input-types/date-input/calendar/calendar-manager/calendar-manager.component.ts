@@ -66,6 +66,9 @@ export class NgdsCalendarManager implements OnInit, AfterViewInit {
   // Whether or not to show just one calendar in the rangepicker
   @Input() hideSecondCalendar: boolean = false;
 
+  // When true, disables past months/years in grids and blocks backward navigation.
+  @Input() disablePast: boolean = false;
+
   // Emits when a selected date is changed.
   @Output() dateChange = new EventEmitter;
 

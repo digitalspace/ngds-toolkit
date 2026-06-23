@@ -18,7 +18,7 @@
       </div>
       <div class="d-flex row">
         <div class="col">
-          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(-1)" [disabled]="disabled" aria-label="previous calendar">
+          <button class="btn btn-outline-secondary border-0" (click)="changeDisplay.emit(-1)" [disabled]="disabled || isPrevNavDisabled()" aria-label="previous calendar">
             <i class="bi bi-chevron-left"></i>
           </button>
         </div>
