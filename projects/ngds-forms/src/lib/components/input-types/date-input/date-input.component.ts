@@ -59,6 +59,10 @@ export class NgdsDateInput extends NgdsDropdown {
   // Fixed range to select when picking date. When a start date is selected, the endDate will automatically be set.
   @Input() fixedRangeSize: Duration;
 
+  // When true, disables past months and years in the month/year grids and blocks backward navigation.
+  // Intended for public-facing pickers; leave unset (false) for admin pickers that need past dates.
+  @Input() disablePast: boolean = false;
+
   // Emits when the display changes.
   @Output() displayChange = new EventEmitter;
 

@@ -40,6 +40,9 @@ export class NgdsCalendar implements OnInit {
   // Whether or not to allow rangepickers to have disabled dates within the ranges they select.
   @Input() allowDisabledInRange: boolean = false;
 
+  // When true, disables past months/years in grids and blocks backward navigation.
+  @Input() disablePast: boolean = false;
+
   // OUTPUTS:
   // Emits when the selected date is changed.
   @Output() changeDate = new EventEmitter;
@@ -261,7 +264,7 @@ export class NgdsCalendar implements OnInit {
    */
   getMonthClasses(month) {
     let classes = ['btn', 'w-100', 'calendar-month'];
-    if (this.minDisplayDepth === 1 && this.checkDisabledMonth(month)) {
+    if ((this.minDisplayDepth === 1 || this.disablePast) && this.checkDisabledMonth(month)) {
       return classes;
     }
     if (this.checkMonth(month, this.calendarConfig.value.year)) {
@@ -277,13 +280,32 @@ export class NgdsCalendar implements OnInit {
    */
   getYearClasses(year) {
     let classes = ['btn', 'w-100', 'calendar-month'];
-    if (this.minDisplayDepth === 2 && this.checkDisabledMonth(year)) {
+    if ((this.minDisplayDepth === 2 || this.disablePast) && this.checkDisabledYear(year)) {
       return classes;
     }
     if (this.checkYear(year)) {
       classes.push('selected');
     }
     return classes;
+  }
+
+  /**
+   * Returns true when the backward navigation arrow should be disabled.
+   * Only active when disablePast is true.
+   */
+  isPrevNavDisabled(): boolean {
+    if (!this.disablePast) return false;
+    const now = DateTime.now();
+    const cal = this.calendarConfig?.value;
+    switch (this.depth) {
+      case 2:
+        return (cal?.years?.flat()[0] ?? 0) <= now.year;
+      case 1:
+        return (cal?.year ?? 0) <= now.year;
+      default:
+        return cal?.date?.year < now.year ||
+          (cal?.date?.year === now.year && cal?.date?.month <= now.month);
+    }
   }
 
   /**
@@ -393,6 +415,13 @@ export class NgdsCalendar implements OnInit {
    * @returns boolean - is the provided month disabled
    */
   checkDisabledMonth(month) {
+    if (this.disablePast) {
+      const now = DateTime.now();
+      const year = this.calendarConfig.value.year;
+      if (year < now.year || (year === now.year && month.number < now.month)) {
+        return true;
+      }
+    }
     if (this.minDisplayDepth === 0) {
       return false;
     }
@@ -407,6 +436,9 @@ export class NgdsCalendar implements OnInit {
    * @returns boolean - is the provided year disabled
    */
   checkDisabledYear(year) {
+    if (this.disablePast && year < DateTime.now().year) {
+      return true;
+    }
     if (this.minDisplayDepth <= 1) {
       return false;
     }

@@ -18,6 +18,7 @@
       (changeHoverDate)="updateHoverDate($event)"
       (changeDisplay)="changeDisplayByValue($event)"
       (clearDates)="clearDates.emit()"
+      [disablePast]="disablePast"
     ></ngds-calendar>
   </div>
   <div
@@ -42,6 +43,7 @@
       (changeHoverDate)="updateHoverDate($event)"
       (changeDisplay)="changeDisplayByValue($event)"
       (clearDates)="clearDates.emit()"
+      [disablePast]="disablePast"
     ></ngds-calendar>
   </div>
 </div>
