@@ -134,7 +134,7 @@
     {{ noResultsText }}
   </div>
   <button
-    *ngFor="let match of matches"
+    *ngFor="let match of matches; trackBy: trackByValue"
     class="dropdown-item"
     [class.focused]="checkFocusIndex(match)"
     (mouseenter)="setFocusIndex(matches.indexOf(match))"

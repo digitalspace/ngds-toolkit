@@ -70,6 +70,10 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.preventOpening = false;
   }
 
+  // Track dropdown items by their value so Angular reuses existing DOM nodes
+  // across re-renders instead of destroying and recreating them.
+  trackByValue = (_index: number, item: any) => item?.value ?? item;
+
   onSelectionListItemsChange() {
     // update matchlist
     this.matchList = this.displayedSelectionListItems.map((item) => {
