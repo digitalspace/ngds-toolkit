@@ -70,25 +70,51 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.preventOpening = false;
   }
 
-  // Track dropdown items by their value so Angular reuses existing DOM nodes
-  // across re-renders instead of destroying and recreating them.
-  trackByValue = (_index: number, item: any) => item?.value ?? item;
+  // Whether the option list is currently stamped in the DOM. The list is torn
+  // down and rebuilt on every repopulate (see rebuildList) because the
+  // bootstrap-managed <ul> does not reliably remove old rows via incremental
+  // *ngFor diffing; a full teardown/rebuild guarantees no stale/duplicate rows.
+  protected showList = false;
+
+  // Force Angular to destroy the current option list and stamp a fresh one.
+  // The off/on toggle happens synchronously within a single task, so the
+  // browser never paints the intermediate empty state (no flicker).
+  private rebuildList() {
+    if (!this.isDropdownInitialized) {
+      return;
+    }
+    this.showList = false;
+    this.typeaheadCd.detectChanges();
+    this.showList = true;
+    this.typeaheadCd.detectChanges();
+  }
 
   onSelectionListItemsChange() {
     // update matchlist
-    this.matchList = this.displayedSelectionListItems.map((item) => {
-      const matchItem = {
-        value: item?.value || item,
-        display: item?.display || item?.value || item,
-        disabled: item?.disabled || false,
-      };
-      let matcher = item?.display || item?.value || item;
-      if (!this.caseSensitiveMatching) {
-        matcher = matcher.toLowerCase();
-      }
-      matchItem['matcher'] = matcher;
-      return matchItem;
-    });
+    const seenValues = new Set();
+    this.matchList = this.displayedSelectionListItems
+      .map((item) => {
+        const matchItem = {
+          value: item?.value || item,
+          display: item?.display || item?.value || item,
+          disabled: item?.disabled || false,
+        };
+        let matcher = item?.display || item?.value || item;
+        if (!this.caseSensitiveMatching) {
+          matcher = matcher.toLowerCase();
+        }
+        matchItem['matcher'] = matcher;
+        return matchItem;
+      })
+      // Guard against transient duplicate options (display is a unique key) so
+      // the dropdown never renders repeated items, even mid change-detection.
+      .filter((matchItem) => {
+        if (seenValues.has(matchItem.display)) {
+          return false;
+        }
+        seenValues.add(matchItem.display);
+        return true;
+      });
   }
 
   detectDisplayDuplicates() {
@@ -185,6 +211,7 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     } else {
       this.refinedListItems = [];
     }
+    this.rebuildList();
     // If there is only one item in the list and it matches the input
     if (matchingItems.length === 1 && value === matchingItems[0]?.matcher) {
       // set the value of the control to the value of the first item in the list
@@ -216,6 +243,9 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.typeaheadInput.nativeElement.dispatchEvent(new Event('blur'));
     this.matchInputToControl();
     this.isChangingFocus = false;
+    // Tear the list down when the dropdown closes so the next open always
+    // rebuilds from scratch.
+    this.showList = false;
   }
 
   onTypeaheadFocus(match = true) {
@@ -223,9 +253,26 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       if (this.multiselect) {
         this.typeaheadChange(null);
       } else {
-        this.typeaheadChange(this.currentDisplay);
+        // Show the full option list on focus rather than filtering by the
+        // currently selected value (which would show only that one item).
+        this.showAllItems();
       }
     }
+  }
+
+  // Populate the dropdown with every available option, without filtering by
+  // or clearing the currently selected value.
+  showAllItems() {
+    this.refinedListItems = this.matchList.map((item) => {
+      return {
+        value: item.value,
+        innerHtml: this.getHighlightedMatch(item, ''),
+        display: item.display,
+        disabled: item.disabled || false,
+      };
+    });
+    this.setFocusIndex(0);
+    this.rebuildList();
   }
 
   placeholderDisplay() {
