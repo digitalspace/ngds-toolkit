@@ -70,10 +70,18 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.preventOpening = false;
   }
 
+  // trackBy on the (de-duplicated) value. Kept as a defensive/no-op guard: the
+  // list is fully re-stamped via rebuildList below, so trackBy has nothing to
+  // diff, but it keeps *ngFor honest if the teardown is ever relaxed.
+  trackByValue = (_index: number, item: any) => item?.value ?? item;
+
   // Whether the option list is currently stamped in the DOM. The list is torn
-  // down and rebuilt on every repopulate (see rebuildList) because the
-  // bootstrap-managed <ul> does not reliably remove old rows via incremental
-  // *ngFor diffing; a full teardown/rebuild guarantees no stale/duplicate rows.
+  // down and rebuilt on every repopulate (see rebuildList): the dropdown <ul>
+  // is managed by bootstrap, and incremental *ngFor diffing over it leaves
+  // stale/duplicate rows on a repopulate or a dependent-list swap (e.g. the
+  // activity list after the collection changes). De-dup + trackBy alone do NOT
+  // fix this — verified in-app — so the full teardown is required for
+  // correctness. optionsLimit (below) bounds the cost of the re-stamp.
   protected showList = false;
 
   // Force Angular to destroy the current option list and stamp a fresh one.
@@ -87,6 +95,12 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.typeaheadCd.detectChanges();
     this.showList = true;
     this.typeaheadCd.detectChanges();
+  }
+
+  // Cap the number of rendered options at optionsLimit (-1 = no limit). Keeps
+  // the teardown/rebuild cheap on large lists (e.g. Collection IDs).
+  private applyOptionsLimit(items: any[]) {
+    return this.optionsLimit > -1 ? items.slice(0, this.optionsLimit) : items;
   }
 
   onSelectionListItemsChange() {
@@ -106,13 +120,15 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
         matchItem['matcher'] = matcher;
         return matchItem;
       })
-      // Guard against transient duplicate options (display is a unique key) so
-      // the dropdown never renders repeated items, even mid change-detection.
+      // Drop duplicate options so the same value can't render twice (which also
+      // gives *ngFor unique trackBy keys). De-dup on value, not display: two
+      // options can legitimately share a display but distinct values, and
+      // dropping those would make them permanently unselectable.
       .filter((matchItem) => {
-        if (seenValues.has(matchItem.display)) {
+        if (seenValues.has(matchItem.value)) {
           return false;
         }
-        seenValues.add(matchItem.display);
+        seenValues.add(matchItem.value);
         return true;
       });
   }
@@ -198,7 +214,7 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       matchingItems = this.matchList.filter((item) => item?.matcher?.includes(value));
     }
     if (matchingItems.length > 0) {
-      this.refinedListItems = matchingItems.map((item) => {
+      this.refinedListItems = this.applyOptionsLimit(matchingItems).map((item) => {
         return {
           value: item.value,
           innerHtml: this.getHighlightedMatch(item, value),
@@ -206,12 +222,13 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
           disabled: item.disabled || false,
         };
       });
-      // focus the first item in the list
-      this.setFocusIndex(0);
     } else {
       this.refinedListItems = [];
     }
+    // Re-stamp the list before touching focus: setFocusIndex reads the rendered
+    // rows, so it must run against the freshly built DOM, not the old one.
     this.rebuildList();
+    this.setFocusIndex(0);
     // If there is only one item in the list and it matches the input
     if (matchingItems.length === 1 && value === matchingItems[0]?.matcher) {
       // set the value of the control to the value of the first item in the list
@@ -243,9 +260,6 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.typeaheadInput.nativeElement.dispatchEvent(new Event('blur'));
     this.matchInputToControl();
     this.isChangingFocus = false;
-    // Tear the list down when the dropdown closes so the next open always
-    // rebuilds from scratch.
-    this.showList = false;
   }
 
   onTypeaheadFocus(match = true) {
@@ -263,7 +277,19 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
   // Populate the dropdown with every available option, without filtering by
   // or clearing the currently selected value.
   showAllItems() {
-    this.refinedListItems = this.matchList.map((item) => {
+    // Enforce typeaheadMinLength on focus too. typeaheadChange is the only
+    // other populate path and it gates the same way; without this, a typeahead
+    // with a min length would pop the full list open on focus with empty input.
+    const inputLength = this.currentDisplay?.length || 0;
+    if (inputLength < this.typeaheadMinLength) {
+      this.preventOpening = true;
+      if (this.isOpen || this.isDisabled) {
+        this.dropdownBlur();
+      }
+      return;
+    }
+    this.preventOpening = false;
+    this.refinedListItems = this.applyOptionsLimit(this.matchList).map((item) => {
       return {
         value: item.value,
         innerHtml: this.getHighlightedMatch(item, ''),
@@ -271,8 +297,9 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
         disabled: item.disabled || false,
       };
     });
-    this.setFocusIndex(0);
+    // Re-stamp before focusing (see typeaheadChange).
     this.rebuildList();
+    this.setFocusIndex(0);
   }
 
   placeholderDisplay() {

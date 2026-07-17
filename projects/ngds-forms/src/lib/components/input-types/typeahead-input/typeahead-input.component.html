@@ -71,8 +71,9 @@
         [ngClass]="getDropdownClasses()"
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
-        <!-- Rebuild the whole list on every repopulate (showList is toggled in
-             rebuildList) so a changed option set can never leave stale rows. -->
+        <!-- Rebuild the whole list on every repopulate (showList toggled in
+             rebuildList): the bootstrap-managed <ul> leaves stale/duplicate
+             rows under incremental *ngFor diffing, so it is fully re-stamped. -->
         <ng-container *ngIf="showList">
           <!-- No results -->
           <div
@@ -83,7 +84,7 @@
           </div>
           <!-- Items rendered directly in the list (matches picklist). -->
           <button
-            *ngFor="let match of refinedListItems"
+            *ngFor="let match of refinedListItems; trackBy: trackByValue"
             class="dropdown-item"
             [class.focused]="checkFocusIndex(match)"
             (mouseenter)="setFocusIndex(refinedListItems.indexOf(match))"

@@ -370,20 +370,10 @@ export const snippets = {
       [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
 
-    <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
-      <ul class="custom-list-group">
-        <li class="custom-list-group-item" *ngFor="let match of matches"
-          [class.active]="typeaheadTemplateMethods.isActive(match)"
-          (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
-          (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
-          <!-- Before highlight -->
-          <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[0]"></span>
-          <!-- Highlight -->
-          <span class="custom-highlight" [innerHtml]="getHighlightedMatch(match, query)[1]"></span>
-          <!-- After highlight -->
-          <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[2]"></span>
-        </li>
-      </ul>
+    <!-- The template renders once per option; use the data accessor to read
+         that option (value, display, disabled). -->
+    <ng-template #customTemplate let-data="data">
+      <span><i class="bi bi-geo-alt-fill me-2"></i>{{ data?.display }}</span>
     </ng-template>`,
     ts: `
     import { Component, OnInit, ViewChild} from '@angular/core';

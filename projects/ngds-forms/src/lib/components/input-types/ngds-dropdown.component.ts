@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Host, HostListener, Input, Output, Renderer2, TemplateRef, ViewChild, } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, EventEmitter, Host, HostListener, Input, Output, Renderer2, ViewChild, } from '@angular/core';
 
 import { NgdsInput } from './ngds-input.component';
 import { BehaviorSubject, last } from 'rxjs';
@@ -31,8 +31,6 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   @Output() afterDropdownInit = new EventEmitter<void>();
 
-  // Template for the default dropdown list
-  @ViewChild('defaultListTemplate') defaultListTemplate: TemplateRef<any>;
   @ViewChild('typeaheadInput') typeaheadInput: ElementRef;
   // Template for the dropdown menu
   @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
@@ -363,13 +361,6 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   isClickInsideMenu(event) {
     return this.dropdownMenu.nativeElement.contains(event.target);
-  }
-
-  getTemplate() {
-    if (this.selectionListTemplate) {
-      return this.selectionListTemplate;
-    }
-    return this.defaultListTemplate;
   }
 
   getFirstAvailableOption() {

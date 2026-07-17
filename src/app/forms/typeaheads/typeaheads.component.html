@@ -112,14 +112,14 @@
   </demonstrator>
 </section>
 
-<!-- <section #section id="customTemplateTypeahead" class="mb-5 mt-3">
+<section #section id="customTemplateTypeahead" class="mb-5 mt-3">
   <h3>Typeahead with custom option template</h3>
   <p>
     You can provide a template for your dropdown options using the <code>[selectionListTemplate]</code> attribute with
-    an Angular <code>TemplateRef</code>. .You can access the properties of the option in your template using the
-    <code>data</code> accessor. If you also provide a value for <code>display</code>, then the input will
-    show the <code>display</code> when option is selected, otherwise the <code>value</code> will be
-    shown.
+    an Angular <code>TemplateRef</code>. The template is rendered once per option; access that option's properties
+    (<code>value</code>, <code>display</code>, <code>disabled</code>) through the <code>data</code> accessor. If you
+    also provide a value for <code>display</code>, then the input will show the <code>display</code> when option is
+    selected, otherwise the <code>value</code> will be shown.
   </p>
   <demonstrator [headerText]="'Basic typeahead'"
     [description]="'Provide the list of selection options as an array in [selectionListItems].'"
@@ -130,20 +130,11 @@
       [placeholder]="'Start typing...'" [resetButton]="true" [selectionListTemplate]="customTemplate">
     </ngds-typeahead-input>
   </demonstrator>
-</section> -->
+</section>
 
-<!-- <ng-template #customTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
-  <ul class="custom-list-group">
-    <li class="custom-list-group-item" *ngFor="let match of matches"
-      [class.active]="typeaheadTemplateMethods.isActive(match)"
-      (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
-      (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
-      <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[0]"></span>
-      <span class="custom-highlight" [innerHtml]="getHighlightedMatch(match, query)[1]"></span>
-      <span class="custom-no-highlight" [innerHtml]="getHighlightedMatch(match, query)[2]"></span>
-    </li>
-  </ul>
-</ng-template> -->
+<ng-template #customTemplate let-data="data">
+  <span><i class="bi bi-geo-alt-fill me-2"></i>{{ data?.display }}</span>
+</ng-template>
 
 <section
   #section
