@@ -264,6 +264,9 @@ export class NgdsInput implements OnInit, OnDestroy, AfterViewInit {
 
   updateDisplayedSelectionListItems() {
     if (this._selectionListItems.value.length === 0) {
+      // Clear the displayed list so a now-empty option set doesn't keep
+      // showing the previous list's items.
+      this._displayedSelectionListItems.next([]);
       return;
     }
     // Format the selection list items to match the expected structure

@@ -71,9 +71,42 @@
         [ngClass]="getDropdownClasses()"
         style="max-height: 250px; overflow-y: auto; min-width: 400px"
       >
-        <ng-content
-          *ngTemplateOutlet="getTemplate(); context: {matches: refinedListItems, items: displayedSelectionListItems, query: currentDisplay, control: control }"
-        ></ng-content>
+        <!-- Rebuild the whole list on every repopulate (showList toggled in
+             rebuildList): the bootstrap-managed <ul> leaves stale/duplicate
+             rows under incremental *ngFor diffing, so it is fully re-stamped. -->
+        <ng-container *ngIf="showList">
+          <!-- No results -->
+          <div
+            *ngIf="!refinedListItems || refinedListItems.length === 0"
+            class="py-1 px-3 text-muted"
+          >
+            {{ noResultsText }}
+          </div>
+          <!-- Items rendered directly in the list (matches picklist). -->
+          <button
+            *ngFor="let match of refinedListItems; trackBy: trackByValue"
+            class="dropdown-item"
+            [class.focused]="checkFocusIndex(match)"
+            (mouseenter)="setFocusIndex(refinedListItems.indexOf(match))"
+            (click)="selected(match)"
+            [class.active]="match?.value === control?.value"
+            [attr.aria-current]="match?.value === control?.value"
+            href="#"
+            type="menuitem"
+            [value]="match?.value || match"
+            [disabled]="match?.disabled"
+          >
+            <!-- Custom item template if provided, else default highlighted html -->
+            <ng-container
+              *ngIf="selectionListTemplate; else defaultItem"
+              [ngTemplateOutlet]="selectionListTemplate"
+              [ngTemplateOutletContext]="{ data: match }"
+            ></ng-container>
+            <ng-template #defaultItem>
+              <div [innerHtml]="match?.innerHtml"></div>
+            </ng-template>
+          </button>
+        </ng-container>
       </ul>
     </div>
 
@@ -120,32 +153,3 @@
   [invalid]="isInvalid && !hideInvalidState"
   [config]="invalidConfig"
 ></ngds-input-footer>
-
-<!-- Dropdown List Template-->
-<ng-template
-  #defaultListTemplate
-  let-matches="matches"
-  let-control="control"
->
-  <div
-    *ngIf="!matches || matches?.length === 0"
-    class="py-1 px-3 text-muted"
-  >
-    {{ noResultsText }}
-  </div>
-  <button
-    *ngFor="let match of matches; trackBy: trackByValue"
-    class="dropdown-item"
-    [class.focused]="checkFocusIndex(match)"
-    (mouseenter)="setFocusIndex(matches.indexOf(match))"
-    (click)="selected(match)"
-    [class.active]="match?.value === control?.value"
-    aria-current="match?.value === control?.value"
-    href="#"
-    type="menuitem"
-    [value]="match?.value || match"
-    [disabled]="match?.disabled"
-  >
-    <div [innerHtml]="match?.innerHtml"></div>
-  </button>
-  <ng-template>

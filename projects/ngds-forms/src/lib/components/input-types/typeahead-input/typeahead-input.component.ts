@@ -70,25 +70,67 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
     this.preventOpening = false;
   }
 
-  // Track dropdown items by their value so Angular reuses existing DOM nodes
-  // across re-renders instead of destroying and recreating them.
+  // trackBy on the (de-duplicated) value. Kept as a defensive/no-op guard: the
+  // list is fully re-stamped via rebuildList below, so trackBy has nothing to
+  // diff, but it keeps *ngFor honest if the teardown is ever relaxed.
   trackByValue = (_index: number, item: any) => item?.value ?? item;
+
+  // Whether the option list is currently stamped in the DOM. The list is torn
+  // down and rebuilt on every repopulate (see rebuildList): the dropdown <ul>
+  // is managed by bootstrap, and incremental *ngFor diffing over it leaves
+  // stale/duplicate rows on a repopulate or a dependent-list swap (e.g. the
+  // activity list after the collection changes). De-dup + trackBy alone do NOT
+  // fix this — verified in-app — so the full teardown is required for
+  // correctness. optionsLimit (below) bounds the cost of the re-stamp.
+  protected showList = false;
+
+  // Force Angular to destroy the current option list and stamp a fresh one.
+  // The off/on toggle happens synchronously within a single task, so the
+  // browser never paints the intermediate empty state (no flicker).
+  private rebuildList() {
+    if (!this.isDropdownInitialized) {
+      return;
+    }
+    this.showList = false;
+    this.typeaheadCd.detectChanges();
+    this.showList = true;
+    this.typeaheadCd.detectChanges();
+  }
+
+  // Cap the number of rendered options at optionsLimit (-1 = no limit). Keeps
+  // the teardown/rebuild cheap on large lists (e.g. Collection IDs).
+  private applyOptionsLimit(items: any[]) {
+    return this.optionsLimit > -1 ? items.slice(0, this.optionsLimit) : items;
+  }
 
   onSelectionListItemsChange() {
     // update matchlist
-    this.matchList = this.displayedSelectionListItems.map((item) => {
-      const matchItem = {
-        value: item?.value || item,
-        display: item?.display || item?.value || item,
-        disabled: item?.disabled || false,
-      };
-      let matcher = item?.display || item?.value || item;
-      if (!this.caseSensitiveMatching) {
-        matcher = matcher.toLowerCase();
-      }
-      matchItem['matcher'] = matcher;
-      return matchItem;
-    });
+    const seenValues = new Set();
+    this.matchList = this.displayedSelectionListItems
+      .map((item) => {
+        const matchItem = {
+          value: item?.value || item,
+          display: item?.display || item?.value || item,
+          disabled: item?.disabled || false,
+        };
+        let matcher = item?.display || item?.value || item;
+        if (!this.caseSensitiveMatching) {
+          matcher = matcher.toLowerCase();
+        }
+        matchItem['matcher'] = matcher;
+        return matchItem;
+      })
+      // Drop duplicate options so the same value can't render twice (which also
+      // gives *ngFor unique trackBy keys). De-dup on value, not display: two
+      // options can legitimately share a display but distinct values, and
+      // dropping those would make them permanently unselectable.
+      .filter((matchItem) => {
+        if (seenValues.has(matchItem.value)) {
+          return false;
+        }
+        seenValues.add(matchItem.value);
+        return true;
+      });
   }
 
   detectDisplayDuplicates() {
@@ -172,7 +214,7 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       matchingItems = this.matchList.filter((item) => item?.matcher?.includes(value));
     }
     if (matchingItems.length > 0) {
-      this.refinedListItems = matchingItems.map((item) => {
+      this.refinedListItems = this.applyOptionsLimit(matchingItems).map((item) => {
         return {
           value: item.value,
           innerHtml: this.getHighlightedMatch(item, value),
@@ -180,11 +222,13 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
           disabled: item.disabled || false,
         };
       });
-      // focus the first item in the list
-      this.setFocusIndex(0);
     } else {
       this.refinedListItems = [];
     }
+    // Re-stamp the list before touching focus: setFocusIndex reads the rendered
+    // rows, so it must run against the freshly built DOM, not the old one.
+    this.rebuildList();
+    this.setFocusIndex(0);
     // If there is only one item in the list and it matches the input
     if (matchingItems.length === 1 && value === matchingItems[0]?.matcher) {
       // set the value of the control to the value of the first item in the list
@@ -223,9 +267,39 @@ export class NgdsTypeaheadInput extends NgdsDropdown implements AfterViewInit {
       if (this.multiselect) {
         this.typeaheadChange(null);
       } else {
-        this.typeaheadChange(this.currentDisplay);
+        // Show the full option list on focus rather than filtering by the
+        // currently selected value (which would show only that one item).
+        this.showAllItems();
       }
     }
+  }
+
+  // Populate the dropdown with every available option, without filtering by
+  // or clearing the currently selected value.
+  showAllItems() {
+    // Enforce typeaheadMinLength on focus too. typeaheadChange is the only
+    // other populate path and it gates the same way; without this, a typeahead
+    // with a min length would pop the full list open on focus with empty input.
+    const inputLength = this.currentDisplay?.length || 0;
+    if (inputLength < this.typeaheadMinLength) {
+      this.preventOpening = true;
+      if (this.isOpen || this.isDisabled) {
+        this.dropdownBlur();
+      }
+      return;
+    }
+    this.preventOpening = false;
+    this.refinedListItems = this.applyOptionsLimit(this.matchList).map((item) => {
+      return {
+        value: item.value,
+        innerHtml: this.getHighlightedMatch(item, ''),
+        display: item.display,
+        disabled: item.disabled || false,
+      };
+    });
+    // Re-stamp before focusing (see typeaheadChange).
+    this.rebuildList();
+    this.setFocusIndex(0);
   }
 
   placeholderDisplay() {
