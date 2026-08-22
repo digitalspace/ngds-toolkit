@@ -111,9 +111,6 @@
     role="menu"
     [ngClass]="getDropdownClasses()"
   >
-    <!-- Rebuild the whole list on every repopulate (showList is toggled in
-         rebuildList) so a changed option set can never leave stale rows. -->
-    <ng-container *ngIf="showList">
     <li
       *ngIf="displayedSelectionListItems?.length === 0"
       class="dropdown-item text-muted"
@@ -121,7 +118,7 @@
       {{ noResultsText }}
     </li>
     <li
-      *ngFor="let option of displayedSelectionListItems; trackBy: trackByValue"
+      *ngFor="let option of displayedSelectionListItems;"
       class="option-item"
       href="#"
     >
@@ -148,6 +145,5 @@
         {{ getDisplayByValue( option?.value || option) }}
       </button>
     </li>
-    </ng-container>
   </ul>
 </ng-template>
