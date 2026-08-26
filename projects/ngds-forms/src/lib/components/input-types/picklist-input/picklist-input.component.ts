@@ -8,6 +8,10 @@ import { NgdsDropdown } from '../ngds-dropdown.component';
 })
 export class NgdsPicklistInput extends NgdsDropdown {
 
+  // Whether the option list is currently stamped in the DOM. Torn down and rebuilt
+  // on every repopulate (see rebuildList) so stale rows can never linger.
+  protected showList = false;
+
   constructor(
     private picklistCd: ChangeDetectorRef,
     private picklistRenderer: Renderer2,
@@ -17,6 +21,26 @@ export class NgdsPicklistInput extends NgdsDropdown {
       picklistRenderer,
     );
     this.dropdownInputType = 'picklist';
+    this.subscriptions.add(this.afterDropdownInit.subscribe(() => {
+      // Rebuild whenever the option set changes. Mirrors how the typeahead wires
+      // this up in its own afterDropdownInitFn.
+      this.subscriptions.add(this._displayedSelectionListItems.subscribe(() => {
+        this.rebuildList();
+      }));
+    }));
+  }
+
+  // Force Angular to destroy the current option list and stamp a fresh one.
+  // The off/on toggle happens synchronously within a single task, so the
+  // browser never paints the intermediate empty state (no flicker).
+  private rebuildList() {
+    if (!this.isDropdownInitialized) {
+      return;
+    }
+    this.showList = false;
+    this.picklistCd.detectChanges();
+    this.showList = true;
+    this.picklistCd.detectChanges();
   }
 
   showSelectedTemplate(): boolean {
