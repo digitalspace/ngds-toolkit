@@ -216,6 +216,13 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   }
 
   dropdownFocus() {
+    // Bootstrap hands focus back to the trigger while hiding the menu. That
+    // focus event lands here after onBlur() has cleared isFocused, so without
+    // this guard the dropdown reopens the moment it is closed, leaving two
+    // sibling dropdowns open at once and overlapping.
+    if (this.isChangingFocus) {
+      return;
+    }
     if (!this.isFocused) {
       this.isChangingFocus = true;
       this.onFocus();
