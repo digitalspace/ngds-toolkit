@@ -11,7 +11,7 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input inputmode="numeric" #inputElement [(ngModel)]="displayValue"
+    <input inputmode="numeric" #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" [(ngModel)]="displayValue"
       [disabled]="isDisabled || isLoading"
       class="form-control border-0 rounded-3"
       [ngClass]="getInputClasses()"
@@ -45,4 +45,4 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>
+<ngds-input-footer [errorId]="errorId" #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>

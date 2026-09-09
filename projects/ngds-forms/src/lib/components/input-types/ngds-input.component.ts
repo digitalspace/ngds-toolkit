@@ -163,6 +163,32 @@ export class NgdsInput implements OnInit, OnDestroy, AfterViewInit {
     return false;
   }
 
+  // Whether the invalid message is actually on screen. aria-invalid and
+  // aria-describedby follow what is rendered, not the raw control state:
+  // pointing describedby at a footer that hideInvalidState suppressed would
+  // reference an element that does not exist.
+  public get showsInvalid(): boolean {
+    return this.isInvalid && !this.hideInvalidState;
+  }
+
+  // Id of the message ngds-input-footer renders, so the control can name it.
+  public get errorId(): string {
+    return `ngds-error-${this.controlId}`;
+  }
+
+  public get describedBy(): string | null {
+    return this.showsInvalid ? this.errorId : null;
+  }
+
+  public get ariaInvalid(): string | null {
+    return this.showsInvalid ? 'true' : null;
+  }
+
+  // The required marker was a visual asterisk only; the validator already knows.
+  public get ariaRequired(): string | null {
+    return this.control?.hasValidator?.(Validators.required) ? 'true' : null;
+  }
+
   // Current focused state and subject.
   public get isFocused(): boolean {
     return this._isFocused.value;

@@ -10,10 +10,10 @@
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
 
     <!-- Input -->
-    <input #inputElement *ngIf="!multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
+    <input #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" *ngIf="!multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
 
     <!-- Input -->
-    <textarea *ngIf="multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
+    <textarea [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" *ngIf="multiline" class="form-control border-0 rounded-3" [formControl]="control" [ngClass]="getInputClasses()" [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id"></textarea>
 
     <!-- Reset control button -->
     <button *ngIf="showResetButton()" type="button" aria-label="reset input" class="btn btn-inline border-0 focus-highlight"
@@ -28,4 +28,4 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>
+<ngds-input-footer [errorId]="errorId" #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig"></ngds-input-footer>

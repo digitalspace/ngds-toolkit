@@ -37,7 +37,6 @@
         *ngIf="multiselect && control?.value?.length"
         class="mx-1 mt-1 d-flex justify-content-left row w-100"
         #typeaheadInput
-        role="select"
       >
         <ngds-multiselect-item
           class="col-auto p-0 mb-1 me-1"
@@ -54,7 +53,12 @@
           #typeaheadInput
           (focus)="dropdownFocus()"
           autocomplete="off"
-          [attr.id]="'typeahead-' + controlId"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="isOpen"
+          [attr.aria-describedby]="describedBy"
+          [attr.aria-invalid]="ariaInvalid"
+          [attr.aria-required]="ariaRequired"
+          [attr.id]="control?.id"
           [(ngModel)]="currentDisplay"
           [placeholder]="placeholder && !isInputHidden() ? placeholder : ''"
           (ngModelChange)="typeaheadChange($event)"
@@ -91,8 +95,8 @@
             (click)="selected(match)"
             [class.active]="match?.value === control?.value"
             [attr.aria-current]="match?.value === control?.value"
-            href="#"
-            type="menuitem"
+            type="button"
+            role="menuitem"
             [value]="match?.value || match"
             [disabled]="match?.disabled"
           >
@@ -147,7 +151,7 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer
+<ngds-input-footer [errorId]="errorId"
   #inputFooter
   [control]="control"
   [invalid]="isInvalid && !hideInvalidState"
