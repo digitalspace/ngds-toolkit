@@ -23,9 +23,10 @@
 
     <!-- Input -->
     <button
-      #inputElement
+      #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" [attr.id]="control?.id"
       type="button"
-      role="select"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="isOpen"
       style="min-height: 2.25rem; margin-left: 1px;"
       class="form-select px-2 py-0 border-0 text-start rounded-3 overflow-hidden"
       [ngClass]="getInputClasses()"
@@ -96,7 +97,7 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer
+<ngds-input-footer [errorId]="errorId"
   #inputFooter
   [control]="control"
   [invalid]="isInvalid && !hideInvalidState"
@@ -123,23 +124,25 @@
     <li
       *ngFor="let option of displayedSelectionListItems;"
       class="option-item"
-      href="#"
+      role="none"
     >
       <!-- Display current menu item as template -->
       <button
         *ngIf="showTemplate()"
+        type="button"
+        role="menuitem"
         class="m-0 p-0 btn btn-link text-reset text-decoration-none w-100"
       >
         <ng-container
           [ngTemplateOutlet]="selectionListTemplate"
-          type="menuitem"
           [ngTemplateOutletContext]="{data: option}"
         ></ng-container>
       </button>
       <!-- Display current menu item as string -->
       <button
         *ngIf="!showTemplate()"
-        type="menuitem"
+        type="button"
+        role="menuitem"
         class="dropdown-item"
         (click)="onValueChange(option, true)"
         value="{{ option?.value || option }}"

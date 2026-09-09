@@ -22,6 +22,9 @@ export interface invalidConfig {
 export class NgdsInputFooter implements OnInit {
   @Input() control: any;
   @Input() invalid: boolean = false;
+
+  // Set by the input so its control can point aria-describedby at this message.
+  @Input() errorId: string;
   @Input() config: invalidConfig;
 
   public defaultConfig: invalidConfig = {

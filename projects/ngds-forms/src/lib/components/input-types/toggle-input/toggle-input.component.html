@@ -9,7 +9,7 @@
     </div>
 
     <div [ngClass]="{'form-switch': switch}" class="d-flex align-items-center">
-      <input #inputElement type="checkbox" class="form-check-input mt-0 was-validated" [value]="control.value" (change)="toggle()" [ngClass]="getInputClasses('toggle')" [required]="isInvalid" [checked]="control?.value" [disabled]="isDisabled" [attr.id]="control?.id">
+      <input #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" type="checkbox" class="form-check-input mt-0 was-validated" [value]="control.value" (change)="toggle()" [ngClass]="getInputClasses('toggle')" [required]="isInvalid" [checked]="control?.value" [disabled]="isDisabled" [attr.id]="control?.id">
     </div>
 
     <!-- Header -->
@@ -24,4 +24,4 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig" ></ngds-input-footer>
+<ngds-input-footer [errorId]="errorId" #inputFooter [control]="control" [invalid]="isInvalid && !hideInvalidState" [config]="invalidConfig" ></ngds-input-footer>

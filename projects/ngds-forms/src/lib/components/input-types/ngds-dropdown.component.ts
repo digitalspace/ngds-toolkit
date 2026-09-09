@@ -274,7 +274,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   getElementByValue(value) {
     if (this.dropdownMenu && this.dropdownMenu.nativeElement) {
-      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[type="menuitem"]');
+      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[role="menuitem"]');
       for (let i = 0; i < menuElements.length; i++) {
         let element = menuElements[i];
         if (element?.attributes?.value?.value === value || element?.innerText === value) {
@@ -314,7 +314,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   }
 
   handleOptionClick(item) {
-    let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[role="select"]');
+    let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[role="menuitem"]');
     let match = {};
     for (let i = 0; i < menuElements.length; i++) {
       let element = menuElements[i];

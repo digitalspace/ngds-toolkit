@@ -24,7 +24,7 @@
 
     <!-- Input display control value-->
     <button
-      #inputElement
+      #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" [attr.id]="control?.id"
       class="form-control border-0 text-start rounded-3 overflow-hidden"
       style="margin-left: 1px"
       type="button"
@@ -74,7 +74,7 @@
 </div>
 
 <!-- Footer -->
-<ngds-input-footer
+<ngds-input-footer [errorId]="errorId"
   #inputFooter
   [control]="control"
   [invalid]="isInvalid && !hideInvalidState"
