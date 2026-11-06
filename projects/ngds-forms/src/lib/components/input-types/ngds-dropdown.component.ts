@@ -7,6 +7,11 @@ import { popper } from '@popperjs/core';
 // Use the globally loaded Bootstrap instead of importing a separate instance
 declare const bootstrap: any;
 
+// List option buttons in picklist and typeahead. Not menu roles: the picklist
+// dropped them (reserve-rec-public#948). Not plain buttons: the date input
+// shares this class and its calendar days are buttons too.
+const OPTION_SELECTOR = '.option-item > button, button.dropdown-item';
+
 @Directive({
   selector: 'ngds-input',
 })
@@ -274,7 +279,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
 
   getElementByValue(value) {
     if (this.dropdownMenu && this.dropdownMenu.nativeElement) {
-      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[role="menuitem"]');
+      let menuElements = this.dropdownMenu.nativeElement.querySelectorAll(OPTION_SELECTOR);
       for (let i = 0; i < menuElements.length; i++) {
         let element = menuElements[i];
         if (element?.attributes?.value?.value === value || element?.innerText === value) {
@@ -314,7 +319,7 @@ export class NgdsDropdown extends NgdsInput implements AfterViewInit {
   }
 
   handleOptionClick(item) {
-    let menuElements = this.dropdownMenu.nativeElement.querySelectorAll('[role="menuitem"]');
+    let menuElements = this.dropdownMenu.nativeElement.querySelectorAll(OPTION_SELECTOR);
     let match = {};
     for (let i = 0; i < menuElements.length; i++) {
       let element = menuElements[i];
