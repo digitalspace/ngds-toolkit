@@ -25,7 +25,6 @@
     <button
       #inputElement [attr.aria-describedby]="describedBy" [attr.aria-invalid]="ariaInvalid" [attr.aria-required]="ariaRequired" [attr.id]="control?.id"
       type="button"
-      aria-haspopup="menu"
       [attr.aria-expanded]="isOpen"
       style="min-height: 2.25rem; margin-left: 1px;"
       class="form-select px-2 py-0 border-0 text-start rounded-3 overflow-hidden"
@@ -109,7 +108,6 @@
   <ul
     #dropdownMenu
     class="dropdown-menu"
-    role="menu"
     [ngClass]="getDropdownClasses()"
   >
     <!-- Rebuild the whole list on every repopulate (showList is toggled in
@@ -124,13 +122,11 @@
     <li
       *ngFor="let option of displayedSelectionListItems;"
       class="option-item"
-      role="none"
     >
       <!-- Display current menu item as template -->
       <button
         *ngIf="showTemplate()"
         type="button"
-        role="menuitem"
         class="m-0 p-0 btn btn-link text-reset text-decoration-none w-100"
       >
         <ng-container
@@ -142,7 +138,6 @@
       <button
         *ngIf="!showTemplate()"
         type="button"
-        role="menuitem"
         class="dropdown-item"
         (click)="onValueChange(option, true)"
         value="{{ option?.value || option }}"
