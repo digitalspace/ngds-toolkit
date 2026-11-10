@@ -7,7 +7,6 @@ import { NgdsPicklistInput } from './components/input-types/picklist-input/pickl
 import { NgdsInputHeader } from './components/input-addons/ngds-input-header/ngds-input-header.component';
 import { NgdsInputFooter } from './components/input-addons/ngds-input-footer/ngds-input-footer.component';
 import { NgdsInputOverlayComponent } from './components/input-addons/ngds-input-overlay/ngds-input-overlay.component';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgdsTypeaheadInput } from './components/input-types/typeahead-input/typeahead-input.component';
 import { NgdsMultiselectItem } from './components/input-addons/multiselect-item/multiselect-item.component';
 import { NgdsDateInput } from './components/input-types/date-input/date-input.component';
@@ -40,9 +39,6 @@ export { NgdsInput, NgdsDropdown, NgdsTextInput, NgdsPicklistInput, NgdsTypeahea
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
-  providers: [
-    provideAnimations()
   ],
   exports: [
     NgdsInput,
